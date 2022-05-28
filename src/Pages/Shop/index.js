@@ -79,12 +79,12 @@ const User = () => {
           label="Delete"
           onClick={deleteUser(params.id)}
         />,
-        <GridActionsCellItem
-          icon={<RemoveRedEyeIcon/>}
-          label="View"
-          onClick={handleView()}
-        />,
-        <Preview show={show} handleClose={handleClose} />
+        // <GridActionsCellItem
+        //   icon={<RemoveRedEyeIcon/>}
+        //   label="View"
+        //   onClick={handleView()}
+        // />,
+        // <Preview show={show} handleClose={handleClose} />
       ]
     },
     

@@ -1,135 +1,157 @@
-import Paper from "@material-ui/core/Paper";
-import { makeStyles, withStyles } from "@material-ui/core/styles";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import "../../App.css";
-const StyledTableCell = withStyles((theme) => ({
-  head: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
-  },
-  body: {
-    fontSize: 14,
-  },
-}))(TableCell);
+import * as React from "react";
+import { Button } from "bootstrap";
+import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
 
-const StyledTableRow = withStyles((theme) => ({
-  root: {
-    "&:nth-of-type(odd)": {
-      backgroundColor: theme.palette.action.hover,
-    },
-  },
-}))(TableRow);
 
-const useStyles = makeStyles({
-  table: {
-    minWidth: 700,
-  },
-});
 
 const Forum = () => {
-  const classes = useStyles();
-  const [product, setProduct] = useState([]);
   const [search, setSearch] = useState("");
+  const [product, setProduct] = useState([]);
+  const [hoveredRow, setHoveredRow] = useState(null);
+  const [data, setData]= useState([]);
+  const [tableData, setTableData] = useState([]);
+  const [rows, setRows] = useState(tableData);
+  const [show, setShow] = useState(null);
+
+
+
+  // const handleDelete = (id) => {
+  //   setTableData(tableData.filter((user) => user.id !== id));
+  //   console.log(id);
+  // };
+
+  // const onMouseEnterRow = (event) => {
+  //   const id = Number(event.currentTarget.getAttribute("data-id"));
+  //   setHoveredRow(id);
+  // };
+
+  // const onMouseLeaveRow = (event) => {
+  //   setHoveredRow(null);
+  // };
+
+  const deleteUser = React.useCallback(
+    (id) => () => {
+      setTimeout(() => {
+        setData((prevRows) => prevRows.filter((row) => row.id !== id));
+      });
+    },
+    [],
+  );
+
 
   const getProductData = async () => {
     try {
-      const data = await axios.get("  https://mongoapi3.herokuapp.com/posts");
-      console.log(data.data);
-      setProduct(data.data);
+      const data = await axios.get("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/shops");
+      setTableData(data.data.data);
     } catch (e) {
       console.log(e);
     }
   };
 
-  useEffect(() => {
+  useEffect(()=>{
     getProductData();
-  }, []);
+  },[])
+
+  
+  const columns = [
+    { field: '_id', headerName: 'ID', width: 200 },
+    { field: 'shopName', headerName: 'Shop' },
+    { field: 'userName', headerName: 'Name', width: 100 ,
+      valueGetter: (params) => {
+        return params.getValue(params.id, "user").userName;
+      }
+    },
+    { field: 'email', headerName: 'Email', width: 200},
+    { field: 'shopItems', headerName: 'No of items', width: 100 },
+    { field: 'shopReviews', headerName: 'Reviews', width: 100 },
+    
+    
+    // {
+    //   field: "actions",
+    //   headerName: "Actions",
+    //   width: 120,
+    //   sortable: false,
+    //   disableColumnMenu: true,
+    //   renderCell: (params) => {
+    //     if (hoveredRow === params.id) {
+    //       return (
+    //         <Box
+    //           sx={{
+    //             // backgroundColor: "whitesmoke",
+    //             width: "100%",
+    //             height: "100%",
+    //             display: "flex",
+    //             justifyContent: "center",
+    //             alignItems: "center"
+    //           }}
+    //         >
+    //           <IconButton onClick={() => console.log(params.id)}>
+    //             <EditIcon />
+    //           </IconButton>
+    //           <IconButton onClick={() => console.log(params.id)}>
+    //             <DeleteIcon />
+    //           </IconButton>
+    //         </Box>
+    //       );
+    //     } else return null;
+    //   }
+    // }
+    // { field: "action", headerName: "Action", width: 250,
+    //   renderCell: (params) => (
+    //     <>
+    //       <Button
+    //         style={{backgroundColor: "#e8605d", padding: "3px 35px"}}
+    //         //onClick={() => handleDelete(id)}
+    //         variant="contained" color="primary" type="submit"
+    //       >
+    //         Delete
+    //       </Button>
+    //     </>
+    //   )
+    // }
+    
+  ]
+
+  // {
+  //   product.filter((item) => {
+  //     if (search === "") {
+  //       return item;
+  //     } else if (item.name.toLowerCase().includes(search.toLowerCase())) {
+  //       return item;
+  //     } else {
+  //       return false;
+  //     }
+  //   });
+  // }
+
   return (
     <div className="App1">
-      <h1>Forum</h1>
-      <input
-        type="text"
-        placeholder="Search here"
+      <h3>QnA Forum</h3>
+      <input type="text" placeholder="Search here"
         onChange={(e) => {
           setSearch(e.target.value);
         }}
       />
+      
 
-      <h5>Questions</h5>
+      <br></br>
 
-      {/* {product
-        .filter((item) => {
-          if (search == "") {
-            return item;
-          } else if (item.name.toLowerCase().includes(search.toLowerCase())) {
-            return item;
-          }
-           else {
-                  return false;
-                }
-        })
-        .map((item) => {
-          return (
-            <p>
-              {item.name} - {item.price}
-            </p>
-          );
-        })} */}
-
-      <TableContainer component={Paper} style={{ width: "80%" }}>
-        <Table className={classes.table} aria-label="customized table">
-          <TableHead>
-            <TableRow>
-              <StyledTableCell>Question</StyledTableCell>
-              <StyledTableCell>Category</StyledTableCell>
-
-              <StyledTableCell>description</StyledTableCell>
-              <StyledTableCell>Operation</StyledTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {product
-              .filter((item) => {
-                if (search === "") {
-                  return item;
-                } else if (
-                  item.title.toLowerCase().includes(search.toLowerCase())
-                ) {
-                  return item;
-                } else {
-                  return false;
-                }
-              })
-              .map((item) => {
-                return (
-                  <StyledTableRow key={item.id}>
-                    <StyledTableCell component="th" scope="row">
-                      {item.title}
-                    </StyledTableCell>
-                    <StyledTableCell>{item.category}</StyledTableCell>
-                    <StyledTableCell>{item.description}</StyledTableCell>
-                    <StyledTableCell>
-                      <EditIcon
-                        fontSize="small"
-                        style={{ marginRight: "10px" }}
-                      />
-                      <DeleteIcon fontSize="small" />
-                    </StyledTableCell>
-                  </StyledTableRow>
-                );
-              })}
-          </TableBody>
-        </Table>
-      </TableContainer>
+      <div style={{ height: 400, width: "100%", padding: "1em" }}>
+        <DataGrid
+          rows={tableData}
+          columns={columns}
+          getRowId={(row) => row._id}
+          pageSize={10}
+          rowsPerPageOptions={[10]}
+          checkboxSelection
+          disableSelectionOnClick
+          
+        >  
+        </DataGrid>
+      </div>
     </div>
   );
 };

@@ -71,13 +71,12 @@ const Expert = () => {
   return (
     <div className="App1">
       <h3>Expert list</h3>
-        
-        <input type="text" placeholder="Search here"
-          onChange={(e) => {
-           setSearch(e.target.value);
-          }}
-        />
-        <div className="col-12">
+        <div className="div-inline">
+          <input type="text" placeholder="Search here"
+           onChange={(e) => {
+            setSearch(e.target.value);
+            }}
+          />
           <Button variant="success" className="float-sm-end m-3" size="sm">Add Expert</Button>
         </div>
 

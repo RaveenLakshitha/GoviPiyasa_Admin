@@ -11,7 +11,7 @@ const Notification = () => {
   return (
     <div>
       <h2 className="text-center">Notifications</h2>
-      <div className="row">
+      <div className="row m-4">
         <div className="col-10">
           <input type="text" placeholder="Search..." />
         </div>
