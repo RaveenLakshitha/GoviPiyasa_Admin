@@ -24,7 +24,7 @@ input {
 
 .App1 {
   flex: 4;
-  padding: 2em;
+  padding: 1.5em;
 }
 
 @media screen and (max-width: 800px) {

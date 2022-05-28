@@ -45,7 +45,7 @@ const Architect = () => {
 
   const getProductData = async () => {
     try {
-      const data = await axios.get("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/shops");
+      const data = await axios.get("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/architects");
       setTableData(data.data.data);
     } catch (e) {
       console.log(e);
