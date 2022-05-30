@@ -7,24 +7,39 @@ import Preview from "./preview";
 import { IconButton} from "@mui/material";
 import { Box } from "@mui/system";
 import DeleteIcon from "@mui/icons-material/Delete";
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 
 const User = () => {
-  const [search, setSearch] = useState("");
-  const [product, setProduct] = useState([]);
+  const [search, setSearch] = useState(null);
   const [hoveredRow, setHoveredRow] = useState(null);
-  const [data, setData]= useState([]);
   const [tableData, setTableData] = useState([]);
-  const [rows, setRows] = useState(tableData);
-  const [show, setShow] = useState(null);
+  const [show, setShow] = useState(false);;
+
 
   const handleClose = () => setShow(false);
-  const handleView = () => setShow(true);
-
+  const handleShow = () => setShow(true);
 
   const handleDelete = (id) => {
     setTableData(tableData.filter((data) => data._id !== id));
     console.log(id);
   };
+
+  // const handleView = (id) => {
+  //   handleShow();
+  //   console.log(id);
+  // }
+
+  const handleView = async (id) => {
+      try {
+        console.log(id);
+        const data = await axios.get("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/shops/"+id);
+        handleShow();
+        console.log(id);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+
 
   const onMouseEnterRow = (event) => {
     const id = event.currentTarget.getAttribute("data-id");
@@ -34,8 +49,6 @@ const User = () => {
   const onMouseLeaveRow = (event) => {
     setHoveredRow(null);
   };
-
-
 
   const getData = async () => {
     try {
@@ -49,6 +62,7 @@ const User = () => {
   useEffect(()=>{
     getData();
   },[])
+
 
 
   //initialize columns 
@@ -67,7 +81,7 @@ const User = () => {
     {
       field: "actions",
       headerName: "Actions",
-      width: 120,
+      width: 100,
       sortable: false,
       disableColumnMenu: true,
       renderCell: (params) => {
@@ -86,6 +100,10 @@ const User = () => {
               <IconButton onClick={() => handleDelete(params.id)}>
                 <DeleteIcon />
               </IconButton>
+              <IconButton onClick={() => handleView(params.id)}>
+                <RemoveRedEyeIcon />
+              </IconButton>
+              <Preview show={show} id={params.id} handleClose={handleClose}/>
             </Box>
           );
         } else return null;
