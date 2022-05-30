@@ -4,7 +4,9 @@ import "../../App.css";
 import * as React from "react";
 import { Button } from "bootstrap";
 import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
-
+import DeleteIcon from "@mui/icons-material/Delete";
+import { IconButton} from "@mui/material";
+import { Box } from "@mui/system";
 
 
 const Forum = () => {
@@ -17,34 +19,24 @@ const Forum = () => {
   const [show, setShow] = useState(null);
 
 
+  const handleDelete = (id) => {
+    setTableData(tableData.filter((data) => data._id !== id));
+    console.log(id);
+  };
 
-  // const handleDelete = (id) => {
-  //   setTableData(tableData.filter((user) => user.id !== id));
-  //   console.log(id);
-  // };
+  const onMouseEnterRow = (event) => {
+    const id = event.currentTarget.getAttribute("data-id");
+    setHoveredRow(id);
+  };
 
-  // const onMouseEnterRow = (event) => {
-  //   const id = Number(event.currentTarget.getAttribute("data-id"));
-  //   setHoveredRow(id);
-  // };
-
-  // const onMouseLeaveRow = (event) => {
-  //   setHoveredRow(null);
-  // };
-
-  const deleteUser = React.useCallback(
-    (id) => () => {
-      setTimeout(() => {
-        setData((prevRows) => prevRows.filter((row) => row.id !== id));
-      });
-    },
-    [],
-  );
+  const onMouseLeaveRow = (event) => {
+    setHoveredRow(null);
+  };
 
 
-  const getProductData = async () => {
+  const getAllData = async () => {
     try {
-      const data = await axios.get("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/forum");
+      const data = await axios.get("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/forum/getQuestions");
       setTableData(data.data.data);
     } catch (e) {
       console.log(e);
@@ -52,66 +44,46 @@ const Forum = () => {
   };
 
   useEffect(()=>{
-    getProductData();
+    getAllData();
   },[])
 
   
   const columns = [
     { field: '_id', headerName: 'ID', width: 200 },
-    { field: 'shopName', headerName: 'Shop' },
-    { field: 'userName', headerName: 'Name', width: 100 ,
-      valueGetter: (params) => {
-        return params.getValue(params.id, "user").userName;
-      }
-    },
-    { field: 'email', headerName: 'Email', width: 200},
-    { field: 'shopItems', headerName: 'No of items', width: 100 },
-    { field: 'shopReviews', headerName: 'Reviews', width: 100 },
-    
-    
-    // {
-    //   field: "actions",
-    //   headerName: "Actions",
-    //   width: 120,
-    //   sortable: false,
-    //   disableColumnMenu: true,
-    //   renderCell: (params) => {
-    //     if (hoveredRow === params.id) {
-    //       return (
-    //         <Box
-    //           sx={{
-    //             // backgroundColor: "whitesmoke",
-    //             width: "100%",
-    //             height: "100%",
-    //             display: "flex",
-    //             justifyContent: "center",
-    //             alignItems: "center"
-    //           }}
-    //         >
-    //           <IconButton onClick={() => console.log(params.id)}>
-    //             <EditIcon />
-    //           </IconButton>
-    //           <IconButton onClick={() => console.log(params.id)}>
-    //             <DeleteIcon />
-    //           </IconButton>
-    //         </Box>
-    //       );
-    //     } else return null;
+    { field: 'Title', headerName: 'Title', width:200 },
+    // { field: 'Category', headerName: 'Name', width: 100 ,
+    //   valueGetter: (params) => {
+    //     return params.getValue(params.id, "user").userName;
     //   }
-    // }
-    // { field: "action", headerName: "Action", width: 250,
-    //   renderCell: (params) => (
-    //     <>
-    //       <Button
-    //         style={{backgroundColor: "#e8605d", padding: "3px 35px"}}
-    //         //onClick={() => handleDelete(id)}
-    //         variant="contained" color="primary" type="submit"
-    //       >
-    //         Delete
-    //       </Button>
-    //     </>
-    //   )
-    // }
+    // },
+    { field: 'QuestionBody', headerName: 'Question', width: 200},
+    {
+      field: "actions",
+      headerName: "Actions",
+      width: 120,
+      sortable: false,
+      disableColumnMenu: true,
+      renderCell: (params) => {
+        if (hoveredRow === params.id) {
+          return (
+            <Box
+              sx={{
+                backgroundColor: "whitesmoke",
+                width: "100%",
+                height: "100%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center"
+              }}
+            >
+              <IconButton onClick={() => handleDelete(params.id)}>
+                <DeleteIcon />
+              </IconButton>
+            </Box>
+          );
+        } else return null;
+      }
+    }
     
   ]
 
@@ -148,7 +120,13 @@ const Forum = () => {
           rowsPerPageOptions={[10]}
           checkboxSelection
           disableSelectionOnClick
-          
+          initialState={{ pinnedColumns: { right: ["actions"] } }}
+          componentsProps={{
+            row: {
+              onMouseEnter: onMouseEnterRow,
+              onMouseLeave: onMouseLeaveRow
+            }
+          }}
         >  
         </DataGrid>
       </div>

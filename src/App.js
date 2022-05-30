@@ -4,6 +4,7 @@ import "./App.css";
 import Footer from "./Components/Footer/index";
 import Header from "./Components/Header";
 import Sidebar from "./Components/Sidebar";
+import Advertisement from "./Pages/Advertisement";
 import Architect from "./Pages/Architect";
 import Dashboard from "./Pages/Dashboard/index";
 import Delivery from "./Pages/Delivery";
@@ -15,7 +16,6 @@ import Login from "./Pages/Login";
 import Notification from "./Pages/Notification";
 import Orders from "./Pages/Orders";
 import Profile from "./Pages/Profile";
-import Setting from "./Pages/Setting";
 import Shop from "./Pages/Shop";
 import User from "./Pages/User";
 function App() {
@@ -37,7 +37,7 @@ function App() {
           <Route path="/forum" element={<Forum />} />
           <Route path="/delivery" element={<Delivery />} />
           <Route path="/information" element={<Information />} />
-          <Route path="/setting" element={<Setting />} />
+          <Route path="/ads" element={<Advertisement />} />
           <Route path="/notification" element={<Notification />} />
           <Route path="/myprofile" element={<Profile />} />
         </Routes>

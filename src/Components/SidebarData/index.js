@@ -68,7 +68,7 @@ export const SidebarData = [
     link: "/information",
   },
   {
-    title: "Setting",
+    title: "Advertisements",
     icon: <SettingsIcon />,
     link: "/setting",
   },
