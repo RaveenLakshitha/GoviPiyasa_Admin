@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import "../../App.css";
+import ExpertForm from "../../Components/ExpertForm";
 import * as React from "react";
 import { Button } from "react-bootstrap"
 import { DataGrid } from "@mui/x-data-grid";
@@ -12,12 +13,14 @@ import DeleteIcon from "@mui/icons-material/Delete";
 
 const Expert = () => {
   
-  const [search, setSearch] = useState("");
-  const [product, setProduct] = useState([]);
-  const [data, setData]= useState([]);
-  //const [show, setShow] = useState(false);
+  //const [search, setSearch] = useState("");
   const [tableData, setTableData] = useState([]);
   const [hoveredRow, setHoveredRow] = useState(null);
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
 
   const handleDelete = (id) => {
     setTableData(tableData.filter((data) => data._id !== id));
@@ -87,16 +90,20 @@ const Expert = () => {
     }
   ]
 
+
+
   return (
     <div className="App1">
       <h3>Expert list</h3>
         <div className="div-inline">
           <input type="text" placeholder="Search here"
-           onChange={(e) => {
-            setSearch(e.target.value);
-            }}
+          //  onChange={(e) => {
+          //   setSearch(e.target.value);
+          //   }}
           />
-          <Button variant="success" className="float-sm-end m-3" size="sm">Add Expert</Button>
+
+          <Button variant="success" className="float-sm-end m-3" size="sm" onClick={handleShow}>Add Expert</Button>
+          <ExpertForm show={show} handleClose={handleClose} />
         </div>
 
       <br></br>

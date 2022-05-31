@@ -2,21 +2,17 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import "../../App.css";
 import * as React from "react";
-import { Button } from "bootstrap";
-import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
+import { DataGrid } from "@mui/x-data-grid";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { IconButton} from "@mui/material";
 import { Box } from "@mui/system";
 
 
 const Forum = () => {
-  const [search, setSearch] = useState("");
-  const [product, setProduct] = useState([]);
+  //const [search, setSearch] = useState("");
   const [hoveredRow, setHoveredRow] = useState(null);
-  const [data, setData]= useState([]);
   const [tableData, setTableData] = useState([]);
-  const [rows, setRows] = useState(tableData);
-  const [show, setShow] = useState(null);
+  //const [show, setShow] = useState(null);
 
 
   const handleDelete = (id) => {
@@ -103,9 +99,9 @@ const Forum = () => {
     <div className="App1">
       <h3>QnA Forum</h3>
       <input type="text" placeholder="Search here"
-        onChange={(e) => {
-          setSearch(e.target.value);
-        }}
+        // onChange={(e) => {
+        //   setSearch(e.target.value);
+        // }}
       />
       
 

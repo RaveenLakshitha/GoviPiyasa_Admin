@@ -2,7 +2,6 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import "../../App.css";
 import * as React from "react";
-import { Button } from "bootstrap";
 import { DataGrid } from "@mui/x-data-grid";
 import { IconButton} from "@mui/material";
 import { Box } from "@mui/system";
@@ -10,9 +9,6 @@ import DeleteIcon from "@mui/icons-material/Delete";
 
 
 const User = () => {
-  const [search, setSearch] = useState("");
-  const [product, setProduct] = useState([]);
-  const [data, setData]= useState([]);
   //const [show, setShow] = useState(false);
   const [tableData, setTableData] = useState([]);
   const [hoveredRow, setHoveredRow] = useState(null);
@@ -99,9 +95,9 @@ const User = () => {
     <div className="App1">
       <h3>User list</h3>
       <input type="text" placeholder="Search here"
-        onChange={(e) => {
-          setSearch(e.target.value);
-        }}
+        // onChange={(e) => {
+        //   setSearch(e.target.value);
+        // }}
       />
 
       <br></br>

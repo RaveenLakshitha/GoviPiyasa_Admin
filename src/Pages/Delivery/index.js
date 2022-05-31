@@ -1,23 +1,40 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import "../../App.css";
+import DeliveryForm from "../../Components/DeliveryForm"
 import * as React from "react";
 import { Button } from "react-bootstrap"
 import { DataGrid } from "@mui/x-data-grid";
+import { IconButton} from "@mui/material";
+import { Box } from "@mui/system";
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from "@mui/icons-material/Delete";
 
 
 const Delivery = () => {
   
-  const [search, setSearch] = useState("");
-  const [product, setProduct] = useState([]);
-  const [data, setData]= useState([]);
-  //const [show, setShow] = useState(false);
+  //const [search, setSearch] = useState("");
   const [tableData, setTableData] = useState([]);
+  const [hoveredRow, setHoveredRow] = useState(null);
+  const [show, setShow] = useState(false);
 
-  // const handleDelete = (id) => {
-  //   setTableData(tableData.filter((user) => user.id !== id));
-  //   console.log(id);
-  // };
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const handleDelete = (id) => {
+    setTableData(tableData.filter((data) => data._id !== id));
+    console.log(id);
+  };
+
+  const onMouseEnterRow = (event) => {
+    const id = event.currentTarget.getAttribute("data-id");
+    setHoveredRow(id);
+  };
+
+  const onMouseLeaveRow = (event) => {
+    setHoveredRow(null);
+  };
+
 
   const getAllData = async () => {
     try {
@@ -40,44 +57,52 @@ const Delivery = () => {
     { field: 'email', headerName: 'Email', width: 200},
     { field: 'city', headerName: 'City', width: 100 },
     { field: 'contactNumber', headerName: 'Contact No', width: 100 },
-    // { field: "action", headerName: "Action", width: 250,
-    //   renderCell: (id) => (
-    //     <>
-    //       <Button
-    //         style={{backgroundColor: "#e8605d", padding: "3px 35px"}}
-    //         onClick={() => handleDelete(id)}
-    //         variant="contained" color="primary" type="submit"
-    //       >
-    //         Delete
-    //       </Button>
-    //     </>
-    //   )
-    // }
+    {
+      field: "actions",
+      headerName: "Actions",
+      width: 120,
+      sortable: false,
+      disableColumnMenu: true,
+      renderCell: (params) => {
+        if (hoveredRow === params.id) {
+          return (
+            <Box
+              sx={{
+                backgroundColor: "whitesmoke",
+                width: "100%",
+                height: "100%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center"
+              }}
+            >
+              <IconButton onClick={() => console.log(params.id)}>
+                <EditIcon />
+              </IconButton>
+              <IconButton onClick={() => handleDelete(params.id)}>
+                <DeleteIcon />
+              </IconButton>
+            </Box>
+          );
+        } else return null;
+      }
+    }
     
   ]
 
-  // {
-  //   product.filter((item) => {
-  //     if (search === "") {
-  //       return item;
-  //     } else if (item.name.toLowerCase().includes(search.toLowerCase())) {
-  //       return item;
-  //     } else {
-  //       return false;
-  //     }
-  //   });
-  // }
+
 
   return (
     <div className="App1">
       <h3>Delivery list</h3>
         <div className="div-inline">
           <input type="text" placeholder="Search here"
-           onChange={(e) => {
-            setSearch(e.target.value);
-            }}
+          //  onChange={(e) => {
+          //   setSearch(e.target.value);
+          //   }}
           />
-          <Button variant="success" className="float-sm-end m-3" size="sm">Add deliver</Button>
+          <Button variant="success" className="float-sm-end m-3" size="sm" onClick={handleShow}>Add deliver</Button>
+          <DeliveryForm show={show} handleClose={handleClose} />
         </div>
 
       <br></br>
@@ -91,6 +116,13 @@ const Delivery = () => {
           rowsPerPageOptions={[10]}
           checkboxSelection
           disableSelectionOnClick
+          initialState={{ pinnedColumns: { right: ["actions"] } }}
+          componentsProps={{
+            row: {
+              onMouseEnter: onMouseEnterRow,
+              onMouseLeave: onMouseLeaveRow
+            }
+          }}
         >  
         </DataGrid>
       </div>

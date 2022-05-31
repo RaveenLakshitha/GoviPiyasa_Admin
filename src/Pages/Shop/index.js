@@ -8,9 +8,10 @@ import { IconButton} from "@mui/material";
 import { Box } from "@mui/system";
 import DeleteIcon from "@mui/icons-material/Delete";
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+//import { Badge } from "react-bootstrap";
 
 const User = () => {
-  const [search, setSearch] = useState(null);
+  //const [search, setSearch] = useState(null);
   const [hoveredRow, setHoveredRow] = useState(null);
   const [tableData, setTableData] = useState([]);
   const [show, setShow] = useState(false);;
@@ -34,7 +35,7 @@ const User = () => {
         console.log(id);
         const data = await axios.get("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/shops/"+id);
         handleShow();
-        console.log(id);
+        console.log(data);
       } catch (e) {
         console.log(e);
       }
@@ -69,15 +70,25 @@ const User = () => {
   
   const columns = [
     { field: '_id', headerName: 'ID', width: 200 },
-    { field: 'shopName', headerName: 'Shop' },
+    { field: 'shopName', headerName: 'Shop', width: 150 },
     { field: 'userName', headerName: 'Name', width: 100 ,
       valueGetter: (params) => {
         return params.getValue(params.id, "user").userName;
       }
     },
     { field: 'email', headerName: 'Email', width: 200},
+    { field: 'city', headerName: 'City', width: 100 ,
+      valueGetter: (params) => {
+        return params.getValue(params.id, "user").city;
+      }
+    },
+    { field: 'contactNumber', headerName: 'Contact No', width: 100 ,
+      valueGetter: (params) => {
+        return params.getValue(params.id, "user").contactNumber;
+      }
+    },
     { field: 'shopItems', headerName: 'No of items', width: 100 },
-    { field: 'shopReviews', headerName: 'Reviews', width: 100 },
+    { field: 'ratingSum', headerName: 'Rating', width: 100 },
     {
       field: "actions",
       headerName: "Actions",
@@ -118,9 +129,9 @@ const User = () => {
     <div className="App1">
       <h3>Shop list</h3>
       <input type="text" placeholder="Search here"
-        onChange={(e) => {
-          setSearch(e.target.value);
-        }}
+        // onChange={(e) => {
+        //   setSearch(e.target.value);
+        // }}
       />
       
 
@@ -135,7 +146,7 @@ const User = () => {
           rowsPerPageOptions={[10]}
           checkboxSelection
           disableSelectionOnClick
-          initialState={{ pinnedColumns: { right: ["actions"] } }}
+          initialState={{ pinnedColumns: { right: ['actions'] } }}
           componentsProps={{
             row: {
               onMouseEnter: onMouseEnterRow,

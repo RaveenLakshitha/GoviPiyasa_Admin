@@ -2,47 +2,29 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import "../../App.css";
 import * as React from "react";
-import { Button } from "bootstrap";
-import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
-
+import { DataGrid } from "@mui/x-data-grid";
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import { IconButton} from "@mui/material";
+import { Box } from "@mui/system";
 
 
 const Orders = () => {
-  const [search, setSearch] = useState("");
-  const [product, setProduct] = useState([]);
-  const [hoveredRow, setHoveredRow] = useState(null);
-  const [data, setData]= useState([]);
+  //const [search, setSearch] = useState("");
   const [tableData, setTableData] = useState([]);
-  const [rows, setRows] = useState(tableData);
-  const [show, setShow] = useState(null);
+  const [hoveredRow, setHoveredRow] = useState(null);
+  //const [show, setShow] = useState(null);
+
+  const onMouseEnterRow = (event) => {
+    const id = event.currentTarget.getAttribute("data-id");
+    setHoveredRow(id);
+  };
+
+  const onMouseLeaveRow = (event) => {
+    setHoveredRow(null);
+  };
 
 
-
-  // const handleDelete = (id) => {
-  //   setTableData(tableData.filter((user) => user.id !== id));
-  //   console.log(id);
-  // };
-
-  // const onMouseEnterRow = (event) => {
-  //   const id = Number(event.currentTarget.getAttribute("data-id"));
-  //   setHoveredRow(id);
-  // };
-
-  // const onMouseLeaveRow = (event) => {
-  //   setHoveredRow(null);
-  // };
-
-  const deleteUser = React.useCallback(
-    (id) => () => {
-      setTimeout(() => {
-        setData((prevRows) => prevRows.filter((row) => row.id !== id));
-      });
-    },
-    [],
-  );
-
-
-  const getProductData = async () => {
+  const getAllData = async () => {
     try {
       const data = await axios.get("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/orders");
       setTableData(data.data.data);
@@ -52,7 +34,7 @@ const Orders = () => {
   };
 
   useEffect(()=>{
-    getProductData();
+    getAllData();
   },[])
 
   
@@ -67,73 +49,42 @@ const Orders = () => {
     { field: 'email', headerName: 'Email', width: 200},
     { field: 'shopItems', headerName: 'No of items', width: 100 },
     { field: 'shopReviews', headerName: 'Reviews', width: 100 },
-    
-    
-    // {
-    //   field: "actions",
-    //   headerName: "Actions",
-    //   width: 120,
-    //   sortable: false,
-    //   disableColumnMenu: true,
-    //   renderCell: (params) => {
-    //     if (hoveredRow === params.id) {
-    //       return (
-    //         <Box
-    //           sx={{
-    //             // backgroundColor: "whitesmoke",
-    //             width: "100%",
-    //             height: "100%",
-    //             display: "flex",
-    //             justifyContent: "center",
-    //             alignItems: "center"
-    //           }}
-    //         >
-    //           <IconButton onClick={() => console.log(params.id)}>
-    //             <EditIcon />
-    //           </IconButton>
-    //           <IconButton onClick={() => console.log(params.id)}>
-    //             <DeleteIcon />
-    //           </IconButton>
-    //         </Box>
-    //       );
-    //     } else return null;
-    //   }
-    // }
-    // { field: "action", headerName: "Action", width: 250,
-    //   renderCell: (params) => (
-    //     <>
-    //       <Button
-    //         style={{backgroundColor: "#e8605d", padding: "3px 35px"}}
-    //         //onClick={() => handleDelete(id)}
-    //         variant="contained" color="primary" type="submit"
-    //       >
-    //         Delete
-    //       </Button>
-    //     </>
-    //   )
-    // }
+    {
+      field: "actions",
+      headerName: "Actions",
+      width: 120,
+      sortable: false,
+      disableColumnMenu: true,
+      renderCell: (params) => {
+        if (hoveredRow === params.id) {
+          return (
+            <Box
+              sx={{
+                width: "100%",
+                height: "100%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center"
+              }}
+            >
+              <IconButton onClick={() => console.log(params.id)}>
+                <RemoveRedEyeIcon />
+              </IconButton>
+            </Box>
+          );
+        } else return null;
+      }
+    }
     
   ]
-
-  // {
-  //   product.filter((item) => {
-  //     if (search === "") {
-  //       return item;
-  //     } else if (item.name.toLowerCase().includes(search.toLowerCase())) {
-  //       return item;
-  //     } else {
-  //       return false;
-  //     }
-  //   });
-  // }
 
   return (
     <div className="App1">
       <h3>Order list</h3>
       <input type="text" placeholder="Search here"
-        onChange={(e) => {
-          setSearch(e.target.value);
-        }}
+        // onChange={(e) => {
+        //   setSearch(e.target.value);
+        // }}
       />
       
 
@@ -148,7 +99,13 @@ const Orders = () => {
           rowsPerPageOptions={[10]}
           checkboxSelection
           disableSelectionOnClick
-          
+          initialState={{ pinnedColumns: { right: ["actions"] } }}
+          componentsProps={{
+            row: {
+              onMouseEnter: onMouseEnterRow,
+              onMouseLeave: onMouseLeaveRow
+            }
+          }}
         >  
         </DataGrid>
       </div>

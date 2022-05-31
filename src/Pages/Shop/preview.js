@@ -9,19 +9,19 @@ const Preview = (props) => {
   const [tableData, setTableData] = useState([]);
   const id = props.id;
 
-  const getData = async (id) => {
-    try {
-      console.log(id);
-      const data = await axios.get("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/shops/"+id);
-      setTableData(data.data.data);
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
   useEffect(()=>{
-    getData(id);
-  },[])
+    const getData = async () => {
+      try {
+        console.log(id);
+        const data = await axios.get("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/shops/"+id);
+        setTableData(data.data.data);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    getData();
+  },[id])
+
 
   const columns = [
     { field: 'productName', headerName: 'Item', width:150 },
@@ -39,15 +39,14 @@ const Preview = (props) => {
         </Modal.Header>
         <Modal.Body>
 
-          Shop name : {tableData.shopName}
-          <br></br>
-          User name : {tableData.user}
-         <br></br>
-          Item list
-          <br></br>
+          <p className="space"> Shop name : {tableData.shopName} </p>
+          
+          <p className="space"> User name : {tableData.user} </p>
+        
+          <p className="space"> Item list </p>
 
           <DataGrid
-            rows={tableData}
+            rows={tableData.shopItems}
             columns={columns}
             getRowId={(row) => row._id}
             pageSize={10}
