@@ -16,11 +16,11 @@ export const SidebarData = [
     icon: <HomeIcon />,
     link: "/",
   },
-  {
-    title: "Login",
-    icon: <HomeIcon />,
-    link: "/login",
-  },
+  // {
+  //   title: "Login",
+  //   icon: <HomeIcon />,
+  //   link: "/login",
+  // },
   {
     title: "Users",
     icon: <PeopleIcon />,
@@ -67,9 +67,9 @@ export const SidebarData = [
     icon: <InfoIcon />,
     link: "/information",
   },
-  {
-    title: "Setting",
-    icon: <SettingsIcon />,
-    link: "/setting",
-  },
+  // {
+  //   title: "Setting",
+  //   icon: <SettingsIcon />,
+  //   link: "/setting",
+  // },
 ];
