@@ -1,0 +1,5 @@
+.div-inline {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+}
