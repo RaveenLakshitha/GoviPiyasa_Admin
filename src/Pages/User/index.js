@@ -15,6 +15,7 @@ const User = () => {
 
   const handleDelete = (id) => {
     setTableData(tableData.filter((data) => data._id !== id));
+    alert("Deleted!");
     console.log(id);
   };
 

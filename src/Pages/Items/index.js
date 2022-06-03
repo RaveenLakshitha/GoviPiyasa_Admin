@@ -16,6 +16,7 @@ const Items = () => {
 
   const handleDelete = (id) => {
     setTableData(tableData.filter((data) => data._id !== id));
+    alert("Deleted!");
     console.log(id);
   };
 
@@ -50,10 +51,10 @@ const Items = () => {
     { field: 'description', headerName: 'Description', width: 200},
     { field: 'quantity', headerName: 'Qty', width: 50 },
     { field: 'rating', headerName: 'Ratings', width: 60 },
-    { field: 'shopName', headerName: 'Shop', width: 150 ,
-      valueGetter: (params) => {
-        return params.getValue(params.id, "shopId").shopName;
-      }},
+    // { field: 'shopName', headerName: 'Shop', width: 150,
+    //   valueGetter: (params) => {
+    //     return params.getValue(params.id, "shopId").shopName;
+    //   }},
       {
         field: "actions",
         headerName: "Actions",

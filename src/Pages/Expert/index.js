@@ -24,6 +24,13 @@ const Expert = () => {
 
   const handleDelete = (id) => {
     setTableData(tableData.filter((data) => data._id !== id));
+    alert("Deleted!");
+    console.log(id);
+  };
+
+  const handleUpdate = (id) => {
+    //setTableData(tableData.filter((data) => data._id !== id));
+    alert("Updated!");
     console.log(id);
   };
 
@@ -39,7 +46,7 @@ const Expert = () => {
 
   const getAllData = async () => {
     try {
-      const data = await axios.get("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/auths/getUsers");
+      const data = await axios.get("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/auths/getExperts");
       setTableData(data.data.data);
     } catch (e) {
       console.log(e);
@@ -77,7 +84,7 @@ const Expert = () => {
                 alignItems: "center"
               }}
             >
-              <IconButton onClick={() => console.log(params.id)}>
+              <IconButton onClick={() => handleUpdate(params.id)}>
                 <EditIcon />
               </IconButton>
               <IconButton onClick={() => handleDelete(params.id)}>

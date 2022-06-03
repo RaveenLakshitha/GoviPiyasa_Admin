@@ -3,17 +3,21 @@ import { useEffect, useState } from "react";
 import "../../App.css";
 import * as React from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import DeleteIcon from "@mui/icons-material/Delete";
+import Preview from "./preview";
 import { IconButton} from "@mui/material";
 import { Box } from "@mui/system";
+import DeleteIcon from "@mui/icons-material/Delete";
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 
 
 const Forum = () => {
   //const [search, setSearch] = useState("");
   const [hoveredRow, setHoveredRow] = useState(null);
   const [tableData, setTableData] = useState([]);
-  //const [show, setShow] = useState(null);
+  const [show, setShow] = useState(false);
 
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   const handleDelete = (id) => {
     setTableData(tableData.filter((data) => data._id !== id));
@@ -29,6 +33,16 @@ const Forum = () => {
     setHoveredRow(null);
   };
 
+  const handleView = async (id) => {
+    try {
+      console.log(id);
+      //const data = await axios.get("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/shops/"+id);
+      handleShow();
+      //console.log(data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   const getAllData = async () => {
     try {
@@ -75,6 +89,10 @@ const Forum = () => {
               <IconButton onClick={() => handleDelete(params.id)}>
                 <DeleteIcon />
               </IconButton>
+              <IconButton onClick={() => handleView(params.id)}>
+                <RemoveRedEyeIcon />
+              </IconButton>
+              <Preview show={show} id={params.id} handleClose={handleClose}/>
             </Box>
           );
         } else return null;

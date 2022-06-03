@@ -1,6 +1,6 @@
 .sidebar{
   background-image: linear-gradient(green, black);
-  height: 100vh;
+  height: auto;
   position: sticky;
   top: 50px;
   width: 35vh;
