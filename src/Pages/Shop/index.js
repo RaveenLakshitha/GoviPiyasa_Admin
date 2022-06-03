@@ -10,19 +10,29 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 //import { Badge } from "react-bootstrap";
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 137ea511d1b3790ef59b84eca2e9ab831d5bc0a8
 const User = () => {
   //const [search, setSearch] = useState(null);
   const [hoveredRow, setHoveredRow] = useState(null);
   const [tableData, setTableData] = useState([]);
   const [show, setShow] = useState(false);;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 137ea511d1b3790ef59b84eca2e9ab831d5bc0a8
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   const handleDelete = (id) => {
     setTableData(tableData.filter((data) => data._id !== id));
+<<<<<<< HEAD
     alert("Deleted!");
+=======
+>>>>>>> 137ea511d1b3790ef59b84eca2e9ab831d5bc0a8
     console.log(id);
   };
 

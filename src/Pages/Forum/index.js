@@ -3,21 +3,32 @@ import { useEffect, useState } from "react";
 import "../../App.css";
 import * as React from "react";
 import { DataGrid } from "@mui/x-data-grid";
+<<<<<<< HEAD
 import Preview from "./preview";
 import { IconButton} from "@mui/material";
 import { Box } from "@mui/system";
 import DeleteIcon from "@mui/icons-material/Delete";
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+=======
+import DeleteIcon from "@mui/icons-material/Delete";
+import { IconButton} from "@mui/material";
+import { Box } from "@mui/system";
+>>>>>>> 137ea511d1b3790ef59b84eca2e9ab831d5bc0a8
 
 
 const Forum = () => {
   //const [search, setSearch] = useState("");
   const [hoveredRow, setHoveredRow] = useState(null);
   const [tableData, setTableData] = useState([]);
+<<<<<<< HEAD
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+=======
+  //const [show, setShow] = useState(null);
+
+>>>>>>> 137ea511d1b3790ef59b84eca2e9ab831d5bc0a8
 
   const handleDelete = (id) => {
     setTableData(tableData.filter((data) => data._id !== id));
@@ -33,6 +44,7 @@ const Forum = () => {
     setHoveredRow(null);
   };
 
+<<<<<<< HEAD
   const handleView = async (id) => {
     try {
       console.log(id);
@@ -43,6 +55,8 @@ const Forum = () => {
       console.log(e);
     }
   };
+=======
+>>>>>>> 137ea511d1b3790ef59b84eca2e9ab831d5bc0a8
 
   const getAllData = async () => {
     try {
@@ -89,10 +103,13 @@ const Forum = () => {
               <IconButton onClick={() => handleDelete(params.id)}>
                 <DeleteIcon />
               </IconButton>
+<<<<<<< HEAD
               <IconButton onClick={() => handleView(params.id)}>
                 <RemoveRedEyeIcon />
               </IconButton>
               <Preview show={show} id={params.id} handleClose={handleClose}/>
+=======
+>>>>>>> 137ea511d1b3790ef59b84eca2e9ab831d5bc0a8
             </Box>
           );
         } else return null;

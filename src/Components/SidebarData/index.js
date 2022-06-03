@@ -14,12 +14,12 @@ export const SidebarData = [
   {
     title: "Dashboard",
     icon: <HomeIcon />,
-    link: "/",
+    link: "/dashboard",
   },
   {
-    title: "Login",
+    title: "Register",
     icon: <HomeIcon />,
-    link: "/login",
+    link: "/register",
   },
   {
     title: "Users",

@@ -13,6 +13,10 @@
     "@testing-library/jest-dom": "^5.15.0",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
+<<<<<<< HEAD
+=======
+    "@react-google-maps/api": "^2.11.9",
+>>>>>>> 137ea511d1b3790ef59b84eca2e9ab831d5bc0a8
     "axios": "^0.27.2",
     "bootstrap": "^5.1.3",
     "react": "^17.0.2",

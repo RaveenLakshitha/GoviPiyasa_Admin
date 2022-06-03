@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Card, Col, Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
+
 import {
   Bar,
   BarChart,
@@ -12,8 +13,11 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+
 import "../../App.css";
+import AdminCard from "../../Components/AdminCard";
 import "./styles.css";
+
 const Dashboard = () => {
   const [data1, setExpert] = useState([]);
   const [data2, setDelivery] = useState([]);
@@ -58,109 +62,40 @@ const Dashboard = () => {
   ];
   return (
     <div className="App1">
-      <Row xs={6} md={4}>
+      {/* <div className="Card1"> */}
+      <Row md="auto">
         <Col>
-          <Card
-            border="success"
-            style={{ width: "18rem" }}
-            className="m-4 w-75 text-center bg-success"
-          >
-            <Card.Body>
-              <Card.Title>Sellers</Card.Title>
-              <Card.Text>14</Card.Text>
-            </Card.Body>
-          </Card>
+          <AdminCard name="Buyers" value="40" />
         </Col>
-
         <Col>
-          <Card
-            border="success"
-            style={{ width: "18rem" }}
-            className="m-4 w-75 text-center bg-success"
-          >
-            <Card.Body>
-              <Card.Title>Buyers</Card.Title>
-              <Card.Text>23</Card.Text>
-            </Card.Body>
-          </Card>
+          <AdminCard name="Sellers" value="10" />
         </Col>
-
         <Col>
-          <Card
-            border="success"
-            style={{ width: "18rem" }}
-            className="m-4 w-75 text-center bg-success"
-          >
-            <Card.Body>
-              <Card.Title>Experts</Card.Title>
-              <Card.Text>{data1}</Card.Text>
-            </Card.Body>
-          </Card>
-        </Col>
-
-        <Col>
-          <Card
-            border="success"
-            style={{ width: "18rem" }}
-            className="m-4 w-75 text-center bg-success"
-          >
-            <Card.Body>
-              <Card.Title>Delivery</Card.Title>
-              <Card.Text>{data2}</Card.Text>
-            </Card.Body>
-          </Card>
+          <AdminCard name="Delivery" value={data2} />
         </Col>
       </Row>
 
-      <Row xs={6} md={4}>
+      <Row>
         <Col>
-          <Card
-            border="success"
-            style={{ width: "18rem" }}
-            className=" m-4 w-75 text-center bg-success"
-          >
-            <Card.Body>
-              <Card.Title>Architectures</Card.Title>
-              <Card.Text>{data3}</Card.Text>
-            </Card.Body>
-          </Card>
+          <AdminCard name="Architectures" value={data3} />
         </Col>
+        <Col>
+          <AdminCard name="Experts" value={data1} />
+        </Col>
+        <Col>
+          <AdminCard name="Online Payments" value="320" />
+        </Col>
+      </Row>
 
+      <Row>
         <Col>
-          <Card
-            border="success"
-            style={{ width: "18rem" }}
-            className="m-4 w-75 text-center bg-success"
-          >
-            <Card.Body>
-              <Card.Title>Online Payments</Card.Title>
-              <Card.Text>11</Card.Text>
-            </Card.Body>
-          </Card>
+          <AdminCard name="Cache on Delivery" value="80" />
         </Col>
         <Col>
-          <Card
-            border="success"
-            style={{ width: "18rem" }}
-            className="m-4 w-75 text-center bg-success"
-          >
-            <Card.Body>
-              <Card.Title>Online Payments</Card.Title>
-              <Card.Text>11</Card.Text>
-            </Card.Body>
-          </Card>
+          <AdminCard name="Weekly Orders" value="400" />
         </Col>
         <Col>
-          <Card
-            border="success"
-            style={{ width: "18rem" }}
-            className="m-4 w-75 text-center bg-success"
-          >
-            <Card.Body>
-              <Card.Title>Online Payments</Card.Title>
-              <Card.Text>11</Card.Text>
-            </Card.Body>
-          </Card>
+          <AdminCard name="Online Payments" value="320" />
         </Col>
       </Row>
 
@@ -171,7 +106,7 @@ const Dashboard = () => {
             height={300}
             data={data}
             margin={{
-              top: 10,
+              top: 30,
               right: 30,
               left: 30,
               bottom: 5,
