@@ -28,7 +28,6 @@
 
 .sidebarlist .row:hover {
   cursor: pointer;
-  
 }
 
 .row #icon{
@@ -52,9 +51,22 @@
   text-decoration: none;
   color: inherit;
 }
+
 .link:hover{
-  color: #4bf545;
+  color: rgb(0, 53, 0) ;
+  background-color: lightgray ;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
 }
+
+.link:focus{
+  color: rgb(0, 53, 0) ;
+  background-color: white ;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+}
+
+
 .sideBarList{
   padding: 5px;
   cursor: pointer;
@@ -63,3 +75,4 @@
   border-radius: 10px;
  
 }
+

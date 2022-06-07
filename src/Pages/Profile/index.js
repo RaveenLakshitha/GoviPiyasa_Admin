@@ -1,14 +1,3 @@
-<<<<<<< HEAD
-const Profile = () => {
-  return (
-    <div>
-      My Profile- my photo and important facts and notes
-    </div>
-  );
-}
- 
-export default Profile;
-=======
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./styles.css";
@@ -32,6 +21,7 @@ const Profile = () => {
       console.log(res);
       setProfileCell(res.data.data.userName);
       setProfileEmail(res.data.data.email);
+      setProfileImage(null);
       //setProfileImage(res.data.results[0].picture.large);
       setProfileName(`${res.data.data.userName} ${res.data.data.userName}`);
     } catch (error) {
@@ -77,4 +67,3 @@ const Profile = () => {
 };
 
 export default Profile;
->>>>>>> 137ea511d1b3790ef59b84eca2e9ab831d5bc0a8

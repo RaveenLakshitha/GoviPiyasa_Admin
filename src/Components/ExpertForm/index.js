@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Button, Col, Form, Modal, Row } from "react-bootstrap";
-
+import NotifyMsg from "../ShowMsg/NotifyMsg";
 
 const ExpertForm = (props) => {
   
@@ -13,6 +13,7 @@ const ExpertForm = (props) => {
   const [image, setImage] = useState("");
   const [passwd, setPasswd] = useState("");
   const [qualif, setQualif] = useState("");
+  const [notify, setNotify] = useState({isOpen:false, message:'', type:''});
 
   // const [data, setData] = useState([]);
   // useEffect(async () => {
@@ -35,6 +36,8 @@ const ExpertForm = (props) => {
   }, [id]);
 
 
+//update an expert
+
   const updateExpert = async (id) => {
     const response = await axios.get(`https://mongoapi3.herokuapp.com/${id}`);
 
@@ -42,7 +45,7 @@ const ExpertForm = (props) => {
       //setState({ ...response.data[0] });
       setName(response.data.name);
       setContact(response.data.contact);
-      setDesig(response.data.designation);
+      //setDesig(response.data.designation);
       setLoc(response.data.city);
       setEmail(response.data.email);
       setImage(response.data.profilePicture);
@@ -50,10 +53,13 @@ const ExpertForm = (props) => {
     }
   };
 
+//add new expert
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("mama wada");
+    console.log(name+" "+email+" "+contact+" "+location+" "+passwd+" "+image);
     // if(!)
     axios.post("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/auths/registerExpert", {
         userName: name,
@@ -62,13 +68,15 @@ const ExpertForm = (props) => {
         city: location,
         email: email,
         password: passwd,
-        profilePicture: image  
+        //profilePicture: image,  
       })
       .then((res) => {
-        console.log(res);
+        console.log("post request");
         console.log(res.data);
-        alert("Inserted");
+        setNotify({isOpen:true, message:'Added successfully!', type:'success'});
+        //alert("Inserted");
       });
+
   };
 
 
@@ -206,6 +214,7 @@ const ExpertForm = (props) => {
             >
               Submit
             </Button>
+            <NotifyMsg notify={notify} setNotify={setNotify}/>
           </Form>
         </Modal.Body>
         <Modal.Footer>

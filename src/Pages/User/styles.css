@@ -1,3 +1,9 @@
 h3 {
   text-align: center;
 }
+
+.align{
+  display: flex;
+  justify-content: flex-end;
+  align-items: right;
+}

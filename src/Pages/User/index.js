@@ -1,21 +1,35 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import NotifyMsg from "../../Components/ShowMsg/NotifyMsg";
 import "../../App.css";
 import * as React from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import { IconButton} from "@mui/material";
+import { IconButton, Alert } from "@mui/material";
 import { Box } from "@mui/system";
 import DeleteIcon from "@mui/icons-material/Delete";
+import Collapse from '@mui/material/Collapse';
+import Button from '@mui/material/Button';
+import CloseIcon from '@mui/icons-material/Close';
 
 
 const User = () => {
   //const [show, setShow] = useState(false);
+  const [open, setOpen] = useState(false);
   const [tableData, setTableData] = useState([]);
   const [hoveredRow, setHoveredRow] = useState(null);
+  const [notify, setNotify] = useState({isOpen:true, message:'No message!', type:'error'});
+  //const [confirmOpen, setConfirmOpen] = useState(false);
+  //const [confirmDialog, setConfirmDialog] = useState({isOpen:false, title:'', subTitle:''});
+
 
   const handleDelete = (id) => {
+
     setTableData(tableData.filter((data) => data._id !== id));
-    alert("Deleted!");
+    setNotify({ isOpen:true, message:'Deleted successfully!', type:'error'});
+    ///alert("Deleted!");
+    <Alert severity="error"> "Deleted successfully!" </Alert>
+    
+    console.log(notify);
     console.log(id);
   };
 
@@ -69,10 +83,14 @@ const User = () => {
                 alignItems: "center"
               }}
             >
-              <IconButton onClick={() => handleDelete(params.id)}>
+              <IconButton onClick={() =>  setOpen(true) }>
                 <DeleteIcon />
               </IconButton>
+              <NotifyMsg notify={notify} setNotify={setNotify}/>
+
+              
             </Box>
+            
           );
         } else return null;
       }
@@ -95,13 +113,32 @@ const User = () => {
   return (
     <div className="App1">
       <h3>User list</h3>
-      <input type="text" placeholder="Search here"
-        // onChange={(e) => {
-        //   setSearch(e.target.value);
-        // }}
-      />
 
-      <br></br>
+      <input type="text" placeholder="Search here"/>
+
+        {/* // onChange={(e) => {
+        //   setSearch(e.target.value);
+        // }} */}
+      
+
+      <Box sx={{ width: '100%',display: 'inline-flex', flexDirection: 'row-reverse'}}>
+        <Collapse in={open}>
+        <Alert
+          action={
+            <IconButton aria-label="close" color="error" size="small"
+              onClick={() => {
+                setOpen(false);
+              }}
+            ><CloseIcon fontSize="inherit" />
+            </IconButton>
+          }
+          color="error"
+        >
+          Deleted successfully!
+        </Alert>
+      </Collapse>
+    </Box>
+      
 
       <div style={{ height: 400, width: "100%", padding: "1em" }}>
         <DataGrid
@@ -118,9 +155,12 @@ const User = () => {
               onMouseEnter: onMouseEnterRow,
               onMouseLeave: onMouseLeaveRow
             }
-          }}
-        >  
-        </DataGrid>
+          }} 
+        
+        />
+        
+              
+        
       </div>
     </div>
   );

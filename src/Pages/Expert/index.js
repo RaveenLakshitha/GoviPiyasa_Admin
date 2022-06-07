@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import "../../App.css";
 import ExpertForm from "../../Components/ExpertForm";
+import NotifyMsg from "../../Components/ShowMsg/NotifyMsg";
 import * as React from "react";
 import { Button } from "react-bootstrap"
 import { DataGrid } from "@mui/x-data-grid";
@@ -17,6 +18,8 @@ const Expert = () => {
   const [tableData, setTableData] = useState([]);
   const [hoveredRow, setHoveredRow] = useState(null);
   const [show, setShow] = useState(false);
+  const [notify, setNotify] = useState({isOpen:false, message:'', type:''});
+
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -30,6 +33,7 @@ const Expert = () => {
 
   const handleUpdate = (id) => {
     //setTableData(tableData.filter((data) => data._id !== id));
+    setNotify({isOpen:true, message:'Updated successfully!', type:'warning'});
     alert("Updated!");
     console.log(id);
   };
@@ -90,6 +94,7 @@ const Expert = () => {
               <IconButton onClick={() => handleDelete(params.id)}>
                 <DeleteIcon />
               </IconButton>
+              <NotifyMsg notify={notify} setNotify={setNotify}/>
             </Box>
           );
         } else return null;

@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import "../../App.css";
-<<<<<<< HEAD
 import DeliveryForm from "../../Components/DeliveryForm"
 import * as React from "react";
 import { Button } from "react-bootstrap"
@@ -14,18 +13,6 @@ import DeleteIcon from "@mui/icons-material/Delete";
 
 const Delivery = () => {
   
-=======
-import DeliveryForm from "../../Components/DeliveryForm";
-import * as React from "react";
-import { Button } from "react-bootstrap";
-import { DataGrid } from "@mui/x-data-grid";
-import { IconButton } from "@mui/material";
-import { Box } from "@mui/system";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
-
-const Delivery = () => {
->>>>>>> 137ea511d1b3790ef59b84eca2e9ab831d5bc0a8
   //const [search, setSearch] = useState("");
   const [tableData, setTableData] = useState([]);
   const [hoveredRow, setHoveredRow] = useState(null);
@@ -48,25 +35,16 @@ const Delivery = () => {
     setHoveredRow(null);
   };
 
-<<<<<<< HEAD
 
   const getAllData = async () => {
     try {
       const data = await axios.get("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/auths/getUsers");
-=======
-  const getAllData = async () => {
-    try {
-      const data = await axios.get(
-        "https://govi-piyasa-v-0-1.herokuapp.com/api/v1/auths/getUsers"
-      );
->>>>>>> 137ea511d1b3790ef59b84eca2e9ab831d5bc0a8
       setTableData(data.data.data);
     } catch (e) {
       console.log(e);
     }
   };
 
-<<<<<<< HEAD
   useEffect(()=>{
     getAllData();
   },[])
@@ -79,19 +57,6 @@ const Delivery = () => {
     { field: 'email', headerName: 'Email', width: 200},
     { field: 'city', headerName: 'City', width: 100 },
     { field: 'contactNumber', headerName: 'Contact No', width: 100 },
-=======
-  useEffect(() => {
-    getAllData();
-  }, []);
-
-  const columns = [
-    { field: "_id", headerName: "ID", width: 200 },
-    { field: "profilePicture", headerName: "Image" },
-    { field: "userName", headerName: "Name", width: 100 },
-    { field: "email", headerName: "Email", width: 200 },
-    { field: "city", headerName: "City", width: 100 },
-    { field: "contactNumber", headerName: "Contact No", width: 100 },
->>>>>>> 137ea511d1b3790ef59b84eca2e9ab831d5bc0a8
     {
       field: "actions",
       headerName: "Actions",
@@ -108,11 +73,7 @@ const Delivery = () => {
                 height: "100%",
                 display: "flex",
                 justifyContent: "center",
-<<<<<<< HEAD
                 alignItems: "center"
-=======
-                alignItems: "center",
->>>>>>> 137ea511d1b3790ef59b84eca2e9ab831d5bc0a8
               }}
             >
               <IconButton onClick={() => console.log(params.id)}>
@@ -124,7 +85,6 @@ const Delivery = () => {
             </Box>
           );
         } else return null;
-<<<<<<< HEAD
       }
     }
     
@@ -144,33 +104,6 @@ const Delivery = () => {
           <Button variant="success" className="float-sm-end m-3" size="sm" onClick={handleShow}>Add deliver</Button>
           <DeliveryForm show={show} handleClose={handleClose} />
         </div>
-=======
-      },
-    },
-  ];
-
-  return (
-    <div className="container">
-      <h3>Delivery list</h3>
-      <div className="div-inline">
-        <input
-          type="text"
-          placeholder="Search here"
-          //  onChange={(e) => {
-          //   setSearch(e.target.value);
-          //   }}
-        />
-        <Button
-          variant="success"
-          className="float-sm-end m-3"
-          size="sm"
-          onClick={handleShow}
-        >
-          Add deliver
-        </Button>
-        <DeliveryForm show={show} handleClose={handleClose} />
-      </div>
->>>>>>> 137ea511d1b3790ef59b84eca2e9ab831d5bc0a8
 
       <br></br>
 
@@ -187,18 +120,11 @@ const Delivery = () => {
           componentsProps={{
             row: {
               onMouseEnter: onMouseEnterRow,
-<<<<<<< HEAD
               onMouseLeave: onMouseLeaveRow
             }
           }}
         >  
         </DataGrid>
-=======
-              onMouseLeave: onMouseLeaveRow,
-            },
-          }}
-        ></DataGrid>
->>>>>>> 137ea511d1b3790ef59b84eca2e9ab831d5bc0a8
       </div>
     </div>
   );
