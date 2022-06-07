@@ -17,7 +17,6 @@ const User = () => {
   const [open, setOpen] = useState(false);
   const [tableData, setTableData] = useState([]);
   const [hoveredRow, setHoveredRow] = useState(null);
-  const [notify, setNotify] = useState({isOpen:true, message:'No message!', type:'error'});
   //const [confirmOpen, setConfirmOpen] = useState(false);
   //const [confirmDialog, setConfirmDialog] = useState({isOpen:false, title:'', subTitle:''});
 
@@ -25,11 +24,7 @@ const User = () => {
   const handleDelete = (id) => {
 
     setTableData(tableData.filter((data) => data._id !== id));
-    setNotify({ isOpen:true, message:'Deleted successfully!', type:'error'});
     ///alert("Deleted!");
-    <Alert severity="error"> "Deleted successfully!" </Alert>
-    
-    console.log(notify);
     console.log(id);
   };
 
@@ -83,12 +78,12 @@ const User = () => {
                 alignItems: "center"
               }}
             >
-              <IconButton onClick={() =>  setOpen(true) }>
+              <IconButton onClick={() => {
+                  setOpen(true);
+                  handleDelete(params.id);
+              }}>
                 <DeleteIcon />
               </IconButton>
-              <NotifyMsg notify={notify} setNotify={setNotify}/>
-
-              
             </Box>
             
           );
@@ -133,11 +128,9 @@ const User = () => {
             </IconButton>
           }
           color="error"
-        >
-          Deleted successfully!
-        </Alert>
-      </Collapse>
-    </Box>
+        > Deleted successfully! </Alert>
+        </Collapse>
+      </Box>
       
 
       <div style={{ height: 400, width: "100%", padding: "1em" }}>
