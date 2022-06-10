@@ -6,7 +6,8 @@ import { DataGrid } from "@mui/x-data-grid";
 import { IconButton} from "@mui/material";
 import { Box } from "@mui/system";
 import DeleteIcon from "@mui/icons-material/Delete";
-
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import BlockIcon from '@mui/icons-material/Block';
 
 
 const Architect = () => {
@@ -31,6 +32,17 @@ const Architect = () => {
     setHoveredRow(null);
   };
 
+
+  const handleView = async (id) => {
+    try {
+      console.log(id);
+      const data = await axios.get("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/shops/"+id);
+      //handleShow();
+      console.log(data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
 
   const getAllData = async () => {
@@ -78,8 +90,14 @@ const Architect = () => {
                 alignItems: "center"
               }}
             >
+              <IconButton>
+                <BlockIcon color="warning"/>
+              </IconButton>
               <IconButton onClick={() => handleDelete(params.id)}>
-                <DeleteIcon />
+                <DeleteIcon color="error" />
+              </IconButton>
+              <IconButton onClick={() => handleView(params.id)}>
+                <RemoveRedEyeIcon color="info"/>
               </IconButton>
             </Box>
           );

@@ -8,6 +8,7 @@ import { IconButton} from "@mui/material";
 import { Box } from "@mui/system";
 import DeleteIcon from "@mui/icons-material/Delete";
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import HideSourceIcon from '@mui/icons-material/HideSource';
 
 
 const Forum = () => {
@@ -18,6 +19,7 @@ const Forum = () => {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
 
   const handleDelete = (id) => {
     setTableData(tableData.filter((data) => data._id !== id));
@@ -58,41 +60,50 @@ const Forum = () => {
   },[])
 
   
+  
   const columns = [
-    { field: '_id', headerName: 'ID', width: 200 },
-    { field: 'Title', headerName: 'Title', width:200 },
+
+    { field: 'Category', headerName: 'Category', width:150 },
+    { field: 'Title', headerName: 'Title', width:250 },
     // { field: 'Category', headerName: 'Name', width: 100 ,
     //   valueGetter: (params) => {
     //     return params.getValue(params.id, "user").userName;
     //   }
     // },
-    { field: 'QuestionBody', headerName: 'Question', width: 200},
-    {
-      field: "actions",
-      headerName: "Actions",
-      width: 120,
-      sortable: false,
-      disableColumnMenu: true,
+    { field: 'QuestionBody', headerName: 'Question', width: 250},
+    { field: 'Answers', headerName: 'View Answer', width: 100,
+      renderCell: (params) => {
+        if (hoveredRow === params.id) {
+          return (
+          <Box
+            sx={{ backgroundColor: "whitesmoke", width: "100%", height: "100%", display: "flex",
+              justifyContent: "center", alignItems: "center"
+            }}
+          >
+            <IconButton onClick={() => handleView(params.id)}>
+              <RemoveRedEyeIcon color="info"/>
+            </IconButton>
+          </Box>
+        );
+      } else return null;
+    }},
+    { field: 'Status', headerName: 'Status', width: 100},
+    { field: "actions", headerName: "Actions", width: 120, sortable: false, disableColumnMenu: true,
       renderCell: (params) => {
         if (hoveredRow === params.id) {
           return (
             <Box
-              sx={{
-                backgroundColor: "whitesmoke",
-                width: "100%",
-                height: "100%",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center"
+              sx={{ backgroundColor: "whitesmoke", width: "100%", height: "100%", display: "flex",
+                justifyContent: "center", alignItems: "center"
               }}
             >
+              <IconButton onClick={() => handleView(params.id)}>
+                <HideSourceIcon />
+              </IconButton>
               <IconButton onClick={() => handleDelete(params.id)}>
                 <DeleteIcon />
               </IconButton>
-              <IconButton onClick={() => handleView(params.id)}>
-                <RemoveRedEyeIcon />
-              </IconButton>
-              <Preview show={show} id={params.id} handleClose={handleClose}/>
+              
             </Box>
           );
         } else return null;

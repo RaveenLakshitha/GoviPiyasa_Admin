@@ -214,7 +214,6 @@ const ExpertForm = (props) => {
             >
               Submit
             </Button>
-            <NotifyMsg notify={notify} setNotify={setNotify}/>
           </Form>
         </Modal.Body>
         <Modal.Footer>

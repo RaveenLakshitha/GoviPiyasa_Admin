@@ -2,10 +2,12 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import "../../App.css";
 import * as React from "react";
+import { Badge } from "react-bootstrap";
 import { DataGrid } from "@mui/x-data-grid";
 import { IconButton} from "@mui/material";
 import { Box } from "@mui/system";
 import DeleteIcon from "@mui/icons-material/Delete";
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 
 
 const Items = () => {
@@ -45,43 +47,44 @@ const Items = () => {
 
   
   const columns = [
-    { field: '_id', headerName: 'ID', width: 200 },
     { field: 'productName', headerName: 'Item', width:150 },
+    { field: 'categoryName', headerName: 'Category', width:120 },
     { field: 'price', headerName: 'Price', width: 60 },
     { field: 'description', headerName: 'Description', width: 200},
     { field: 'quantity', headerName: 'Qty', width: 50 },
-    { field: 'rating', headerName: 'Ratings', width: 60 },
-    // { field: 'shopName', headerName: 'Shop', width: 150,
-    //   valueGetter: (params) => {
-    //     return params.getValue(params.id, "shopId").shopName;
-    //   }},
-      {
-        field: "actions",
-        headerName: "Actions",
-        width: 120,
-        sortable: false,
-        disableColumnMenu: true,
-        renderCell: (params) => {
-          if (hoveredRow === params.id) {
-            return (
-              <Box
-                sx={{
-                  backgroundColor: "whitesmoke",
-                  width: "100%",
-                  height: "100%",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center"
-                }}
-              >
-                <IconButton onClick={() => handleDelete(params.id)}>
-                  <DeleteIcon />
-                </IconButton>
-              </Box>
-            );
-          } else return null;
-        }
+    { field: 'rating', headerName: 'Ratings', width: 80 },
+    { field: 'shopName', headerName: 'Shop', width: 100 ,
+      valueGetter: (params) => {
+        return params.getValue(params.id, "shopId").shopName;
       }
+    },
+    { field: 'status', headerName: 'Status', width: 100,
+      renderCell: (params) => { 
+        return(
+          <Badge pill bg="primary">Available</Badge>
+        );
+      }
+    },
+    { field: "actions", headerName: "Actions", width: 100, sortable: false, disableColumnMenu: true,
+      renderCell: (params) => {
+        if (hoveredRow === params.id) {
+          return (
+            <Box
+              sx={{ backgroundColor: "whitesmoke", width: "100%", height: "100%", display: "flex",
+                justifyContent: "center", alignItems: "center"
+              }}
+            >
+              <IconButton onClick={() => handleDelete(params.id)}>
+                <DeleteIcon color="error" />
+              </IconButton>
+              <IconButton >
+                <RemoveRedEyeIcon color="info"/>
+              </IconButton>
+            </Box>
+          );
+        } else return null;
+      }
+    }
   ]
 
   // {

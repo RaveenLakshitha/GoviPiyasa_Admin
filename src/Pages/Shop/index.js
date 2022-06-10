@@ -4,11 +4,12 @@ import "../../App.css";
 import * as React from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import Preview from "./preview";
-import { IconButton} from "@mui/material";
+import { IconButton, Rating} from "@mui/material";
 import { Box } from "@mui/system";
 import DeleteIcon from "@mui/icons-material/Delete";
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
-//import { Badge } from "react-bootstrap";
+import BlockIcon from '@mui/icons-material/Block';
+import { Badge } from "react-bootstrap";
 
 const User = () => {
   //const [search, setSearch] = useState(null);
@@ -69,14 +70,13 @@ const User = () => {
   //initialize columns 
   
   const columns = [
-    { field: '_id', headerName: 'ID', width: 200 },
     { field: 'shopName', headerName: 'Shop', width: 150 },
-    { field: 'userName', headerName: 'Name', width: 100 ,
+    { field: 'userName', headerName: 'Name', width: 150 ,
       valueGetter: (params) => {
         return params.getValue(params.id, "user").userName;
       }
     },
-    { field: 'email', headerName: 'Email', width: 200},
+    { field: 'email', headerName: 'Email', width: 170},
     { field: 'city', headerName: 'City', width: 100 ,
       valueGetter: (params) => {
         return params.getValue(params.id, "user").city;
@@ -88,31 +88,37 @@ const User = () => {
       }
     },
     { field: 'shopItems', headerName: 'No of items', width: 100 },
-    { field: 'ratingSum', headerName: 'Rating', width: 100 },
-    {
-      field: "actions",
-      headerName: "Actions",
-      width: 100,
-      sortable: false,
-      disableColumnMenu: true,
+    { field: 'rating', headerName: 'Rating', width: 120,
+        renderCell: (params) => { 
+          return(
+            <Rating name="read-only" size="small" value={params.getValue(params.id,'rating')} readOnly />
+          );
+        }
+    },
+    { field: 'shopVisibiliy', headerName: 'Status', width: 80, sortable: false,
+      renderCell: (params) => { 
+        return(
+          params.getValue(params.id,'shopVisibility') ? <Badge pill bg="primary">Active</Badge> : <Badge pill bg="secondary">Not Active</Badge>
+        );
+      }
+    },
+    { field: "actions", headerName: "Actions", width: 120, sortable: false, disableColumnMenu: true,
       renderCell: (params) => {
         if (hoveredRow === params.id) {
           return (
             <Box
-              sx={{
-                backgroundColor: "whitesmoke",
-                width: "100%",
-                height: "100%",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center"
+              sx={{ backgroundColor: "whitesmoke", width: "100%", height: "100%", display: "flex",
+                justifyContent: "center", alignItems: "center"
               }}
             >
+              <IconButton>
+                <BlockIcon color="warning"/>
+              </IconButton>
               <IconButton onClick={() => handleDelete(params.id)}>
-                <DeleteIcon />
+                <DeleteIcon color="error" />
               </IconButton>
               <IconButton onClick={() => handleView(params.id)}>
-                <RemoveRedEyeIcon />
+                <RemoveRedEyeIcon color="info"/>
               </IconButton>
               <Preview show={show} id={params.id} handleClose={handleClose}/>
             </Box>

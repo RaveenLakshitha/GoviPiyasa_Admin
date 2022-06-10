@@ -4,12 +4,13 @@ import "../../App.css";
 import ExpertForm from "../../Components/ExpertForm";
 import NotifyMsg from "../../Components/ShowMsg/NotifyMsg";
 import * as React from "react";
-import { Button } from "react-bootstrap"
+import { Badge } from "react-bootstrap"
 import { DataGrid } from "@mui/x-data-grid";
 import { IconButton} from "@mui/material";
 import { Box } from "@mui/system";
-import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from "@mui/icons-material/Delete";
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import BlockIcon from '@mui/icons-material/Block';
 
 
 const Expert = () => {
@@ -31,7 +32,7 @@ const Expert = () => {
     console.log(id);
   };
 
-  const handleUpdate = (id) => {
+  const handleView = (id) => {
     //setTableData(tableData.filter((data) => data._id !== id));
     setNotify({isOpen:true, message:'Updated successfully!', type:'warning'});
     alert("Updated!");
@@ -69,32 +70,31 @@ const Expert = () => {
     { field: 'email', headerName: 'Email', width: 200},
     { field: 'city', headerName: 'City', width: 100 },
     { field: 'contactNumber', headerName: 'Contact No', width: 100 },
-    {
-      field: "actions",
-      headerName: "Actions",
-      width: 120,
-      sortable: false,
-      disableColumnMenu: true,
+    { field: 'status', headerName: 'Status', width: 80,
+      renderCell: (params) => { 
+        return(
+          <Badge pill bg="primary">Active</Badge>
+       );
+     }
+    },
+    { field: "actions", headerName: "Actions", width: 120, sortable: false, disableColumnMenu: true,
       renderCell: (params) => {
         if (hoveredRow === params.id) {
           return (
             <Box
-              sx={{
-                backgroundColor: "whitesmoke",
-                width: "100%",
-                height: "100%",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center"
+              sx={{ backgroundColor: "whitesmoke", width: "100%", height: "100%", display: "flex",
+                justifyContent: "center", alignItems: "center"
               }}
             >
-              <IconButton onClick={() => handleUpdate(params.id)}>
-                <EditIcon />
+              <IconButton>
+                <BlockIcon color="warning"/>
               </IconButton>
               <IconButton onClick={() => handleDelete(params.id)}>
-                <DeleteIcon />
+                <DeleteIcon color="error" />
               </IconButton>
-              <NotifyMsg notify={notify} setNotify={setNotify}/>
+              <IconButton onClick={() => handleView(params.id)}>
+                <RemoveRedEyeIcon color="info"/>
+              </IconButton>
             </Box>
           );
         } else return null;
@@ -109,16 +109,16 @@ const Expert = () => {
       <h3>Expert list</h3>
 
       
-        <div className="div-inline">
+        
           <input type="text" placeholder="Search here"
           //  onChange={(e) => {
           //   setSearch(e.target.value);
           //   }}
           />
 
-          <Button variant="success" className="float-sm-end m-3" size="sm" onClick={handleShow}>Add Expert</Button>
-          <ExpertForm show={show} handleClose={handleClose} />
-        </div>
+          {/* <Button variant="success" className="float-sm-end m-3" size="sm" onClick={handleShow}>Add Expert</Button>
+          <ExpertForm show={show} handleClose={handleClose} /> */}
+        
 
       <br></br>
 
