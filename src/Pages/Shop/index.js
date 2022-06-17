@@ -21,9 +21,15 @@ const User = () => {
   const handleShow = () => setShow(true);
 
   const handleDelete = (id) => {
-    setTableData(tableData.filter((data) => data._id !== id));
-    alert("Deleted!");
-    console.log(id);
+    try{
+      axios.delete("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/shops/"+id);
+      setTableData(tableData.filter((data) => data._id !== id));
+      alert("Deleted!");
+      console.log(id);
+    }
+    catch{
+
+    }
   };
 
   // const handleView = (id) => {
@@ -41,6 +47,15 @@ const User = () => {
         console.log(e);
       }
     };
+
+  const handleSuspend = (id) => {
+    try{
+      
+    }
+    catch{
+
+    }
+  }
 
 
   const onMouseEnterRow = (event) => {
@@ -87,18 +102,23 @@ const User = () => {
         return params.getValue(params.id, "user").contactNumber;
       }
     },
-    { field: 'shopItems', headerName: 'No of items', width: 100 },
+    { field: 'itemCount', headerName: 'No of items', width: 100 },
     { field: 'rating', headerName: 'Rating', width: 120,
         renderCell: (params) => { 
           return(
-            <Rating name="read-only" size="small" value={params.getValue(params.id,'rating')} readOnly />
+            <Rating name="read-only" size="small" value={params.getValue(params.id,'rating')} precision={0.5} readOnly />
           );
         }
     },
-    { field: 'shopVisibiliy', headerName: 'Status', width: 80, sortable: false,
+    { field: 'shopVisibiliy', headerName: 'Status', width: 100, value:'Active' ,sortable: false,
       renderCell: (params) => { 
         return(
-          params.getValue(params.id,'shopVisibility') ? <Badge pill bg="primary">Active</Badge> : <Badge pill bg="secondary">Not Active</Badge>
+          params.getValue(params.id,'shopVisibility') ==="Active" ?   <Badge pill bg="success">Active</Badge> : 
+          (params.getValue(params.id,'shopVisibility')==="Inactive" ? <Badge pill bg="danger">Not Active</Badge> :
+          (params.getValue(params.id,'shopVisibility')==="Pending" ? <Badge pill bg="primary">Pending</Badge> :
+          (params.getValue(params.id,'shopVisibility')==="Suspend" ? <Badge pill bg="warning" text="dark">Suspend</Badge> : 
+                                                                    <Badge pill bg="secondary">Rejected</Badge>)))
+          // <Badge pill bg="primary">{params.getValue(params.id, 'shopVisibility')}</Badge>
         );
       }
     },
@@ -112,7 +132,7 @@ const User = () => {
               }}
             >
               <IconButton>
-                <BlockIcon color="warning"/>
+                <BlockIcon color="warning" onClick={() => handleSuspend(params.id)}/>
               </IconButton>
               <IconButton onClick={() => handleDelete(params.id)}>
                 <DeleteIcon color="error" />

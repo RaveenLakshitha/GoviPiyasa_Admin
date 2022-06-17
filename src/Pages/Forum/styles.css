@@ -1,4 +1,9 @@
 .space{
   padding-top: 8px;
+  font-weight: bold;
+}
+
+h5,p{
+  font-family: 'Times New Roman', Times, serif;
 }
 

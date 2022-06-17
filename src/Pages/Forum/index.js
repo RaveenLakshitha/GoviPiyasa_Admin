@@ -8,7 +8,8 @@ import { IconButton} from "@mui/material";
 import { Box } from "@mui/system";
 import DeleteIcon from "@mui/icons-material/Delete";
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
-import HideSourceIcon from '@mui/icons-material/HideSource';
+import BlockIcon from '@mui/icons-material/Block';
+import Tooltip from '@mui/material/Tooltip';
 
 
 const Forum = () => {
@@ -48,7 +49,7 @@ const Forum = () => {
 
   const getAllData = async () => {
     try {
-      const data = await axios.get("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/forum/getQuestions");
+      const data = await axios.get("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/forum/Questions/");
       setTableData(data.data.data);
     } catch (e) {
       console.log(e);
@@ -73,19 +74,18 @@ const Forum = () => {
     { field: 'QuestionBody', headerName: 'Question', width: 250},
     { field: 'Answers', headerName: 'View Answer', width: 100,
       renderCell: (params) => {
-        if (hoveredRow === params.id) {
           return (
           <Box
-            sx={{ backgroundColor: "whitesmoke", width: "100%", height: "100%", display: "flex",
-              justifyContent: "center", alignItems: "center"
+            sx={{ width: "100%", height: "100%", display: "flex", justifyContent: "center", alignItems: "center"
             }}
           >
             <IconButton onClick={() => handleView(params.id)}>
               <RemoveRedEyeIcon color="info"/>
             </IconButton>
+            <Preview show={show} id={params.id} handleClose={handleClose}/>
           </Box>
         );
-      } else return null;
+     
     }},
     { field: 'Status', headerName: 'Status', width: 100},
     { field: "actions", headerName: "Actions", width: 120, sortable: false, disableColumnMenu: true,
@@ -97,11 +97,13 @@ const Forum = () => {
                 justifyContent: "center", alignItems: "center"
               }}
             >
-              <IconButton onClick={() => handleView(params.id)}>
-                <HideSourceIcon />
-              </IconButton>
+              <Tooltip title="Hide" arrow>
+                <IconButton onClick={() => handleView(params.id)}>
+                  <BlockIcon color="warning" />
+                </IconButton>
+              </Tooltip>
               <IconButton onClick={() => handleDelete(params.id)}>
-                <DeleteIcon />
+                <DeleteIcon color="error" />
               </IconButton>
               
             </Box>
