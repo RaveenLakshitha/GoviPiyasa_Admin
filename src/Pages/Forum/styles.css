@@ -1,9 +1,16 @@
 .space{
   padding-top: 8px;
-  font-weight: bold;
 }
 
 h5,p{
   font-family: 'Times New Roman', Times, serif;
+}
+
+p{
+  font-weight: bold;
+}
+
+.modal1{
+  border-radius: 15px !important;
 }
 

@@ -22,6 +22,10 @@ const Items = () => {
     console.log(id);
   };
 
+  const handleView = (id) => {
+
+  }
+
   const onMouseEnterRow = (event) => {
     const id = event.currentTarget.getAttribute("data-id");
     setHoveredRow(id);
@@ -78,7 +82,7 @@ const Items = () => {
                 <DeleteIcon color="error" />
               </IconButton>
               <IconButton >
-                <RemoveRedEyeIcon color="info"/>
+                <RemoveRedEyeIcon color="info" onClick={() => handleView(params.id)}/>
               </IconButton>
             </Box>
           );

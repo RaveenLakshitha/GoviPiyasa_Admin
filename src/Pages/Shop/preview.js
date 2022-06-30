@@ -1,6 +1,8 @@
 import { DataGrid } from "@mui/x-data-grid";
 import React, { useEffect, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
+import "./styles.css";
+import { Rating} from "@mui/material";
 import axios from "axios";
 
 
@@ -32,6 +34,13 @@ const Preview = (props) => {
     { field: 'price', headerName: 'Price', width: 160 },
     { field: 'quantity', headerName: 'Qty', width: 150 },
     { field: 'description', headerName: 'Description', width: 200 },
+    { field: 'rating', headerName: 'Rating', width: 120,
+        renderCell: (params) => { 
+          return(
+            <Rating name="read-only" size="small" value={params.getValue(params.id,'rating')} precision={0.5} readOnly />
+          );
+        }
+    },
   ]
 
   console.log(tableData);
@@ -39,19 +48,22 @@ const Preview = (props) => {
 
   return ( 
     <div>
-      <Modal fullscreen={true} show={props.show} onHide={props.handleClose}>
+      <Modal size="xl" className="modalstyle" show={props.show} onHide={props.handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Item details</Modal.Title>
+          <Modal.Title><h4>Item details</h4></Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body scrollable>
 
-          <p className="space"> Shop name : {shopData.shopName} </p>
+          <p className="space"> Shop name : <b> {shopData.shopName} </b>
           
-          <p className="space"> User name : {userData.userName} </p>
+          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; 
+          
+           User name : <b> {userData.userName} </b> </p>
         
           <p className="space"> Item list </p>
         
           <DataGrid
+            autoHeight
             rows={tableData}
             columns={columns}
             getRowId={(row) => row._id}

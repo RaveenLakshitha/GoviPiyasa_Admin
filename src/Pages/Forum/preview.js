@@ -31,7 +31,7 @@ const Preview = (props) => {
 
   return ( 
     <div>
-      <Modal show={props.show} onHide={props.handleClose}>
+      <Modal show={props.show} onHide={props.handleClose} size="xl" dialogClassName="modal1" >
         <Modal.Header closeButton>
           <Modal.Title>Answers</Modal.Title>
         </Modal.Header>

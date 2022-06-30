@@ -64,14 +64,14 @@ const Forum = () => {
   
   const columns = [
 
-    { field: 'Category', headerName: 'Category', width:150 },
+    { field: 'Category', headerName: 'Category', width:130 },
     { field: 'Title', headerName: 'Title', width:250 },
     // { field: 'Category', headerName: 'Name', width: 100 ,
     //   valueGetter: (params) => {
     //     return params.getValue(params.id, "user").userName;
     //   }
     // },
-    { field: 'QuestionBody', headerName: 'Question', width: 250},
+    { field: 'QuestionBody', headerName: 'Question', width: 320},
     { field: 'Answers', headerName: 'View Answer', width: 100,
       renderCell: (params) => {
           return (
@@ -98,7 +98,7 @@ const Forum = () => {
               }}
             >
               <Tooltip title="Hide" arrow>
-                <IconButton onClick={() => handleView(params.id)}>
+                <IconButton >
                   <BlockIcon color="warning" />
                 </IconButton>
               </Tooltip>
