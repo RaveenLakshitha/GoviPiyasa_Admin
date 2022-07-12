@@ -15,7 +15,8 @@ const User = () => {
   //const [search, setSearch] = useState(null);
   const [hoveredRow, setHoveredRow] = useState(null);
   const [tableData, setTableData] = useState([]);
-  const [show, setShow] = useState(false);;
+  const [show, setShow] = useState(false);
+  const [status, setStatus] = useState("K");
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -50,7 +51,12 @@ const User = () => {
 
   const handleSuspend = (id) => {
     try{
-      
+      console.log(status);
+      // if(status=="Active"){
+      //   console.log(status);
+      //   setStatus("Suspend");
+      // }
+      // axios.put("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/shops/setShopVisibility/"+id, status);
     }
     catch{
 
@@ -113,12 +119,12 @@ const User = () => {
     { field: 'shopVisibiliy', headerName: 'Status', width: 100, value:'Active' ,sortable: false,
       renderCell: (params) => { 
         return(
+          setStatus(params.getValue(params.id,'shopVisibility')),
           params.getValue(params.id,'shopVisibility') ==="Active" ?   <Badge pill bg="success">Active</Badge> : 
           (params.getValue(params.id,'shopVisibility')==="Inactive" ? <Badge pill bg="danger">Not Active</Badge> :
           (params.getValue(params.id,'shopVisibility')==="Pending" ? <Badge pill bg="primary">Pending</Badge> :
           (params.getValue(params.id,'shopVisibility')==="Suspend" ? <Badge pill bg="warning" text="dark">Suspend</Badge> : 
                                                                     <Badge pill bg="secondary">Rejected</Badge>)))
-          // <Badge pill bg="primary">{params.getValue(params.id, 'shopVisibility')}</Badge>
         );
       }
     },

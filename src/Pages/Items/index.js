@@ -5,6 +5,7 @@ import * as React from "react";
 import { Badge } from "react-bootstrap";
 import { DataGrid } from "@mui/x-data-grid";
 import { IconButton} from "@mui/material";
+import Preview from "./preview";
 import { Box } from "@mui/system";
 import DeleteIcon from "@mui/icons-material/Delete";
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
@@ -12,7 +13,7 @@ import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 
 const Items = () => {
   //const [search, setSearch] = useState("");
-  //const [show, setShow] = useState(false);
+  const [show, setShow] = useState(false);
   const [tableData, setTableData] = useState([]);
   const [hoveredRow, setHoveredRow] = useState(null);
 
@@ -22,9 +23,8 @@ const Items = () => {
     console.log(id);
   };
 
-  const handleView = (id) => {
-
-  }
+  const handleView = (id) => { setShow(true); }
+  const handleClose = (id) => { setShow(false); }
 
   const onMouseEnterRow = (event) => {
     const id = event.currentTarget.getAttribute("data-id");
@@ -84,6 +84,7 @@ const Items = () => {
               <IconButton >
                 <RemoveRedEyeIcon color="info" onClick={() => handleView(params.id)}/>
               </IconButton>
+              <Preview show={show} id={params.id} handleClose={handleClose}/>
             </Box>
           );
         } else return null;

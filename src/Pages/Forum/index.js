@@ -10,6 +10,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import BlockIcon from '@mui/icons-material/Block';
 import Tooltip from '@mui/material/Tooltip';
+import { Badge } from "react-bootstrap";
 
 
 const Forum = () => {
@@ -17,6 +18,7 @@ const Forum = () => {
   const [hoveredRow, setHoveredRow] = useState(null);
   const [tableData, setTableData] = useState([]);
   const [show, setShow] = useState(false);
+  const [ansID, setAnsID] = useState("");
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -38,10 +40,11 @@ const Forum = () => {
 
   const handleView = async (id) => {
     try {
-      console.log(id);
-      //const data = await axios.get("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/shops/"+id);
+      setAnsID(id);
+      console.log("Hi,"+id);
+      //const data = await axios.get("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/forum/Questions/getQuestion/"+ansID);
       handleShow();
-      //console.log(data);
+      //console.log(data.data.data);
     } catch (e) {
       console.log(e);
     }
@@ -72,8 +75,11 @@ const Forum = () => {
     //   }
     // },
     { field: 'QuestionBody', headerName: 'Question', width: 320},
-    { field: 'Answers', headerName: 'View Answer', width: 100,
+    { field: 'Answers', headerName: 'View Answer', width: 100, default:"...",
+      
       renderCell: (params) => {
+        if (hoveredRow === params.id) {
+        // customBodyRenderLite: (dataIndex) => {
           return (
           <Box
             sx={{ width: "100%", height: "100%", display: "flex", justifyContent: "center", alignItems: "center"
@@ -85,9 +91,16 @@ const Forum = () => {
             <Preview show={show} id={params.id} handleClose={handleClose}/>
           </Box>
         );
-     
+      }
     }},
-    { field: 'Status', headerName: 'Status', width: 100},
+    //}},
+    { field: 'status', headerName: 'Status', width: 100,
+      renderCell: (params) => { 
+        return(
+          params.getValue(params.id,'status') === true ?   <Badge pill bg="success">Enable</Badge> : <Badge pill bg="secondary">Disable</Badge>
+        );
+    }
+    },
     { field: "actions", headerName: "Actions", width: 120, sortable: false, disableColumnMenu: true,
       renderCell: (params) => {
         if (hoveredRow === params.id) {
@@ -147,7 +160,6 @@ const Forum = () => {
           rowsPerPageOptions={[10]}
           checkboxSelection
           disableSelectionOnClick
-          initialState={{ pinnedColumns: { right: ["actions"] } }}
           componentsProps={{
             row: {
               onMouseEnter: onMouseEnterRow,

@@ -10,7 +10,10 @@ p{
   font-weight: bold;
 }
 
-.modal1{
-  border-radius: 15px !important;
+.modalstyle .modal-content{
+  background-color: "white";
+  border-radius: 10px;
+  padding: 10px;
+  font-family: "Trebuchet MS", sans-serif;
 }
 

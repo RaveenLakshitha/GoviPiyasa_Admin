@@ -6,7 +6,7 @@ const InfoCropForm = (props) => {
   return (
     <div>
 
-      <Modal show={props.show} onHide={props.handleClose}>
+      <Modal show={props.show} onHide={props.handleClose} className="modalstyle">
         <Modal.Header closeButton>
           <Modal.Title>{props.title}</Modal.Title>
         </Modal.Header>
@@ -28,6 +28,14 @@ const InfoCropForm = (props) => {
                 <option>...</option>
               </Form.Select>
             </Form.Group>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+          <Form.Group controlId="formImage">
+            <Form.Label column="sm">Upload an image</Form.Label>
+            <Form.Control className="m-2 w-75" type="file" size="sm"/>
+          </Form.Group>
           </Col>
         </Row>
 

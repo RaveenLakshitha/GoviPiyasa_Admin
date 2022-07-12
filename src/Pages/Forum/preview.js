@@ -14,24 +14,26 @@ const Preview = (props) => {
   const id = props.id;
 
   useEffect(()=>{
-    const getData = async () => {
+
+    const getData = async (id) => {
       try {
-        console.log(id);
+        console.log("modal"+id);
         const data = await axios.get("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/forum/Questions/getQuestion/"+id);
         setTableData(data.data.data);
         setAnswers(data.data.data.Answers);
+        console.log(tableData);
       } catch (e) {
         console.log(e);
       }
     };
-    getData();
+    getData(id);
   },[id])
 
 
 
   return ( 
     <div>
-      <Modal show={props.show} onHide={props.handleClose} size="xl" dialogClassName="modal1" >
+      <Modal show={props.show} onHide={props.handleClose} size="xl" className="modalstyle" >
         <Modal.Header closeButton>
           <Modal.Title>Answers</Modal.Title>
         </Modal.Header>
@@ -39,11 +41,17 @@ const Preview = (props) => {
           <h5>{tableData.Title}</h5>
           <br></br>
 
-          <p className="space"> Question : {tableData.QuestionBody}</p>
+          <p className="space"> Question : <b> {tableData.QuestionBody} </b></p>
         
           <p className="space"> Answers </p>
 
-          <Paper style={{padding: "10px"}} elevation={2}>{answers.AnswerBody}</Paper>
+          {answers.map(() => {
+            return(
+              <Paper style={{padding: "10px"}} elevation={4}>{answers.AnswerBody}</Paper>
+            )
+          })}
+
+          {/* <Paper style={{padding: "10px"}} elevation={2}>{answers.AnswerBody}</Paper> */}
          
         </Modal.Body>
         <Modal.Footer>

@@ -81,7 +81,7 @@ const User = () => {
       renderCell: (params) => {
           return (
             <Box sx={{ width: "100%", height: "100%", display: "flex", justifyContent: "center", alignItems: "center"}}>
-              <IconButton onClick={handleShopView(params.id)}>
+              <IconButton onLoad={handleShopView(params.id)}>
                 <StoreIcon color="success"/>
               </IconButton>
             </Box>

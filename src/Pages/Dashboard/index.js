@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Col, Row } from "react-bootstrap";
+import { Card, Col, Row } from "react-bootstrap";
 
 import {
   Bar,
@@ -63,41 +63,25 @@ const Dashboard = () => {
   return (
     <div className="App1">
       {/* <div className="Card1"> */}
-      <Row md="auto">
-        <Col>
-          <AdminCard name="Buyers" value="40" />
-        </Col>
-        <Col>
-          <AdminCard name="Sellers" value="10" />
-        </Col>
-        <Col>
-          <AdminCard name="Delivery" value={data2} />
-        </Col>
-      </Row>
+        <Row  md="auto">
+          <Col ><AdminCard name="Buyers" value="40"/></Col>
+          <Col><AdminCard name="Sellers" value="10"/></Col>
+         <Col><AdminCard name="Delivery" value={data2}/></Col>
+        </Row>
 
-      <Row>
-        <Col>
-          <AdminCard name="Architectures" value={data3} />
-        </Col>
-        <Col>
-          <AdminCard name="Experts" value={data1} />
-        </Col>
-        <Col>
-          <AdminCard name="Online Payments" value="320" />
-        </Col>
-      </Row>
-
-      <Row>
-        <Col>
-          <AdminCard name="Cache on Delivery" value="80" />
-        </Col>
-        <Col>
-          <AdminCard name="Weekly Orders" value="400" />
-        </Col>
-        <Col>
-          <AdminCard name="Online Payments" value="320" />
-        </Col>
-      </Row>
+        <Row>
+          <Col><AdminCard name="Architectures" value={data3}/></Col>
+         <Col><AdminCard name="Experts" value={data1}/></Col>
+         <Col><AdminCard name="Online Payments" value="320"/></Col>
+        </Row>
+      
+        <Row>
+          <Col><AdminCard name="Cache on Delivery" value="80"/></Col>
+         <Col><AdminCard name="Weekly Orders" value="400"/></Col>
+         <Col><AdminCard name="Online Payments" value="320"/></Col>
+        </Row>
+         
+     
 
       <div style={{ textAlign: "center" }}>
         <div className="Chart">
@@ -137,6 +121,9 @@ const Dashboard = () => {
             />
             <Tooltip />
           </PieChart>
+
+
+          
         </div>
       </div>
     </div>

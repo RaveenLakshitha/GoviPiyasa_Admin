@@ -17,6 +17,7 @@ const Preview = (props) => {
     const getData = async () => {
       try {
         console.log(id);
+
         const data = await axios.get("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/shops/"+id);
         setShopData(data.data.data);
         setUserData(data.data.data.user);

@@ -4,6 +4,7 @@ import ForumIcon from "@mui/icons-material/Forum";
 import HomeIcon from "@mui/icons-material/Home";
 import InfoIcon from "@mui/icons-material/Info";
 import LocalFloristIcon from "@mui/icons-material/LocalFlorist";
+import AddModeratorIcon from '@mui/icons-material/AddModerator';
 import PeopleIcon from "@mui/icons-material/People";
 import PersonIcon from "@mui/icons-material/Person";
 import SettingsIcon from "@mui/icons-material/Settings";
@@ -15,11 +16,6 @@ export const SidebarData = [
     title: "Dashboard",
     icon: <HomeIcon />,
     link: "/dashboard",
-  },
-  {
-    title: "Register",
-    icon: <HomeIcon />,
-    link: "/register",
   },
   {
     title: "Users",
@@ -71,5 +67,10 @@ export const SidebarData = [
     title: "Advertisements",
     icon: <SettingsIcon />,
     link: "/setting",
+  },
+  {
+    title: "New Admin",
+    icon: <AddModeratorIcon />,
+    link: "/register",
   },
 ];
