@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import "../../App.css";
 
 const Items = () => {
+
   //const [search, setSearch] = useState("");
   //const [show, setShow] = useState(false);
   const [tableData, setTableData] = useState([]);
@@ -27,12 +28,11 @@ const Items = () => {
   const onMouseLeaveRow = (event) => {
     setHoveredRow(null);
   };
+  
 
   const getProductData = async () => {
     try {
-      const data = await axios.get(
-        "https://govi-piyasa-v-0-1.herokuapp.com/api/v1/items"
-      );
+      const data = await axios.get("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/items");
       setTableData(data.data.data);
     } catch (e) {
       console.log(e);
@@ -96,7 +96,7 @@ const Items = () => {
   // }
 
   return (
-    <div className="App1">
+    <div className="content">
       <h3>Item list</h3>
       <input
         type="text"

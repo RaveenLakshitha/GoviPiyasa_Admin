@@ -1,177 +1,195 @@
-import Paper from "@material-ui/core/Paper";
-import { makeStyles, withStyles } from "@material-ui/core/styles";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import Button from "react-bootstrap/Button";
 import "../../App.css";
-import ExpertForm from "../../Components/ExpertForm";
-const StyledTableCell = withStyles((theme) => ({
-  head: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
-  },
-  body: {
-    fontSize: 14,
-  },
-}))(TableCell);
-
-const StyledTableRow = withStyles((theme) => ({
-  root: {
-    "&:nth-of-type(odd)": {
-      backgroundColor: theme.palette.action.hover,
-    },
-  },
-}))(TableRow);
-
-const useStyles = makeStyles({
-  table: {
-    minWidth: 700,
-  },
-});
+import * as React from "react";
+import { DataGrid } from "@mui/x-data-grid";
+import Preview from "./preview";
+import { IconButton, Rating} from "@mui/material";
+import { Box } from "@mui/system";
+import DeleteIcon from "@mui/icons-material/Delete";
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import BlockIcon from '@mui/icons-material/Block';
+import { Badge } from "react-bootstrap";
 
 const Shop = () => {
-  const classes = useStyles();
-  const [product, setProduct] = useState([]);
-  const [search, setSearch] = useState("");
+
+  //const [search, setSearch] = useState(null);
+  const [hoveredRow, setHoveredRow] = useState(null);
+  const [tableData, setTableData] = useState([]);
   const [show, setShow] = useState(false);
-  const [editId, setEditId] = useState("");
+  const [status, setStatus] = useState("K");
+
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const editData = (data) => {
-    setEditId(data);
-    handleShow();
+
+  const handleDelete = (id) => {
+    try{
+      axios.delete("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/shops/"+id);
+      setTableData(tableData.filter((data) => data._id !== id));
+      alert("Deleted!");
+      console.log(id);
+    }
+    catch{
+
+    }
   };
 
-  const getShopData = async () => {
+  // const handleView = (id) => {
+  //   handleShow();
+  //   console.log(id);
+  // }
+
+  const handleView = async (id) => {
+      try {
+        console.log(id);
+        const data = await axios.get("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/shops/"+id);
+        handleShow();
+        console.log(data);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+
+  const handleSuspend = (id, status) => {
+    try{
+      console.log(status);
+      if(status==="Active"){
+        console.log(status);
+        setStatus("Suspend");
+      }
+      axios.put("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/shops/setShopVisibility/"+id, status);
+    }
+    catch{
+
+    }
+  }
+
+
+  const onMouseEnterRow = (event) => {
+    const id = event.currentTarget.getAttribute("data-id");
+    setHoveredRow(id);
+  };
+
+  const onMouseLeaveRow = (event) => {
+    setHoveredRow(null);
+  };
+
+  const getData = async () => {
     try {
-      const data = await axios.get("http://localhost:5000/api/v1/shops");
-      console.log(data);
-      console.log(data.status);
-      console.log(data.data.data[0].user);
-      setProduct(data.data.data);
+      const data = await axios.get("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/shops");
+      setTableData(data.data.data);
     } catch (e) {
       console.log(e);
     }
   };
 
-  useEffect(() => {
-    getShopData();
-  }, []);
-  const removeData = async (id) => {
-    if (
-      window.confirm("Are you sure that you wanted to delete that user record")
-    ) {
-      const response = await axios.delete(
-        `https://mongoapi3.herokuapp.com/expert/${id}`
-      );
-      if (response.status === 200) {
-        console.log("id" + id);
+  useEffect(()=>{
+    getData();
+  },[])
+
+
+
+  //initialize columns 
+  
+  const columns = [
+    { field: 'shopName', headerName: 'Shop', width: 150 },
+    { field: 'userName', headerName: 'Name', width: 150 ,
+      valueGetter: (params) => {
+        return params.getValue(params.id, "user").userName;
       }
-      // axios.delete(`${URL}/${id}`).then((res) => {
-      //   const del = deliveries.filter((employee) => id !== employee.id);
-      //   setDelivery(del);
-      // });
+    },
+    { field: 'email', headerName: 'Email', width: 170},
+    { field: 'city', headerName: 'City', width: 100 ,
+      valueGetter: (params) => {
+        return params.getValue(params.id, "user").city;
+      }
+    },
+    { field: 'contactNumber', headerName: 'Contact No', width: 100 ,
+      valueGetter: (params) => {
+        return params.getValue(params.id, "user").contactNumber;
+      }
+    },
+    { field: 'itemCount', headerName: 'No of items', width: 100 },
+    { field: 'rating', headerName: 'Rating', width: 120,
+        renderCell: (params) => { 
+          return(
+            <Rating name="read-only" size="small" value={params.getValue(params.id,'rating')} precision={0.5} readOnly />
+          );
+        }
+    },
+    { field: 'shopVisibiliy', headerName: 'Status', width: 100, value:'Active' ,sortable: false,
+      renderCell: (params) => { 
+        return(
+          setStatus(params.getValue(params.id,'shopVisibility')),
+          params.getValue(params.id,'shopVisibility') ==="Active" ?   <Badge pill bg="success">Active</Badge> : 
+          (params.getValue(params.id,'shopVisibility')==="Inactive" ? <Badge pill bg="danger">Not Active</Badge> :
+          (params.getValue(params.id,'shopVisibility')==="Pending" ? <Badge pill bg="primary">Pending</Badge> :
+          (params.getValue(params.id,'shopVisibility')==="Suspend" ? <Badge pill bg="warning" text="dark">Suspend</Badge> : 
+                                                                    <Badge pill bg="secondary">Rejected</Badge>)))
+        );
+      }
+    },
+    { field: "actions", headerName: "Actions", width: 120, sortable: false, disableColumnMenu: true,
+      renderCell: (params) => {
+        if (hoveredRow === params.id) {
+          return (
+            <Box
+              sx={{ backgroundColor: "whitesmoke", width: "100%", height: "100%", display: "flex",
+                justifyContent: "center", alignItems: "center"
+              }}
+            >
+              <IconButton>
+                <BlockIcon color="warning" onClick={() => handleSuspend(params.id, params.getValue(params.id,'shopVisibiliy'))}/>
+              </IconButton>
+              <IconButton onClick={() => handleDelete(params.id)}>
+                <DeleteIcon color="error" />
+              </IconButton>
+              <IconButton onClick={() => handleView(params.id)}>
+                <RemoveRedEyeIcon color="info"/>
+              </IconButton>
+              <Preview show={show} id={params.id} handleClose={handleClose}/>
+            </Box>
+          );
+        } else return null;
+      }
     }
-  };
+  ]
+
+
+
 
   return (
-    <div className="App1">
-      <h1>Shop</h1>
-      <input
-        type="text"
-        placeholder="Search here"
-        onChange={(e) => {
-          setSearch(e.target.value);
-        }}
+    <div className="content">
+      <h3>Shop list</h3>
+      <input type="text" placeholder="Search here"
+        // onChange={(e) => {
+        //   setSearch(e.target.value);
+        // }}
       />
+      
 
-      <div className="col-8">
-        <Button
-          variant="success"
-          className="float-sm-end m-3"
-          size="sm"
-          onClick={handleShow}
-        >
-          Add Architect
-        </Button>
-        <ExpertForm show={show} id={editId} handleClose={handleClose} />
+      <br></br>
+
+      <div style={{ height: 400, width: "100%", padding: "1em" }}>
+        <DataGrid
+          rows={tableData}
+          columns={columns}
+          getRowId={(row) => row._id}
+          pageSize={10}
+          rowsPerPageOptions={[10]}
+          checkboxSelection
+          disableSelectionOnClick
+          initialState={{ pinnedColumns: { right: ['actions'] } }}
+          componentsProps={{
+            row: {
+              onMouseEnter: onMouseEnterRow,
+              onMouseLeave: onMouseLeaveRow
+            }
+          }}
+        >  
+        </DataGrid>
       </div>
-      {/* {product
-        .filter((item) => {
-          if (search == "") {
-            return item;
-          } else if (item.name.toLowerCase().includes(search.toLowerCase())) {
-            return item;
-          }
-        })
-        .map((item) => {
-          return (
-            <p>
-              {item.name} - {item.price}
-            </p>
-          );
-        })} */}
-
-      <TableContainer component={Paper} style={{ width: "80%" }}>
-        <Table className={classes.table} aria-label="customized table">
-          <TableHead>
-            <TableRow>
-              <StyledTableCell>Name</StyledTableCell>
-              <StyledTableCell>About</StyledTableCell>
-
-              <StyledTableCell>Contact</StyledTableCell>
-              <StyledTableCell>team</StyledTableCell>
-              <StyledTableCell>Operation</StyledTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {product
-              .filter((item) => {
-                if (search === "") {
-                  return item;
-                } else if (
-                  item.name.toLowerCase().includes(search.toLowerCase())
-                ) {
-                  return item;
-                } else {
-                  return false;
-                }
-              })
-              .map((item) => {
-                return (
-                  <StyledTableRow key={item.id}>
-                    <StyledTableCell component="th" scope="row">
-                      {item.shopName}
-                    </StyledTableCell>
-                    <StyledTableCell>{item.user.userName}</StyledTableCell>
-                    <StyledTableCell>{item.contact}</StyledTableCell>
-                    <StyledTableCell>{item.team}</StyledTableCell>
-                    <StyledTableCell>
-                      <EditIcon
-                        fontSize="small"
-                        style={{ marginRight: "10px" }}
-                        onClick={() => editData(item._id)}
-                      />
-                      <DeleteIcon
-                        fontSize="small"
-                        onClick={() => removeData(item._id)}
-                      />
-                    </StyledTableCell>
-                  </StyledTableRow>
-                );
-              })}
-          </TableBody>
-        </Table>
-      </TableContainer>
     </div>
   );
 };

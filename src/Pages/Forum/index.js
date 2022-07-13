@@ -113,7 +113,7 @@ const Forum = () => {
   // }
 
   return (
-    <div className="App1">
+    <div className="content">
       <h3>QnA Forum</h3>
       <input
         type="text"

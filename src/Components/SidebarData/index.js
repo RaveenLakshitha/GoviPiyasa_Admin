@@ -4,21 +4,20 @@ import ForumIcon from "@mui/icons-material/Forum";
 import HomeIcon from "@mui/icons-material/Home";
 import InfoIcon from "@mui/icons-material/Info";
 import LocalFloristIcon from "@mui/icons-material/LocalFlorist";
+import AddModeratorIcon from '@mui/icons-material/AddModerator';
 import PeopleIcon from "@mui/icons-material/People";
 import PersonIcon from "@mui/icons-material/Person";
+import SettingsIcon from "@mui/icons-material/Settings";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import StoreIcon from "@mui/icons-material/Store";
+
+
 export const SidebarData = [
   {
     title: "Dashboard",
     icon: <HomeIcon />,
-    link: "/",
+    link: "/dashboard",
   },
-  // {
-  //   title: "Login",
-  //   icon: <HomeIcon />,
-  //   link: "/login",
-  // },
   {
     title: "Users",
     icon: <PeopleIcon />,
@@ -65,9 +64,14 @@ export const SidebarData = [
     icon: <InfoIcon />,
     link: "/information",
   },
-  // {
-  //   title: "Setting",
-  //   icon: <SettingsIcon />,
-  //   link: "/setting",
-  // },
+  {
+    title: "Advertisements",
+    icon: <SettingsIcon />,
+    link: "/setting",
+  },
+  {
+    title: "New Admin",
+    icon: <AddModeratorIcon />,
+    link: "/register",
+  },
 ];

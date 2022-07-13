@@ -9,7 +9,7 @@ const Notification = () => {
   const handleShow = () => setShow(true);
 
   return (
-    <div>
+    <div className="content">
       <h2 className="text-center">Notifications</h2>
       <div className="row">
         <div className="col-10">

@@ -1,6 +1,6 @@
 const CropInformation = () => {
   return (
-    <div>
+    <div className="content">
       <div className="row">
         <div className="col-10">
         </div>

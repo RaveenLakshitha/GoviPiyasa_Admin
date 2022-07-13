@@ -97,7 +97,7 @@ const Architect = () => {
   // }
 
   return (
-    <div className="App1">
+    <div className="content">
       <h3>Architect list</h3>
       <input
         type="text"

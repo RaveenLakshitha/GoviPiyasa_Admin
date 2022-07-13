@@ -88,18 +88,12 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+
 function Copyright(props) {
   return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
+    <Typography variant="body2" color="text.secondary" align="center" {...props} >
       {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{" "}
+      <Link color="inherit" href="https://mui.com/"> Your Website </Link>{" "}
       {new Date().getFullYear()}
       {"."}
     </Typography>
@@ -109,15 +103,18 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function Login() {
+
   const [token, setToken] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
+
   useEffect(() => {
     if (token) {
       navigate("/");
     }
   }, [token, navigate]);
+
   function handleSubmit(event) {
     event.preventDefault();
     console.log("Ok");
@@ -136,81 +133,61 @@ export default function Login() {
   }
 
   return (
-    <ThemeProvider theme={theme}>
+    <div>
+    <ThemeProvider theme={theme} >
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
-          sx={{
-            marginTop: 8,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
+          sx={{ marginTop: 8, display: "flex", flexDirection: "column", alignItems: "center"}}
         >
           <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
             <LockOutlinedIcon />
           </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign in
-          </Typography>
-          <Box
-            component="form"
-            onSubmit={handleSubmit}
-            noValidate
-            sx={{ mt: 1 }}
-          >
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
+          <Typography component="h1" variant="h5"> Welcome back! </Typography>
+          <Typography> Sign in to continue </Typography>
+
+          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }} >
+
+            <TextField margin="normal" required fullWidth id="email" label="Email Address" name="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              autoComplete="email"
-              autoFocus
+              autoComplete="email" autoFocus
             />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
+
+            <TextField margin="normal" required fullWidth name="password" label="Password" type="password"  id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               autoComplete="current-password"
             />
+
             <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
+              control={<Checkbox value="remember" color="primary" />} label="Remember me"
             />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
+
+            <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }} >
               Sign In
             </Button>
+
+
             <Grid container>
               <Grid item xs>
-                <Link href="/home" variant="body2">
-                  Forgot password?
-                </Link>
+                <Link href="/home" variant="body2"> Forgot password? </Link>
               </Grid>
-              <Grid item>
+
+              {/* <Grid item>
                 <Link href="#" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
-              </Grid>
+              </Grid> */}
+
             </Grid>
           </Box>
         </Box>
+
         <Copyright sx={{ mt: 8, mb: 4 }} />
+
       </Container>
     </ThemeProvider>
+    </div>
   );
 }

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const Orders = () => {
   return (
-    <div className="App1">
+    <div className="content">
       <h1>Orders</h1>
 
       <nav>

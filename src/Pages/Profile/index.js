@@ -1,6 +1,6 @@
 const Profile = () => {
   return (
-    <div>
+    <div className="content">
       My Profile- my photo and important facts and notes
     </div>
   );

@@ -1,14 +1,11 @@
-.sideMain{
-  display: flex;
-  flex-direction: row;
-}
-
 .sidebar{
   background-image: linear-gradient(green, black);
-  flex: 1;
-  height: 100vh;
-  top: 50px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   position: sticky;
+  padding: 2rem;
+  width: 250px
 }
 
 .sidebarlist{

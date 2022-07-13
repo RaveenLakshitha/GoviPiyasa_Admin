@@ -91,7 +91,7 @@ const User = () => {
   // }
 
   return (
-    <div className="App1">
+    <div className="content">
       <h3>User list</h3>
       <input
         type="text"

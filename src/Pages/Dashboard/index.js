@@ -17,6 +17,7 @@ const Dashboard = () => {
     getDeliverCount();
     getArchitectCount();
   }, []);
+
   const getExpertCount = async () => {
     try {
       const data = await axios.get("https://mongoapi3.herokuapp.com/experts");
@@ -25,6 +26,7 @@ const Dashboard = () => {
       console.log(e);
     }
   };
+
   const getDeliverCount = async () => {
     try {
       const data = await axios.get("https://mongoapi3.herokuapp.com/delivery");
@@ -34,6 +36,7 @@ const Dashboard = () => {
       console.log(e);
     }
   };
+
   const getArchitectCount = async () => {
     try {
       const data = await axios.get("https://mongoapi3.herokuapp.com/architect");
@@ -43,6 +46,7 @@ const Dashboard = () => {
       console.log(e);
     }
   };
+  
   const data = [
     { name: "Expert", users: data1 },
     { name: "Delivery", users: data2 },
@@ -77,7 +81,7 @@ const Dashboard = () => {
   }, [selectedCountry]); */
   /////////////////////////////////////////////////////////////////////////
   return (
-    <div className="App1">
+    <div className="content">
       {/* <div className="Card1"> */}
       <Row md="auto">
         <Col>

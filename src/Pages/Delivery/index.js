@@ -79,7 +79,7 @@ const Delivery = () => {
   };
 
   return (
-    <div className="App1">
+    <div className="content">
       <h1>Delivery</h1>
       <input
         type="text"

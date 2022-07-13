@@ -95,7 +95,7 @@ const Expert = () => {
   ];
 
   return (
-    <div className="App1">
+    <div className="content">
       <h3>Expert list</h3>
       <div className="div-inline">
         <input

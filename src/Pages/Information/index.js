@@ -12,7 +12,7 @@ const Information = () => {
   const handleShow = () => setShow(true);
 
   return (
-    <div className="App1">
+    <div className="content">
       <div className="m-1">
         <div className="row">
           <div className="col-4">
