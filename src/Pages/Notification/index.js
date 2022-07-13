@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Button, Card, Col, Row } from "react-bootstrap";
 import "../../App.css";
 import NotificationForm from "../../Components/NotificationForm";
+
+
 const Notification = () => {
   const [show, setShow] = useState(false);
 

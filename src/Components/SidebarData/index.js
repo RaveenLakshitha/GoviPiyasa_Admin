@@ -16,7 +16,7 @@ export const SidebarData = [
   {
     title: "Dashboard",
     icon: <HomeIcon />,
-    link: "/dashboard",
+    link: "/",
   },
   {
     title: "Users",
@@ -67,11 +67,11 @@ export const SidebarData = [
   {
     title: "Advertisements",
     icon: <SettingsIcon />,
-    link: "/setting",
+    link: "/advertisement",
   },
   {
     title: "New Admin",
     icon: <AddModeratorIcon />,
-    link: "/register",
+    link: "/registerNewAdmin",
   },
 ];

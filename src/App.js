@@ -16,7 +16,11 @@ import Login from "./Pages/Login";
 import Orders from "./Pages/Orders";
 import Setting from "./Pages/Setting";
 import Shop from "./Pages/Shop";
+import Advertisement from "./Pages/Advertisement";
 import User from "./Pages/User";
+import Register from "./Pages/Register";
+import Information from "./Pages/Information";
+import Notification from "./Pages/Notification";
 //import Layout from "./Components/Layout"
 
 
@@ -53,7 +57,10 @@ function App() {
             <Route path="/architect" element={<ProtectedRoute Component={Architect} />} />
             <Route path="/forum" element={<ProtectedRoute Component={Forum} />} />
             <Route path="/delivery" element={<ProtectedRoute Component={Delivery} />} />
-            <Route path="/setting" element={<ProtectedRoute Component={Setting} />} />
+            <Route path="/information" element={<ProtectedRoute Component={Information} />} />
+            <Route path="/registerNewAdmin" element={<ProtectedRoute Component={Register} />} />
+            <Route path="/advertisement" element={<ProtectedRoute Component={Advertisement} />} />
+            <Route path="/notification" element={<ProtectedRoute Component={Notification} />} />
           </Route>
 
           <Route path="/home" element={<ProtectedRoute Component={Home} />} />

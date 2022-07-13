@@ -4,6 +4,7 @@ import "./styles.css";
 
 
 const Sidebar = () => {
+  
   return (
     <div className="sidebar">
       {"."}

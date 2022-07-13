@@ -28,6 +28,10 @@ input{
   padding: 1.5em;
 }
 
+h3{
+  text-align: center;
+}
+
 @media screen and (min-width: 280px) and (max-width:1080px){
   .HomeMain{
    grid-template-columns: 1fr;

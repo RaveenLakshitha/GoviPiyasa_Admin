@@ -8,7 +8,7 @@
 
 .sidebarlist{
   width: 100%;
-  height: auto;
+  height: 400px;
   padding: 0;
   
 }
@@ -61,7 +61,6 @@
 
 .link:focus{
   color: rgb(0, 53, 0) ;
-  margin-left: 20px;
   background-color: white ;
   border-top-left-radius: 20px;
   border-bottom-left-radius: 20px;

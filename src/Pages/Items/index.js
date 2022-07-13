@@ -1,16 +1,19 @@
-import DeleteIcon from "@mui/icons-material/Delete";
-import { IconButton } from "@mui/material";
-import { Box } from "@mui/system";
-import { DataGrid } from "@mui/x-data-grid";
 import axios from "axios";
-import * as React from "react";
 import { useEffect, useState } from "react";
 import "../../App.css";
+import * as React from "react";
+import { Badge } from "react-bootstrap";
+import { DataGrid } from "@mui/x-data-grid";
+import { IconButton} from "@mui/material";
+import Preview from "./preview";
+import { Box } from "@mui/system";
+import DeleteIcon from "@mui/icons-material/Delete";
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+
 
 const Items = () => {
-
   //const [search, setSearch] = useState("");
-  //const [show, setShow] = useState(false);
+  const [show, setShow] = useState(false);
   const [tableData, setTableData] = useState([]);
   const [hoveredRow, setHoveredRow] = useState(null);
 
@@ -20,6 +23,9 @@ const Items = () => {
     console.log(id);
   };
 
+  const handleView = (id) => { setShow(true); }
+  const handleClose = (id) => { setShow(false); }
+
   const onMouseEnterRow = (event) => {
     const id = event.currentTarget.getAttribute("data-id");
     setHoveredRow(id);
@@ -28,7 +34,7 @@ const Items = () => {
   const onMouseLeaveRow = (event) => {
     setHoveredRow(null);
   };
-  
+
 
   const getProductData = async () => {
     try {
@@ -39,49 +45,52 @@ const Items = () => {
     }
   };
 
-  useEffect(() => {
+  useEffect(()=>{
     getProductData();
-  }, []);
+  },[])
 
+  
   const columns = [
-    { field: "_id", headerName: "ID", width: 200 },
-    { field: "productName", headerName: "Item", width: 150 },
-    { field: "price", headerName: "Price", width: 60 },
-    { field: "description", headerName: "Description", width: 200 },
-    { field: "quantity", headerName: "Qty", width: 50 },
-    { field: "rating", headerName: "Ratings", width: 60 },
-    // { field: 'shopName', headerName: 'Shop', width: 150,
-    //   valueGetter: (params) => {
-    //     return params.getValue(params.id, "shopId").shopName;
-    //   }},
-    {
-      field: "actions",
-      headerName: "Actions",
-      width: 120,
-      sortable: false,
-      disableColumnMenu: true,
+    { field: 'productName', headerName: 'Item', width:150 },
+    { field: 'categoryName', headerName: 'Category', width:120 },
+    { field: 'price', headerName: 'Price', width: 60 },
+    { field: 'description', headerName: 'Description', width: 200},
+    { field: 'quantity', headerName: 'Qty', width: 50 },
+    { field: 'rating', headerName: 'Ratings', width: 80 },
+    { field: 'shopName', headerName: 'Shop', width: 100 ,
+      valueGetter: (params) => {
+        return params.getValue(params.id, "shopId").shopName;
+      }
+    },
+    { field: 'status', headerName: 'Status', width: 100,
+      renderCell: (params) => { 
+        return(
+          <Badge pill bg="primary">Available</Badge>
+        );
+      }
+    },
+    { field: "actions", headerName: "Actions", width: 100, sortable: false, disableColumnMenu: true,
       renderCell: (params) => {
         if (hoveredRow === params.id) {
           return (
             <Box
-              sx={{
-                backgroundColor: "whitesmoke",
-                width: "100%",
-                height: "100%",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
+              sx={{ backgroundColor: "whitesmoke", width: "100%", height: "100%", display: "flex",
+                justifyContent: "center", alignItems: "center"
               }}
             >
               <IconButton onClick={() => handleDelete(params.id)}>
-                <DeleteIcon />
+                <DeleteIcon color="error" />
               </IconButton>
+              <IconButton >
+                <RemoveRedEyeIcon color="info" onClick={() => handleView(params.id)}/>
+              </IconButton>
+              <Preview show={show} id={params.id} handleClose={handleClose}/>
             </Box>
           );
         } else return null;
-      },
-    },
-  ];
+      }
+    }
+  ]
 
   // {
   //   product.filter((item) => {
@@ -98,9 +107,7 @@ const Items = () => {
   return (
     <div className="content">
       <h3>Item list</h3>
-      <input
-        type="text"
-        placeholder="Search here"
+      <input type="text" placeholder="Search here"
         // onChange={(e) => {
         //   setSearch(e.target.value);
         // }}
@@ -121,10 +128,11 @@ const Items = () => {
           componentsProps={{
             row: {
               onMouseEnter: onMouseEnterRow,
-              onMouseLeave: onMouseLeaveRow,
-            },
+              onMouseLeave: onMouseLeaveRow
+            }
           }}
-        ></DataGrid>
+        >  
+        </DataGrid>
       </div>
     </div>
   );
