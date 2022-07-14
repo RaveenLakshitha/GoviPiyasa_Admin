@@ -2,8 +2,13 @@
   padding-top: 8px;
 }
 
-h5,p{
-  font-family: 'Times New Roman', Times, serif;
+.space1{
+  padding-top: 8px;
+  font-size: large;
+}
+
+h4{
+  text-align: center;
 }
 
 p{

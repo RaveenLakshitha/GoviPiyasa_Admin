@@ -26,6 +26,8 @@ input{
 .content{
   flex: 4;
   padding: 1.5em;
+  width: 83vw;
+  height: 98vh;
 }
 
 h3{

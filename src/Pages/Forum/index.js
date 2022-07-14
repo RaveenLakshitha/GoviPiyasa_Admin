@@ -2,13 +2,14 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import "../../App.css";
 import * as React from "react";
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid } from '@mui/x-data-grid';
 import Preview from "./preview";
 import { IconButton} from "@mui/material";
 import { Box } from "@mui/system";
 import DeleteIcon from "@mui/icons-material/Delete";
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import BlockIcon from '@mui/icons-material/Block';
+import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import Tooltip from '@mui/material/Tooltip';
 import { Badge } from "react-bootstrap";
 
@@ -18,16 +19,10 @@ const Forum = () => {
   const [hoveredRow, setHoveredRow] = useState(null);
   const [tableData, setTableData] = useState([]);
   const [show, setShow] = useState(false);
-  const [ansID, setAnsID] = useState("");
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-
-  const handleDelete = (id) => {
-    setTableData(tableData.filter((data) => data._id !== id));
-    console.log(id);
-  };
 
   const onMouseEnterRow = (event) => {
     const id = event.currentTarget.getAttribute("data-id");
@@ -38,17 +33,35 @@ const Forum = () => {
     setHoveredRow(null);
   };
 
+
+
   const handleView = async (id) => {
     try {
-      setAnsID(id);
-      console.log("Hi,"+id);
-      //const data = await axios.get("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/forum/Questions/getQuestion/"+ansID);
       handleShow();
-      //console.log(data.data.data);
     } catch (e) {
       console.log(e);
     }
   };
+
+  const handleDelete = (id) => {
+    setTableData(tableData.filter((data) => data._id !== id));
+    console.log(id);
+  };
+
+  const handleBlock = async (id) => {
+    const response = await axios.put("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/forum/Questions/BlockQuestion/"+id);
+    if(response){
+      getAllData();
+    }
+  }
+
+  const handleUnblock = async (id) => {
+    const response = await axios.put("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/forum/Questions/UnblockQuestion/"+id);
+    if(response){
+      getAllData();
+    }
+  }
+
 
   const getAllData = async () => {
     try {
@@ -69,17 +82,12 @@ const Forum = () => {
 
     { field: 'Category', headerName: 'Category', width:130 },
     { field: 'Title', headerName: 'Title', width:250 },
-    // { field: 'Category', headerName: 'Name', width: 100 ,
-    //   valueGetter: (params) => {
-    //     return params.getValue(params.id, "user").userName;
-    //   }
-    // },
     { field: 'QuestionBody', headerName: 'Question', width: 320},
-    { field: 'Answers', headerName: 'View Answer', width: 100, default:"...",
+    { headerName: 'View Answer', width: 100, sortable: false,
       
       renderCell: (params) => {
+        
         if (hoveredRow === params.id) {
-        // customBodyRenderLite: (dataIndex) => {
           return (
           <Box
             sx={{ width: "100%", height: "100%", display: "flex", justifyContent: "center", alignItems: "center"
@@ -93,11 +101,11 @@ const Forum = () => {
         );
       }
     }},
-    //}},
+    
     { field: 'status', headerName: 'Status', width: 100,
       renderCell: (params) => { 
         return(
-          params.getValue(params.id,'status') === true ?   <Badge pill bg="success">Enable</Badge> : <Badge pill bg="secondary">Disable</Badge>
+          params.getValue(params.id,'status') === true ?   <Badge pill bg="primary">Enable</Badge> : <Badge pill bg="secondary">Disable</Badge>
         );
     }
     },
@@ -110,11 +118,12 @@ const Forum = () => {
                 justifyContent: "center", alignItems: "center"
               }}
             >
-              <Tooltip title="Hide" arrow>
-                <IconButton >
-                  <BlockIcon color="warning" />
+              <Tooltip title={params.getValue(params.id,'status') === true ? "Block" : "Unblock"}  arrow>
+                <IconButton onClick={() => params.getValue(params.id,'status') === true ? handleBlock(params.id) : handleUnblock(params.id)}>
+                  {params.getValue(params.id,'status') === true ? <BlockIcon color="warning" /> : <RemoveCircleOutlineIcon color="warning"/>}
                 </IconButton>
               </Tooltip>
+
               <IconButton onClick={() => handleDelete(params.id)}>
                 <DeleteIcon color="error" />
               </IconButton>
@@ -151,7 +160,7 @@ const Forum = () => {
 
       <br></br>
 
-      <div style={{ height: 400, width: "100%", padding: "1em" }}>
+      <div style={{ height: 500, width: "100%", padding: "1em" }}>
         <DataGrid
           rows={tableData}
           columns={columns}

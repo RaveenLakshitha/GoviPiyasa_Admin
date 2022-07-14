@@ -1,8 +1,11 @@
 //import { DataGrid } from "@mui/x-data-grid";
 import React from "react";
 import { useEffect, useState } from "react";
-import { Button, Modal } from "react-bootstrap";
+import { Button, Col, Modal, Row } from "react-bootstrap";
 import axios from "axios";
+import "./styles.css"
+import DeleteIcon from "@mui/icons-material/Delete";
+import { IconButton} from "@mui/material";
 import Paper from '@mui/material/Paper';
 
 
@@ -13,23 +16,28 @@ const Preview = (props) => {
 
   const id = props.id;
 
-  useEffect(()=>{
+  const getData = async (id) => {
+    try {
+      const data = await axios.get("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/forum/Questions/getQuestion/"+id);
+      setTableData(data.data.data);
+      setAnswers(data.data.data.Answers);
+      console.log(tableData);
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
-    const getData = async (id) => {
-      try {
-        console.log("modal"+id);
-        const data = await axios.get("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/forum/Questions/getQuestion/"+id);
-        setTableData(data.data.data);
-        setAnswers(data.data.data.Answers);
-        console.log(tableData);
-      } catch (e) {
-        console.log(e);
-      }
-    };
+  useEffect(()=>{
     getData(id);
   },[id])
 
 
+  const handleDelete = async (id) => {
+    const response = await axios.delete("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/forum/Answers/RemoveAnswer/"+id);
+    if(response){
+      getData();
+    }
+  }
 
   return ( 
     <div>
@@ -38,26 +46,28 @@ const Preview = (props) => {
           <Modal.Title>Answers</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <h5>{tableData.Title}</h5>
+          <h4>{tableData.Title}</h4>
           <br></br>
 
-          <p className="space"> Question : <b> {tableData.QuestionBody} </b></p>
+          <p className="space1"> <b> {tableData.QuestionBody} </b></p>
         
           <p className="space"> Answers </p>
 
-          {answers.map(() => {
+          {answers.map((ans) => {
             return(
-              <Paper style={{padding: "10px"}} elevation={4}>{answers.AnswerBody}</Paper>
+              
+              <Paper key={ans.id} style={{padding: "10px", margin: "20px"}} elevation={4}>
+                {ans.AnswerBody}
+                <IconButton style={{float:"right"}} onClick={() => handleDelete(ans.id)}>
+                  <DeleteIcon color="error" />
+                </IconButton>
+              </Paper>
             )
           })}
-
-          {/* <Paper style={{padding: "10px"}} elevation={2}>{answers.AnswerBody}</Paper> */}
          
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={props.handleClose}>
-            Close
-          </Button>
+          <Button variant="secondary" onClick={props.handleClose}> Close </Button>
         </Modal.Footer>
       </Modal>
     </div>

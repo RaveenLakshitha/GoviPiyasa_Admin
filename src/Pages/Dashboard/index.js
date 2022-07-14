@@ -42,13 +42,13 @@ const Dashboard = () => {
     <div className="content" style={{backgroundColor : "lightgrey"}}>
       <div>
 
-     <Grid container spacing={3}>
+     <Grid container spacing={3} columns={{ xs: 4, sm: 8, md: 12 }}>
 
-      <Grid item container xs={4}>
+      <Grid item container xs={4} columns={{ xs: 4, sm: 8, md: 12 }}>
         <Grid item xs={12}> <Admin>Admin profile</Admin> </Grid>
       </Grid>
 
-      <Grid item container xs={8} spacing={3}>
+      <Grid item container xs={8} spacing={3} columns={{ xs: 4, sm: 8, md: 12 }}>
         <Grid item xs={3}> <Item>Users</Item> </Grid>
         <Grid item xs={3}> <Item>Shops</Item> </Grid>
         <Grid item xs={3}> <Item>Architects</Item> </Grid>
@@ -61,13 +61,13 @@ const Dashboard = () => {
 
     <br></br>
 
-    <Grid container spacing={3}>
+    <Grid container spacing={3} columns={{ xs: 4, sm: 8, md: 12 }}>
 
-      <Grid item container xs={6}>
+      <Grid item container xs={6} columns={{ xs: 4, sm: 8, md: 12 }}>
         <Grid item xs={12}> <Chart>Chart1</Chart> </Grid>
       </Grid>
 
-      <Grid item container xs={6} spacing={3}>
+      <Grid item container xs={6} spacing={3} columns={{ xs: 4, sm: 8, md: 12 }}>
         <Grid item xs={12}> <Chart>Chart2</Chart> </Grid>
       </Grid>
       

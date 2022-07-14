@@ -90,7 +90,7 @@ const Orders = () => {
 
       <br></br>
 
-      <div style={{ height: 400, width: "100%", padding: "1em" }}>
+      <div style={{ height: 500, width: "100%", padding: "1em" }}>
         <DataGrid
           rows={tableData}
           columns={columns}
