@@ -20,8 +20,8 @@ const Expert = () => {
   const [notify, setNotify] = useState({isOpen:false, message:'', type:''});
 
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  //const handleClose = () => setShow(false);
+  //const handleShow = () => setShow(true);
 
 
   const handleDelete = (id) => {
@@ -106,7 +106,6 @@ const Expert = () => {
     <div className="content">
       <h3>Expert list</h3>
 
-      
         
           <input type="text" placeholder="Search here"
           //  onChange={(e) => {

@@ -49,12 +49,12 @@ const Dashboard = () => {
       </Grid>
 
       <Grid item container xs={8} spacing={3} columns={{ xs: 4, sm: 8, md: 12 }}>
-        <Grid item xs={3}> <Item>Users</Item> </Grid>
-        <Grid item xs={3}> <Item>Shops</Item> </Grid>
-        <Grid item xs={3}> <Item>Architects</Item> </Grid>
-        <Grid item xs={3}> <Item>Experts</Item> </Grid>
-        <Grid item xs={3}> <Item>Today Orders</Item> </Grid>
-        <Grid item xs={3}> <Item>Online payments</Item> </Grid>
+        <Grid item xs={4}> <Item>Users</Item> </Grid>
+        <Grid item xs={4}> <Item>Shops</Item> </Grid>
+        <Grid item xs={4}> <Item>Architects</Item> </Grid>
+        <Grid item xs={4}> <Item>Experts</Item> </Grid>
+        <Grid item xs={4}> <Item>Today Orders</Item> </Grid>
+        <Grid item xs={4}> <Item>Online payments</Item> </Grid>
       </Grid>
 
     </Grid>

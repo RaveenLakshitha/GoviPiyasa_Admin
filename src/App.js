@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, useLocation} from "react-router-dom";
 import "./App.css";
 import Header from "./Components/Header";
 import Footer from "./Components/Footer";
@@ -14,13 +14,14 @@ import Home from "./Pages/Home";
 import Items from "./Pages/Items";
 import Login from "./Pages/Login";
 import Orders from "./Pages/Orders";
-import Setting from "./Pages/Setting";
 import Shop from "./Pages/Shop";
 import Advertisement from "./Pages/Advertisement";
 import User from "./Pages/User";
 import Register from "./Pages/Register";
 import Information from "./Pages/Information";
 import Notification from "./Pages/Notification";
+import Details from "./Pages/Information/itemDetails";
+import Crops from "./Pages/Information/itemList";
 //import Layout from "./Components/Layout"
 
 
@@ -44,8 +45,9 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <Header />
-        
+        {/* {useLocation("/login") ? null : <Header />} */}
+        {window.location.pathname === '/login' ? null : <Header />}
+
         <Routes>
           <Route exact path="/" element={<ProtectedRoute Component={Home} />}>
             <Route path="/" element={<Dashboard />} />
@@ -58,6 +60,8 @@ function App() {
             <Route path="/forum" element={<ProtectedRoute Component={Forum} />} />
             <Route path="/delivery" element={<ProtectedRoute Component={Delivery} />} />
             <Route path="/information" element={<ProtectedRoute Component={Information} />} />
+            <Route path="/information/crops/:id" element={<ProtectedRoute Component={Crops} />} />
+            <Route path="/information/crops/details/:id" element={<ProtectedRoute Component={Details} />} />
             <Route path="/registerNewAdmin" element={<ProtectedRoute Component={Register} />} />
             <Route path="/advertisement" element={<ProtectedRoute Component={Advertisement} />} />
             <Route path="/notification" element={<ProtectedRoute Component={Notification} />} />

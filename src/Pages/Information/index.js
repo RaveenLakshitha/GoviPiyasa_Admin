@@ -1,18 +1,46 @@
-import { useState } from "react";
-import { Button, Dropdown } from "react-bootstrap";
+import { useState, useEffect } from "react";
+import { Button } from "react-bootstrap";
 import "../../App.css";
 import InfoCropForm from "../../Components/InfoCropForm";
-import Crop from "./itemList"
+import axios from "axios";
 import "./styles.css"
-import {Card, CardContent, CardMedia, Typography } from '@mui/material';
+import { useNavigate } from "react-router-dom";
+import {Card, CardContent, Typography } from '@mui/material';
 
 
 
 const Information = () => {
+
+  const navigate = useNavigate();
+
   const [show, setShow] = useState(false);
+  const [category, setCategory] = useState([]);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+
+  const getCategory = async () => {
+    try {
+      const data = await axios.get("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/infoCategories");
+      setCategory(data.data.data);
+
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  const loadCrops = (id) => {
+    console.log("clicked"+id);
+    navigate("/information/crops/"+id);
+  }
+
+  useEffect(()=>{
+    getCategory();
+  },[])
+
+
+
 
   return (
     <div className="content">
@@ -47,32 +75,31 @@ const Information = () => {
           <br></br>
           <div className="grid">
 
-          <Card sx={{ minWidth: 250, maxHeight:50, ':hover': { boxShadow: 6} }} className="cards" hoverable>
-            <CardContent>
-              <Typography gutterBottom variant="h6" fontSize={"medium"} component="div" textAlign={"left"}>
-                Fruits
-              </Typography>
-            </CardContent>
-          </Card>
-          <Card sx={{ minWidth: 250, maxHeight:50, ':hover': { boxShadow: 6} }} className="cards" hoverable>
-            <CardContent>
-              <Typography gutterBottom variant="h6" fontSize={"medium"} component="div" textAlign={"left"}>
-                Vegetables
-              </Typography>
-            </CardContent>
-          </Card>
+            {/* <Link to={"/information/crops/"+parentId}>  */}
 
-            <Crop/>
-            <Crop/>
-            <Crop/>
-            <Crop/>
-            <Crop/>
-            <Crop/>
-            <Crop/>
-            <Crop/>  <Crop/>
-            <Crop/>
-            <Crop/>
-            <Crop/>
+        {category.map((cat) => {
+          if(cat.categoryType === "Main"){
+
+          return (
+
+            <div key={cat._id} onClick={()=>loadCrops(cat._id)}>
+
+            {/* <Link to="/information/crops/" style={{textDecoration :'none'}}> */}
+
+              <Card sx={{ width: 250, maxHeight:50, ':hover': { boxShadow: 6} }} className="cards" key={cat._id}>
+                <CardContent>
+                  <Typography gutterBottom variant="h6" fontSize={"medium"} component="div" textAlign={"left"}>
+                    {cat.categoryName}
+                  </Typography>
+                </CardContent>
+              </Card>  
+
+              {/* </Link> */}
+              
+              </div> 
+
+          )}})}
+            
             
           </div>
         </div>
@@ -81,4 +108,6 @@ const Information = () => {
   );
 };
 
+
 export default Information;
+

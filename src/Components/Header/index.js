@@ -7,12 +7,14 @@ import "./styles.css";
 
 
 const Header = () => {
+
   const navigate = useNavigate();
+
   const signOutClick = async (event) => {
     event.preventDefault();
 
     try {
-      const data = await axios.post( "http://localhost:3000/api/v1/auths/signoutUser" );
+      const data = await axios.post( "https://govi-piyasa-v-0-1.herokuapp.com/api/v1/auths/signoutUser" );
       console.log(data.data.token);
       localStorage.removeItem("token");
       console.log(window.localStorage.getItem("token"));

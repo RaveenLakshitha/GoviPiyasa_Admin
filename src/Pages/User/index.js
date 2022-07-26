@@ -9,13 +9,14 @@ import { Box } from "@mui/system";
 import DeleteIcon from "@mui/icons-material/Delete";
 import BlockIcon from '@mui/icons-material/Block';
 import StoreIcon from '@mui/icons-material/Store';
+import HorizontalRuleIcon from '@mui/icons-material/HorizontalRule';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 
 
 const User = () => {
   //const [show, setShow] = useState(false);
-  const [open, setOpen] = useState(false);
-  const [close, setClose] = useState(false);
+  //const [open, setOpen] = useState(false);
   const [tableData, setTableData] = useState([]);
   const [hoveredRow, setHoveredRow] = useState(null);
 
@@ -29,13 +30,13 @@ const User = () => {
     
   };
 
-  const handleArchitectView = (id) => {
+  // const handleArchitectView = (id) => {
     
-  };
+  // };
 
-  const handleExpertView = (id) => {
+  // const handleExpertView = (id) => {
     
-  };
+  // };
   
 
   const onMouseEnterRow = (event) => {
@@ -82,7 +83,7 @@ const User = () => {
           return (
             <Box sx={{ width: "100%", height: "100%", display: "flex", justifyContent: "center", alignItems: "center"}}>
               <IconButton onLoad={handleShopView(params.id)}>
-                <StoreIcon color="success"/>
+                {params.getValue(params.id,'shopId') !== null ? <StoreIcon color="success"/> : <HorizontalRuleIcon color="warning"/>}
               </IconButton>
             </Box>
           );
@@ -102,52 +103,21 @@ const User = () => {
           
       }
   },
-  // { field: 'expertId', headerName: 'Expert', width: 50, sortable: false,
-  //     valueGetter: ({ value }) => value !== null,
-  //     renderCell: () => {
-  //         return (
-  //           <Box sx={{ width: "100%", height: "100%", display: "flex", justifyContent: "center", alignItems: "center"}}>
-  //             <IconButton>
-  //               <AdminPanelSettingsIcon color="success"/>
-  //             </IconButton>
-  //           </Box>
-  //         );
-  //     }
-  // },
+  { field: 'expertId', headerName: 'Expert', width: 50, sortable: false,
+      valueGetter: ({ value }) => value !== null,
+      renderCell: () => {
+          return (
+            <Box sx={{ width: "100%", height: "100%", display: "flex", justifyContent: "center", alignItems: "center"}}>
+              <IconButton>
+                <AdminPanelSettingsIcon color="success"/>
+              </IconButton>
+            </Box>
+          );
+      }
+  },
 
 
-    // { field: 'other', headerName: 'Other', width: 160, sortable: false,
-    //   renderCell: (params) => {
-    //     if(params.shopId !== null){
-    //       return (
-    //         <Box sx={{ width: "100%", height: "100%", display: "flex", justifyContent: "center", alignItems: "center"}}>
-    //           <IconButton>
-    //             <StoreIcon color="success"/>
-    //           </IconButton>
-    //         </Box>
-    //       );
-    //     }
-    //     if(params.architectId !== null){
-    //       return (
-    //         <Box sx={{ width: "100%", height: "100%", display: "flex", justifyContent: "center", alignItems: "center"}}>
-    //           <IconButton>
-    //             <AdminPanelSettingsIcon color="success"/>
-    //           </IconButton>
-    //         </Box>
-    //       );
-    //     }
-        // if(params.expertId !== null){
-        //   return (
-        //     <Box sx={{ width: "100%", height: "100%", display: "flex", justifyContent: "center", alignItems: "center"}}>
-        //       <IconButton>
-        //         <AccountBoxIcon color="success" />
-        //       </IconButton>
-        //     </Box>
-        //   );
-        // }
-     // }},
-
-    { field: "actions", headerName: "Actions", width: 80, sortable: false, disableColumnMenu: true,
+    { field: "actions", headerName: "Actions", width: 100, sortable: false, disableColumnMenu: true,
       renderCell: (params) => {
         if (hoveredRow === params.id) {
           return (
@@ -160,7 +130,7 @@ const User = () => {
                 <BlockIcon color="warning"/>
               </IconButton>
               <IconButton onClick={() => {
-                  setOpen(true);
+                  //setOpen(true);
                   handleDelete(params.id);
               }}>
                 <DeleteIcon color="error"/>
@@ -214,7 +184,7 @@ const User = () => {
       </Box> */}
       
       
-      <div style={{ height: 500, width: "100%", padding: "1em" }}>
+      <div style={{ height: 450, width: "100%", padding: "1em" }}>
         <DataGrid
           rows={tableData}
           columns={columns}

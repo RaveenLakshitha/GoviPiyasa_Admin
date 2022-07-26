@@ -1,12 +1,13 @@
 //import { DataGrid } from "@mui/x-data-grid";
 import React from "react";
 import { useEffect, useState } from "react";
-import { Button, Col, Modal, Row } from "react-bootstrap";
+import { Button, Modal } from "react-bootstrap";
 import axios from "axios";
 import "./styles.css"
 import DeleteIcon from "@mui/icons-material/Delete";
 import { IconButton} from "@mui/material";
 import Paper from '@mui/material/Paper';
+import { LaptopWindows } from "@material-ui/icons";
 
 
 const Preview = (props) => {
@@ -27,17 +28,22 @@ const Preview = (props) => {
     }
   };
 
-  useEffect(()=>{
-    getData(id);
-  },[id])
-
 
   const handleDelete = async (id) => {
+    console.log(id);
     const response = await axios.delete("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/forum/Answers/RemoveAnswer/"+id);
+    window.location.reload(true);
+    console.log(response);
     if(response){
       getData();
     }
   }
+
+  useEffect(()=>{
+    getData(id);
+  },[])
+
+
 
   return ( 
     <div>
@@ -55,16 +61,20 @@ const Preview = (props) => {
 
           {answers.map((ans) => {
             return(
-              
-              <Paper key={ans.id} style={{padding: "10px", margin: "20px"}} elevation={4}>
+              <Paper key={ans._id} style={{padding: "10px", margin: "20px", paddingBottom:"30px"}} elevation={4}>
                 {ans.AnswerBody}
-                <IconButton style={{float:"right"}} onClick={() => handleDelete(ans.id)}>
+                <br></br>
+
+                <IconButton style={{float:"right"}} onClick={() => handleDelete(ans._id)}>
                   <DeleteIcon color="error" />
                 </IconButton>
+
               </Paper>
             )
           })}
          
+
+
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={props.handleClose}> Close </Button>

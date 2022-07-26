@@ -10,6 +10,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import BlockIcon from '@mui/icons-material/Block';
 import { Badge } from "react-bootstrap";
+import AlertMsg from "../../Components/Alert";
 
 const Shop = () => {
 
@@ -17,18 +18,25 @@ const Shop = () => {
   const [hoveredRow, setHoveredRow] = useState(null);
   const [tableData, setTableData] = useState([]);
   const [show, setShow] = useState(false);
-  const [status, setStatus] = useState("K");
+  const [open, setOpen] = useState(false);
+  const [status, setStatus] = useState(true);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  const handleClose2 = () => {
+    setOpen(false);
+  };
 
   const handleDelete = (id) => {
     try{
-      axios.delete("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/shops/"+id);
-      setTableData(tableData.filter((data) => data._id !== id));
-      alert("Deleted!");
-      console.log(id);
+      axios.delete("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/shops/"+id)
+      .then(() => {
+        setTableData(tableData.filter((data) => data._id !== id));
+        setOpen(true);
+        //alert("Deleted!");
+        console.log(id);
+      })   
     }
     catch{
 
@@ -53,8 +61,9 @@ const Shop = () => {
 
   const handleSuspend = (id, status) => {
     try{
+      setStatus(status);
       console.log(status);
-      if(status==="Active"){
+      if(status === "Active"){
         console.log(status);
         setStatus("Suspend");
       }
@@ -93,6 +102,7 @@ const Shop = () => {
   //initialize columns 
   
   const columns = [
+
     { field: 'shopName', headerName: 'Shop', width: 150 },
     { field: 'userName', headerName: 'Name', width: 150 ,
       valueGetter: (params) => {
@@ -121,7 +131,6 @@ const Shop = () => {
     { field: 'shopVisibiliy', headerName: 'Status', width: 100, value:'Active' ,sortable: false,
       renderCell: (params) => { 
         return(
-          setStatus(params.getValue(params.id,'shopVisibility')),
           params.getValue(params.id,'shopVisibility') ==="Active" ?   <Badge pill bg="success">Active</Badge> : 
           (params.getValue(params.id,'shopVisibility')==="Inactive" ? <Badge pill bg="danger">Not Active</Badge> :
           (params.getValue(params.id,'shopVisibility')==="Pending" ? <Badge pill bg="primary">Pending</Badge> :
@@ -148,7 +157,9 @@ const Shop = () => {
               <IconButton onClick={() => handleView(params.id)}>
                 <RemoveRedEyeIcon color="info"/>
               </IconButton>
+
               <Preview show={show} id={params.id} handleClose={handleClose}/>
+              <AlertMsg open={open} msg="Deleted" handleClose2={handleClose2}/>
             </Box>
           );
         } else return null;
@@ -171,7 +182,7 @@ const Shop = () => {
 
       <br></br>
 
-      <div style={{ height: 500, width: "100%", padding: "1em" }}>
+      <div style={{ height: 450, width: "100%", padding: "1em" }}>
         <DataGrid
           rows={tableData}
           columns={columns}

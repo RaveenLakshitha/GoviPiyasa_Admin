@@ -26,8 +26,10 @@ input{
 .content{
   flex: 4;
   padding: 1.5em;
+  margin-bottom: 10px;
   width: 83vw;
   height: 98vh;
+  overflow: scroll;
 }
 
 h3{

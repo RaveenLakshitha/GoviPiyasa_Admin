@@ -4,8 +4,8 @@
 }
 
 .grid {
-  max-height: 450px;
-  overflow: scroll;
+  max-height: 550px;
+  /* overflow: scroll; */
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;

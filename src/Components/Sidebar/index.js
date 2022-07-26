@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import { SidebarData } from "../SidebarData";
+import MenuIcon from '@mui/icons-material/Menu';
+import { IconButton } from "@mui/material";
 import "./styles.css";
 
 
@@ -8,6 +10,10 @@ const Sidebar = () => {
   return (
     <div className="sidebar">
       {"."}
+      <IconButton> 
+        <MenuIcon sx={{color:"white"}} fontSize="small"/>
+      </IconButton>
+      
       <ul className="sidebarlist">
         {SidebarData.map((val, key) => {
           return (
