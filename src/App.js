@@ -12,6 +12,7 @@ import Expert from "./Pages/Expert";
 import Forum from "./Pages/Forum";
 import Home from "./Pages/Home";
 import Items from "./Pages/Items";
+import Profile from "./Pages/Profile";
 import Login from "./Pages/Login";
 import Orders from "./Pages/Orders";
 import Shop from "./Pages/Shop";
@@ -65,6 +66,7 @@ function App() {
             <Route path="/registerNewAdmin" element={<ProtectedRoute Component={Register} />} />
             <Route path="/advertisement" element={<ProtectedRoute Component={Advertisement} />} />
             <Route path="/notification" element={<ProtectedRoute Component={Notification} />} />
+            <Route path="/myProfile" element={<ProtectedRoute Component={Profile} />} />
           </Route>
 
           <Route path="/home" element={<ProtectedRoute Component={Home} />} />

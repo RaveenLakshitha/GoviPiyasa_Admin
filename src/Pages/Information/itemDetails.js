@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
+import { Button } from "react-bootstrap";
+import InfoDetailsForm from '../../Components/InfoDetailsForm';
 import axios from "axios";
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
@@ -11,24 +13,20 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 const Details = () => {
 
   const [details, setDetails] = useState([]);
-  const [title, setTitle] = useState([]);
-  const [description, setDescription] = useState([]);
-  const [crop, setCrop] = useState([]);
+  const [show, setShow] = useState(false);
 
   let params = useParams();
   console.log(params);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   
 
   const getDetails = async () => {
 
     try {
       const data = await axios.get("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/information/getInfoByCategory/"+params.id);
-      setDetails(data.data.data);
-      setTitle(data.data.data[0].SubTitles);
-      setDescription(data.data.data[0].Descriptions);
-      console.log(data.data.data);
-      console.log(data.data.data[0].SubTitles);
-      console.log(data.data.data[0].Descriptions);
+      setDetails(data.data.data[0].Articles);
 
     } catch (e) {
       console.log(e);
@@ -44,6 +42,17 @@ const Details = () => {
 
   return ( 
     <div className='content'>
+
+      <div className="row">
+      
+        <div className="d-flex justify-content-end">
+          <Button variant="success" className="float-sm-end m-3" size="sm" onClick={handleShow} >
+            Add Info
+          </Button>
+          <InfoDetailsForm show={show} title="Add information" handleClose={handleClose} />
+        </div>
+     </div>
+
       <div>
 
       {details.map((detail) => {
@@ -52,33 +61,18 @@ const Details = () => {
        <Accordion>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
 
-          <Typography>{detail.subTitles}</Typography>
+          <Typography><b>{detail.Title}</b></Typography>
 
         </AccordionSummary>
         <AccordionDetails>
 
-          <Typography> {detail.Descriptions} </Typography>
+          <Typography> {detail.Description} </Typography>
 
         </AccordionDetails>
       </Accordion>
 
       )})}
 
-      <Accordion>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1a-content"
-          id="panel1a-header"
-        >
-          <Typography>Land preparation</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>
-          Need one post and supportive structure at the top for one plant. The life time of the plant is nearly 25-30 years; hence the durability of the post is very important.
-          The distance between two pits should be 2x2m, 2x3m or 3x3m and the length, width and depth of the pit should be subsequently 2x2x1 ft. To stand the post another deep pit should be prepared at the center of the first pit which is 1x1x1/2 ft in size. Height of the post should be 7 ½ ft and the diameter should be 4-6 inches. The post should be stand at the center of the small pit and for fixing it concrete should be applied until the small pit is totally filled (1/2 ft).
-          </Typography>
-        </AccordionDetails>
-      </Accordion>
       </div>
     </div>
    );

@@ -61,8 +61,7 @@ const Shop = () => {
 
   const handleSuspend = (id, status) => {
     try{
-      setStatus(status);
-      console.log(status);
+      console.log("status "+status);
       if(status === "Active"){
         console.log(status);
         setStatus("Suspend");
@@ -149,7 +148,7 @@ const Shop = () => {
               }}
             >
               <IconButton>
-                <BlockIcon color="warning" onClick={() => handleSuspend(params.id, params.getValue(params.id,'shopVisibiliy'))}/>
+                <BlockIcon color="warning" onClick={() => handleSuspend(params.id, params.getValue(params.id,'shopVisibility'))}/>
               </IconButton>
               <IconButton onClick={() => handleDelete(params.id)}>
                 <DeleteIcon color="error" />
@@ -159,7 +158,6 @@ const Shop = () => {
               </IconButton>
 
               <Preview show={show} id={params.id} handleClose={handleClose}/>
-              <AlertMsg open={open} msg="Deleted" handleClose2={handleClose2}/>
             </Box>
           );
         } else return null;
@@ -201,6 +199,7 @@ const Shop = () => {
         >  
         </DataGrid>
       </div>
+      <AlertMsg open={open} msg="Deleted" handleClose={handleClose2}/>
     </div>
   );
 };

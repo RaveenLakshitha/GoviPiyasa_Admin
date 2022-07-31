@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "react-bootstrap";
 import "../../App.css";
-import InfoCropForm from "../../Components/InfoCropForm";
+import InfoCategoryForm from "../../Components/InfoCategoryForm";
 import axios from "axios";
 import "./styles.css"
 import { useNavigate } from "react-router-dom";
@@ -63,11 +63,11 @@ const Information = () => {
             </Dropdown>
           </div> */}
 
-          <div className="col-6">
+          <div className="col-7">
             <Button variant="success" className="float-sm-end m-3" size="sm" onClick={handleShow} >
-              Add Crop
+              Add Category
             </Button>
-            <InfoCropForm show={show} title="Add Crop" handleClose={handleClose} />
+            <InfoCategoryForm show={show} title="Add Category" handleClose={handleClose} />
           </div>
         </div>
 

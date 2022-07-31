@@ -1,9 +1,11 @@
 import * as React from 'react';
+import { Button } from "react-bootstrap";
 import "./styles.css"
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
+import InfoCropForm from '../../Components/InfoCropForm';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -12,10 +14,14 @@ import axios from "axios";
 const Crops = () => {
 
   const [crops, setCrops] = useState([]);
+  const [show, setShow] = useState(false);
   const navigate = useNavigate();
 
   let params = useParams();
   console.log(params);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   
   const getCrops = async (id) => {
@@ -39,7 +45,22 @@ const Crops = () => {
 
 
   return ( 
-    <div className="grid">
+    <div className="content">
+      <div className="row">
+        <div className="col-5">
+          <input type="text" placeholder="Search..." />
+        </div>
+      
+        <div className="col-7">
+          <Button variant="success" className="float-sm-end m-3" size="sm" onClick={handleShow} >
+            Add Crop
+          </Button>
+          <InfoCropForm show={show} title="Add Crop" handleClose={handleClose} />
+        </div>
+     </div>
+
+
+     <div className="grid">
 
     {crops.map((crop) => {
       if(crop.categoryType === "Sub"){
@@ -63,6 +84,10 @@ const Crops = () => {
       // </Link>
 
       )}})}
+           
+            
+        
+        </div>
     </div>
    );
 }

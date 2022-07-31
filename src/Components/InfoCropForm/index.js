@@ -20,7 +20,7 @@ const InfoCropForm = (props) => {
             <Form.Control className="m-2 w-75" type="text" size="sm" placeholder="Enter first name" />
           </Form.Group>
           </Col>
-          <Col>
+          {/* <Col>
           <Form.Group controlId="formDistrict">
               <Form.Label column="sm">Category</Form.Label>
               <Form.Select className="m-2 w-75" size="sm" defaultValue="Choose...">
@@ -28,27 +28,26 @@ const InfoCropForm = (props) => {
                 <option>...</option>
               </Form.Select>
             </Form.Group>
-          </Col>
+          </Col> */}
         </Row>
 
         <Row>
           <Form.Group controlId="forminfotitle">
-            <Form.Label column="sm">Title</Form.Label>
-            <Form.Control className="m-2 w-75" size="sm" type="email" placeholder="Enter title" />
+            <Form.Label column="sm">Upload an image</Form.Label>
+            <Form.Control className="m-2 w-75" size="sm" type="file" placeholder="Enter title" />
           </Form.Group>
-          
         </Row>
 
+      {/* 
         <Row>
         <Form.Group controlId="forminfodesc">
           <Form.Label column="sm">Description</Form.Label>
           <Form.Control className="m-2 w-75" size="sm" as="textarea" rows={3} placeholder="Enter description" />
         </Form.Group>
           
-        </Row>
+        </Row> */}
       
-        
-        <Button className="m-3" variant="success">Submit</Button>
+        <Button size="sm" className="m-3" variant="success"> Submit </Button>
         
       </Form>
       </Modal.Body>

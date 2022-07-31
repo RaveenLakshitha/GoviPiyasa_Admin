@@ -69,7 +69,7 @@ const Register = () => {
       </Stack> 
       </form>
 
-      <AlertMsg open={open} msg="Successfully inserted" handleClose={handleClose}/>
+      <AlertMsg open={open} msg="Successfully inserted" status="success" handleClose={handleClose}/>
     </div>  
     </div>
    );
