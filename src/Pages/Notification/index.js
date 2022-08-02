@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Button, Card, Col, Row } from "react-bootstrap";
+import { Button, Card } from "react-bootstrap";
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import "../../App.css";
@@ -8,42 +8,46 @@ import NotificationForm from "../../Components/NotificationForm";
 
 
 const Notification = () => {
+
+
   const [show, setShow] = useState(false);
   const [notification, setNotification] = useState([]);
   const [myNotifi, setMyNotifi] = useState([]);
 
   const handleClose = () => setShow(false);
-  const handleShow = () => {
-    setShow(true);
-  }
+  const handleShow = () => setShow(true);
 
   const user_token = window.localStorage.getItem("token");
 
-  const getMyData = async () => {
-    try{
-      const data = await axios.get("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/notifications");
-      setMyNotifi(data.data.data);
-    }catch (e) {
-      console.log(e);
-    }
-  }
-
-  const getData = async () => {
-    try {
-      const data = await axios.get("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/notifications/getUsersNotifications",
-      { headers : 
-        {'Authorization' : `Bearer ${user_token}`}
-      }
-      );
-      setNotification(data.data.data);
-    } catch (e) {
-      console.log(e);
-    }
-  };
+  
 
   useEffect(()=>{
+    
+    const getMyData = async () => {
+      try{
+        const data = await axios.get("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/notifications");
+        setMyNotifi(data.data.data);
+      }catch (e) {
+        console.log(e);
+      }
+    }
+
+    const getData = async () => {
+      try {
+        const data = await axios.get("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/notifications/getUsersNotifications",
+        { headers : 
+          {'Authorization' : `Bearer ${user_token}`}
+        }
+        );
+        setNotification(data.data.data);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+
     getData();
     getMyData();
+    
   },[])
 
 
@@ -64,8 +68,8 @@ const Notification = () => {
 
       <div className="mt-5">
 
-        <Tabs defaultActiveKey="profile" id="fill-tab-example" className="mb-3" fill style={{ borderTopLeftRadius: "20px", borderTopRightRadius: "20px", backgroundColor: "#D4F6CC"}}>
-        <Tab eventKey="home" title="Received">
+        <Tabs defaultActiveKey="profile" id="fill-tab-example" className="mb-3" fill style={{ backgroundColor: "#D4F6CC"}}>
+        <Tab eventKey="receive" title="Received">
 
         {notification.map((notify) => { 
 
@@ -79,10 +83,10 @@ const Notification = () => {
               </Card.Body>
             </Card>
 
-         )})} 
+         )})}
         </Tab>
 
-        <Tab eventKey="profile" title="Uploaded">
+        <Tab eventKey="upload" title="Uploaded">
 
         {myNotifi.map((myNotify) => { 
 
@@ -91,12 +95,28 @@ const Notification = () => {
             <Card.Body>
               <Card.Title>{myNotify.Title}</Card.Title>
               <Card.Text style={{fontWeight : 'lighter'}}> {myNotify.Description} </Card.Text>
-              <Button size="sm" variant="primary" color="white" float-end> Accept </Button>
+              <Button size="sm" variant="primary" color="white" float-end> Publish </Button>
               <Button size="sm" variant="secondary" color="white" className="m-2" > Discard </Button>
             </Card.Body>
           </Card>
 
-          )})} 
+          )})}
+          
+        </Tab>
+
+        <Tab eventKey="sent" title="Sent">
+
+        {myNotifi.map((myNotify) => { 
+
+          return( 
+          <Card className="m-2 w-100">
+            <Card.Body>
+              <Card.Title>{myNotify.Title}</Card.Title>
+              <Card.Text style={{fontWeight : 'lighter'}}> {myNotify.Description} </Card.Text>
+            </Card.Body>
+          </Card>
+
+          )})}
           
         </Tab>
       </Tabs>

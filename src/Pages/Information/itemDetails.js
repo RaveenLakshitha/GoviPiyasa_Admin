@@ -22,19 +22,20 @@ const Details = () => {
   const handleShow = () => setShow(true);
   
 
-  const getDetails = async () => {
-
-    try {
-      const data = await axios.get("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/information/getInfoByCategory/"+params.id);
-      setDetails(data.data.data[0].Articles);
-
-    } catch (e) {
-      console.log(e);
-    }
-  }
-
 
   useEffect(()=>{
+
+    const getDetails = async () => {
+
+      try {
+        const data = await axios.get("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/information/getInfoByCategory/"+params.id);
+        setDetails(data.data.data[0].Articles);
+  
+      } catch (e) {
+        console.log(e);
+      }
+    }
+
     getDetails();
   },[])
 

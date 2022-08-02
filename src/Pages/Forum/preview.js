@@ -7,7 +7,6 @@ import "./styles.css"
 import DeleteIcon from "@mui/icons-material/Delete";
 import { IconButton} from "@mui/material";
 import Paper from '@mui/material/Paper';
-import { LaptopWindows } from "@material-ui/icons";
 
 
 const Preview = (props) => {

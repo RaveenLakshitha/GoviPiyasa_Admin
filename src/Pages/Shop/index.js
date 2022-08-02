@@ -14,6 +14,7 @@ import AlertMsg from "../../Components/Alert";
 
 const Shop = () => {
 
+  const user_token = window.localStorage.getItem("token");
   //const [search, setSearch] = useState(null);
   const [hoveredRow, setHoveredRow] = useState(null);
   const [tableData, setTableData] = useState([]);
@@ -85,7 +86,10 @@ const Shop = () => {
 
   const getData = async () => {
     try {
-      const data = await axios.get("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/shops");
+      const data = await axios.get("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/shops",
+      { headers : 
+        {'Authorization' : `Bearer ${user_token}`}
+      });
       setTableData(data.data.data);
     } catch (e) {
       console.log(e);

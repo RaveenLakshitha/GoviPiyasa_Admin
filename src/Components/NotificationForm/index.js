@@ -1,5 +1,5 @@
 import { Button, Form, Modal, Row } from "react-bootstrap";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import axios from "axios";
 
 const NotificationForm = (props) => {
@@ -10,9 +10,10 @@ const NotificationForm = (props) => {
   const [description, setDescription] = useState("");
   const [datetime, setDatetime] = useState("2022-03-23");
 
+  
   const createNotification = async () => {
     try{
-      const data = await axios.post("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/notifications", 
+      await axios.post("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/notifications", 
         { Title: title, 
           Description : description, 
           DateAndTime : datetime

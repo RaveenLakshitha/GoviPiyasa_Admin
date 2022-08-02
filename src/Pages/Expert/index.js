@@ -16,8 +16,8 @@ const Expert = () => {
   //const [search, setSearch] = useState("");
   const [tableData, setTableData] = useState([]);
   const [hoveredRow, setHoveredRow] = useState(null);
-  const [show, setShow] = useState(false);
-  const [notify, setNotify] = useState({isOpen:false, message:'', type:''});
+  //const [show, setShow] = useState(false);
+  //const [notify, setNotify] = useState({isOpen:false, message:'', type:''});
 
 
   //const handleClose = () => setShow(false);
@@ -32,7 +32,7 @@ const Expert = () => {
 
   const handleView = (id) => {
     //setTableData(tableData.filter((data) => data._id !== id));
-    setNotify({isOpen:true, message:'Updated successfully!', type:'warning'});
+    //setNotify({isOpen:true, message:'Updated successfully!', type:'warning'});
     alert("Updated!");
     console.log(id);
   };
@@ -47,16 +47,18 @@ const Expert = () => {
   };
 
 
-  const getAllData = async () => {
-    try {
-      const data = await axios.get("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/auths/getExperts");
-      setTableData(data.data.data);
-    } catch (e) {
-      console.log(e);
-    }
-  };
 
   useEffect(()=>{
+
+    const getAllData = async () => {
+      try {
+        const data = await axios.get("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/auths/getExperts");
+        setTableData(data.data.data);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+
     getAllData();
   },[])
 

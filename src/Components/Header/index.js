@@ -66,10 +66,11 @@ const Header = () => {
           </div>
         </Link>
       </div>
+      
       <div style={{ marginRight: "10px"}}>
-        <IconButton>
+        <IconButton sx={{ marginRight: '10px' }}>
          <NotificationsNoneIcon
-            className="float-start" sx={{ color: 'white', marginRight: '10px' }}
+            className="float-start" sx={{ color: 'white'}}
             onClick={() => {
               window.location.pathname = "/notification";
             }}
