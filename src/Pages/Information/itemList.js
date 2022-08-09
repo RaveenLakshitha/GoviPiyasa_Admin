@@ -36,10 +36,9 @@ const Crops = () => {
 
   useEffect(()=>{
     getCrops();
-  },[])
+  },[crops])
 
   const loadInfo = (id) => {
-    console.log("detail"+id);
     navigate("/information/crops/details/"+id);
   }
 
@@ -69,7 +68,8 @@ const Crops = () => {
 
       // <Link to="/information/crops/details" style={{textDecoration :'none'}}>
 
-        <Card sx={{ width: 150, height: 180, ':hover': { boxShadow: 6} }} className="cards" hoverable onClick={()=>loadInfo(crop._id)}>
+        <Card sx={{ width: 150, height: 180, ':hover': { boxShadow: 6} }} className="cards" hoverable 
+              onClick={()=>loadInfo(crop._id)}>
           <CardMedia
             component="img" height="120"
             image={crop.image}

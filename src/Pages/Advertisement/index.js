@@ -34,13 +34,13 @@ const Advertisement = () => {
       {ads.map((ad)=>{
         return(
 
-          <Card sx={{ display: 'flex' }}>
+          <Card sx={{ display: 'flex', height: '200px' }}>
 
           <CardMedia
             component="img"
             sx={{ width: '70%' }}
             image={img1}
-            alt="Live from space album cover"
+            alt="Ads"
           />
 
           <Box sx={{ display: 'flex', flexDirection: 'column', width: '30%' }}>
@@ -48,6 +48,11 @@ const Advertisement = () => {
               <Typography component="div" variant="h5"> {ad.Title} </Typography>
               <Typography variant="subtitle1" color="text.secondary" component="div"> {ad.Description} </Typography>
             </CardContent>
+
+            <CardActions>
+              <Button sx={{ alignContent:'center' }} size="small">Accept</Button>
+              <Button size="small">Reject</Button>
+            </CardActions>
           </Box>
          
         </Card>

@@ -1,5 +1,4 @@
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Header from "./Components/Header";
@@ -48,7 +47,7 @@ function App() {
     <Router>
       <div className="App">
         {/* {useLocation("/login") ? null : <Header />} */}
-        {window.location.pathname === '/login' ? null : <Header />}
+        {/* {window.location.pathname === '/login' ? null : <Header />} */}
 
         <Routes>
           <Route exact path="/" element={<ProtectedRoute Component={Home} />}>
@@ -74,7 +73,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/about" element={<About />} />
         </Routes>
-        <Footer/>
+        {/* <Footer/> */}
       </div>
     </Router>
   );

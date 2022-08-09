@@ -8,7 +8,7 @@
     width: 100%;
     height: 60px;
     /* background-color: #00c000; */
-    background-image: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(1, 99, 1));
+    /* background-image: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(1, 99, 1)); */
     margin: 0;
     display: flex;
     flex-direction: row;

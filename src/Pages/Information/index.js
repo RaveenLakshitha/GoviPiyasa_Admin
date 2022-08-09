@@ -5,7 +5,8 @@ import InfoCategoryForm from "../../Components/InfoCategoryForm";
 import axios from "axios";
 import "./styles.css"
 import { useNavigate } from "react-router-dom";
-import {Card, CardContent, Typography } from '@mui/material';
+import {Card, CardContent, IconButton, Typography } from '@mui/material';
+import DeleteIcon from "@mui/icons-material/Delete";
 
 
 
@@ -31,13 +32,12 @@ const Information = () => {
   }
 
   const loadCrops = (id) => {
-    console.log("clicked"+id);
     navigate("/information/crops/"+id);
   }
 
   useEffect(()=>{
     getCategory();
-  },[])
+  },[category])
 
 
 
@@ -49,20 +49,6 @@ const Information = () => {
           <div className="col-5">
             <input type="text" placeholder="Search..." />
           </div>
-          {/* <div className="col-3">
-            <br></br>
-            <Dropdown>
-              <Dropdown.Toggle variant="outline-success" id="dropdown-basic" size="sm" >
-                Select category
-              </Dropdown.Toggle>
-              <Dropdown.Menu>
-                <Dropdown.Item href="#/action-1">Flowers</Dropdown.Item>
-                <Dropdown.Item href="#/action-2">Vegetables</Dropdown.Item>
-                <Dropdown.Item href="#/action-3">Fruits</Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
-          </div> */}
-
           <div className="col-7">
             <Button variant="success" className="float-sm-end m-3" size="sm" onClick={handleShow} >
               Add Category
@@ -92,7 +78,11 @@ const Information = () => {
                     {cat.categoryName}
                   </Typography>
                 </CardContent>
+                {/* <IconButton style={{position: 'absolute', flexDirection: 'row', float: 'right'}}>
+                <DeleteIcon color="error" />
+               </IconButton> */}
               </Card>  
+              
 
               {/* </Link> */}
               

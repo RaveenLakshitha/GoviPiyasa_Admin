@@ -67,8 +67,9 @@ const Header = () => {
         </Link>
       </div>
       
-      <div style={{ marginRight: "10px"}}>
-        <IconButton sx={{ marginRight: '10px' }}>
+      {/* <div style={{ marginRight: "10px"}}> */}
+      <div>
+        <IconButton>
          <NotificationsNoneIcon
             className="float-start" sx={{ color: 'white'}}
             onClick={() => {

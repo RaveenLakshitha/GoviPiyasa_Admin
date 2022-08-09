@@ -52,7 +52,7 @@ const Expert = () => {
 
     const getAllData = async () => {
       try {
-        const data = await axios.get("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/auths/getExperts");
+        const data = await axios.get("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/experts/");
         setTableData(data.data.data);
       } catch (e) {
         console.log(e);
@@ -64,12 +64,12 @@ const Expert = () => {
 
   
   const columns = [
-    { field: '_id', headerName: 'ID', width: 200 },
     { field: 'profilePicture', headerName: 'Image' },
     { field: 'userName', headerName: 'Name', width: 100 },
     { field: 'email', headerName: 'Email', width: 200},
     { field: 'city', headerName: 'City', width: 100 },
     { field: 'contactNumber', headerName: 'Contact No', width: 100 },
+    { field: 'description', headerName: 'Description', width: 100 },
     { field: 'status', headerName: 'Status', width: 80,
       renderCell: (params) => { 
         return(

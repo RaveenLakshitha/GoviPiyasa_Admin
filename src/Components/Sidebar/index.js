@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
+import "./styles.css";
 import { SidebarData } from "../SidebarData";
 import MenuIcon from '@mui/icons-material/Menu';
 import { IconButton } from "@mui/material";
-import "./styles.css";
+
 
 
 const Sidebar = () => {

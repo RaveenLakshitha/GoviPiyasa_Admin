@@ -31,14 +31,13 @@ const Register = () => {
         .then((res) => {
           console.log(res);
           console.log(res.data);
-          //localStorage.setItem("myData", res.data.token);
-          hancleClear();
+          handleClear();
           setOpen(true);
           window.location.reload(true);
         });
   }
 
-  const hancleClear = () => {
+  const handleClear = () => {
     setName(" ");
     setEmail(" ");
     setPassword(" ");
@@ -72,7 +71,7 @@ const Register = () => {
       <br></br>
       <Stack spacing={2} direction="row" justifyContent="center" >
         <Button variant="contained" color="success" style={{minWidth:'150px'}} type="submit"> Submit </Button>
-        <Button variant="outlined" color="success" style={{minWidth:'130px'}} type="cancel" onClick={hancleClear}> Cancel </Button>
+        <Button variant="outlined" color="success" style={{minWidth:'130px'}} type="cancel" onClick={handleClear}> Cancel </Button>
       </Stack> 
       </form>
 

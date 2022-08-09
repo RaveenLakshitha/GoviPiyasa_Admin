@@ -1,10 +1,11 @@
 import DeleteIcon from "@mui/icons-material/Delete";
-import { IconButton } from "@mui/material";
 import { Box } from "@mui/system";
 import { DataGrid } from "@mui/x-data-grid";
 import axios from "axios";
+import { IconButton, Rating} from "@mui/material";
 import * as React from "react";
 import { useEffect, useState } from "react";
+import { Badge } from "react-bootstrap";
 import "../../App.css";
 
 const Architect = () => {
@@ -44,17 +45,33 @@ const Architect = () => {
   }, []);
 
   const columns = [
-    { field: "_id", headerName: "ID", width: 200 },
-    { field: "profileName", headerName: "Architect name", width: 200 },
+    { field: "businessName", headerName: "Architect name", width: 200 },
     // { field: 'description', headerName: 'Description', width: 200 ,
     //   valueGetter: (params) => {
     //     return params.getValue(params.id, "user").userName;
     //   }
     // },
-    { field: "description", headerName: "Description", width: 200 },
+    { field: "contactNumber", headerName: "Contacts", width: 120 },
     { field: "email", headerName: "Email", width: 200 },
     { field: "city", headerName: "City", width: 100 },
-    { field: "logo", headerName: "Logo", width: 100 },
+    { field: 'rating', headerName: 'Rating', width: 120,
+        renderCell: (params) => { 
+          return(
+            <Rating name="read-only" size="small" value={params.getValue(params.id,'rating')} precision={0.5} readOnly />
+          );
+        }
+    },
+    { field: 'architectVisibility', headerName: 'Status', width: 100, value:'Active' ,sortable: false,
+    renderCell: (params) => { 
+      return(
+        params.getValue(params.id,'architectVisibility') ==="Active" ?   <Badge pill bg="success">Active</Badge> : 
+        (params.getValue(params.id,'architectVisibility')==="Inactive" ? <Badge pill bg="danger">Not Active</Badge> :
+        (params.getValue(params.id,'architectVisibility')==="Pending" ? <Badge pill bg="primary">Pending</Badge> :
+        (params.getValue(params.id,'architectVisibility')==="Suspend" ? <Badge pill bg="warning" text="dark">Suspend</Badge> : 
+                                                                  <Badge pill bg="secondary">Rejected</Badge>)))
+      );
+    }
+  },
     {
       field: "actions",
       headerName: "Actions",

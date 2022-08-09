@@ -15,7 +15,7 @@ export default function ProtectedRoute(props) {
 
 
   return (
-    <div>
+    <div style={{border: 'green 2px solid'}}>
       <Component />
     </div>
   );

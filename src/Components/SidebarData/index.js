@@ -69,9 +69,9 @@ export const SidebarData = [
     icon: <SettingsIcon />,
     link: "/advertisement",
   },
-  {
-    title: "New Admin",
-    icon: <AddModeratorIcon />,
-    link: "/registerNewAdmin",
-  },
+  // {
+  //   title: "New Admin",
+  //   icon: <AddModeratorIcon />,
+  //   link: "/registerNewAdmin",
+  // },
 ];

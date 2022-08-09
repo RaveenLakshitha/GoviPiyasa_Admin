@@ -1,6 +1,9 @@
 import { Button, Form, Modal, Row } from "react-bootstrap";
 import { useState } from "react";
 import axios from "axios";
+import AlertMsg from "../../Components/Alert";
+
+
 
 const NotificationForm = (props) => {
 
@@ -9,6 +12,9 @@ const NotificationForm = (props) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [datetime, setDatetime] = useState("2022-03-23");
+
+  const [open, setOpen] = useState(false);
+  const handleCloseAlert = () => setOpen(false);
 
   
   const createNotification = async () => {
@@ -21,7 +27,11 @@ const NotificationForm = (props) => {
         { headers : 
           {'Authorization' : `Bearer ${user_token}`}
         }
-      );
+      )
+      .then(()=>{
+        props.handleClose();
+        setOpen(true);
+      })
       
     }catch{
 
@@ -68,6 +78,8 @@ const NotificationForm = (props) => {
           </Button>
         </Modal.Footer>
       </Modal>
+
+      <AlertMsg open={open} msg="Notification uploaded" status="success" handleClose={handleCloseAlert}/>
     </div>
   );
 };

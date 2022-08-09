@@ -3,7 +3,7 @@
   height: auto;
   position: sticky;
   top: 50px;
-  width: 15vw;
+  /* width: 15vw; */
 }
 
 .sidebarlist{
@@ -20,7 +20,8 @@
   margin: 0;
   display: flex;
   flex-direction: row;
-  color: white;
+  color : black;
+  /* color: white; */
   justify-content: center;
   font-size: small;
   align-items: center;

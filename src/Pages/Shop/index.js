@@ -12,6 +12,7 @@ import BlockIcon from '@mui/icons-material/Block';
 import { Badge } from "react-bootstrap";
 import AlertMsg from "../../Components/Alert";
 
+
 const Shop = () => {
 
   const user_token = window.localStorage.getItem("token");
@@ -86,11 +87,13 @@ const Shop = () => {
 
   const getData = async () => {
     try {
-      const data = await axios.get("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/shops",
+      console.log("shops");
+      const data = await axios.get("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/shops/getUsersShop",
       { headers : 
         {'Authorization' : `Bearer ${user_token}`}
       });
       setTableData(data.data.data);
+      console.log(data.data.data);
     } catch (e) {
       console.log(e);
     }
@@ -98,7 +101,7 @@ const Shop = () => {
 
   useEffect(()=>{
     getData();
-  },[])
+  },[tableData])
 
 
 
@@ -107,22 +110,22 @@ const Shop = () => {
   const columns = [
 
     { field: 'shopName', headerName: 'Shop', width: 150 },
-    { field: 'userName', headerName: 'Name', width: 150 ,
-      valueGetter: (params) => {
-        return params.getValue(params.id, "user").userName;
-      }
-    },
+    // { field: 'userName', headerName: 'Name', width: 150 ,
+    //   valueGetter: (params) => {
+    //     return params.getValue(params.id, "user").userName;
+    //   }
+    // },
     { field: 'email', headerName: 'Email', width: 170},
-    { field: 'city', headerName: 'City', width: 100 ,
-      valueGetter: (params) => {
-        return params.getValue(params.id, "user").city;
-      }
-    },
-    { field: 'contactNumber', headerName: 'Contact No', width: 100 ,
-      valueGetter: (params) => {
-        return params.getValue(params.id, "user").contactNumber;
-      }
-    },
+    // { field: 'city', headerName: 'City', width: 100 ,
+    //   valueGetter: (params) => {
+    //     return params.getValue(params.id, "googlelocation").city;
+    //   }
+    // },
+    // { field: 'contactNumber', headerName: 'Contact No', width: 100 ,
+    //   valueGetter: (params) => {
+    //     return params.getValue(params.id, "user").contactNumber;
+    //   }
+    // },
     { field: 'itemCount', headerName: 'No of items', width: 100 },
     { field: 'rating', headerName: 'Rating', width: 120,
         renderCell: (params) => { 
