@@ -21,7 +21,7 @@
   display: flex;
   flex-direction: row;
   color : black;
-  /* color: white; */
+  color: white;
   justify-content: center;
   font-size: small;
   align-items: center;

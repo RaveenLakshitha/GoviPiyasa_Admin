@@ -80,7 +80,7 @@ const Details = () => {
       <div>
         
       {() => {
-        if(data !== null ){ 
+        if(data.length === 0 ){ 
          return(
 
           <Card sx={{ display: 'flex', height: '200px' }}>

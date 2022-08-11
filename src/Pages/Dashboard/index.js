@@ -39,7 +39,7 @@ const Dashboard = () => {
 
   return ( 
     
-    <div className="content" style={{backgroundColor : "lightgrey"}}>
+    <div className="content">
       <div>
 
      <Grid container spacing={3} columns={{ xs: 4, sm: 8, md: 12 }}>

@@ -1,9 +1,9 @@
 .App{
   display: grid;
   grid-template-rows: auto auto;
-  min-height: 90vh;
-  max-height: 120vh;
-  border : red 2px solid;
+  /* min-height: 90vh;
+  max-height: 100vh; */
+  /* border : red 2px solid; */
 }
 
 body{
@@ -27,11 +27,11 @@ input{
 .content{
   flex: 4;
   padding: 1.5em;
-  margin-top: 7%;
   width: 100%;
-  height: 90vh;
-  overflow: scroll;
-  border: black 2px solid;
+  height: 100%;
+  background-color: #F8F8FB;
+  /* overflow: scroll; */
+  /* border: black 2px solid; */
 }
 
 h3{

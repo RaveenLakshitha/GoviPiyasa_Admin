@@ -1,9 +1,13 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Button, Card } from "react-bootstrap";
+import { Box, IconButton } from "@mui/material";
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import AlertMsg from "../../Components/Alert";
+import TextField from '@mui/material/TextField';
+import ClearIcon from '@mui/icons-material/Clear';
+import SearchIcon from '@mui/icons-material/Search';
 import "../../App.css";
 import NotificationForm from "../../Components/NotificationForm";
 
@@ -19,6 +23,8 @@ const Notification = () => {
   const [notification, setNotification] = useState([]);
   const [sentNotifi, setSentNotifi] = useState([]);
   const [myNotifi, setMyNotifi] = useState([]);
+  const [platform, setPlatform] = useState([]);
+  const [searchText, setSearchText] = useState('');
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -60,6 +66,7 @@ const Notification = () => {
           {'Authorization' : `Bearer ${user_token}`}
         });
         setNotification(data.data.data);
+        setPlatform(data.data.data);
       } catch (e) {
         console.log(e);
       }
@@ -69,15 +76,33 @@ const Notification = () => {
     getUploadedData();
     getSentData();
     
-  },[sentNotifi,myNotifi])
+  },[])
 
 
-  const sendNotification = (id) => {
-    console.log("inside function");
-    const res = axios.put("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/notifications/sendNotificationAll/"+id,
+  //search function
+  function escapeRegExp(value) {
+    return value.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
+  }
+  const requestSearch = (searchValue) => {
+    const searchRegex = new RegExp(escapeRegExp(searchValue), 'i');
+    const filteredRows = platform.filter((row) => {
+        return searchRegex.test(row.Title);
+    });
+    setNotification(filteredRows);
+  };
+
+
+  const sendNotification = async (id) => {
+    try{
+      console.log("inside function");
+      await axios.put("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/notifications/sendNotificationAll/"+id,
                                 { headers : {'Authorization' : `Bearer ${user_token}`}} );
-    console.log("Response");
-    setOpen(true);
+      console.log("Response");
+      setOpen(true);
+    }
+    catch(e){
+      console.log(e.response);
+    }
   }
 
 
@@ -86,16 +111,36 @@ const Notification = () => {
     <div className="content">
       <h3 className="text-center">Notifications</h3>
       <div className="row">
-        <div className="col-10">
-          <input type="text" placeholder="Search..." />
-        </div>
-        <div className="col-2">
-          <Button variant="success" size="sm" onClick={handleShow}> Add Notification </Button>
-          <NotificationForm show={show} handleClose={handleClose} />
-        </div>
-      </div>
 
-      <div className="mt-5">
+      <Box>
+        <TextField variant="standard" value={searchText}
+          onChange={(e) => { setSearchText(e.target.value); requestSearch(e.target.value) }}
+          placeholder="Search..."
+            InputProps={{
+              startAdornment: <SearchIcon fontSize="small" color="action" />,
+              endAdornment: (
+                <IconButton title="Clear" aria-label="Clear" size="small"
+                  style={{ visibility: searchText ? 'visible' : 'hidden', borderRadius: "57%", paddingRight: "1px", margin: "0", fontSize: "1.25rem" }}
+                  onClick={(e) => {setSearchText(''); setNotification(platform)} }
+                >
+                  <ClearIcon fontSize="small" color="action" />
+                </IconButton>
+              ),
+            }}
+            sx={{ width: { xs: 1, sm: 'auto' }, m: (theme) => theme.spacing(1, 1.5, 1.5, 2.5),
+                  '& .MuiSvgIcon-root': { mr: 0.5 },
+                  '& .MuiInput-underline:before': { borderBottom: 1, borderColor: 'divider', },
+            }}
+        />
+        <div className="">
+          <Button variant="success" size="sm" onClick={handleShow}> Add Notification </Button>
+        </div>
+        <NotificationForm show={show} handleClose={handleClose}/>
+      </Box>
+    </div>
+
+
+      <div className="mt-4">
 
         <Tabs defaultActiveKey="receive" id="fill-tab-example" className="mb-3" fill style={{ backgroundColor: "#D4F6CC"}}>
         <Tab eventKey="receive" title="Received">
@@ -110,9 +155,9 @@ const Notification = () => {
 
                 {notify.Title === "Shop creating Request" 
                   ? <Link to="/shop">
-                  <Button size="sm" variant="primary" color="white" float-end> View Shop </Button> </Link>
+                  <Button size="sm" variant="primary" color="white"> View Shop </Button> </Link>
                   : <Link to="/advertisement">
-                  <Button size="sm" variant="primary" color="white" float-end> View Ad </Button></Link>
+                  <Button size="sm" variant="primary" color="white"> View Ad </Button></Link>
                 }
                 <Button size="sm" variant="secondary" color="white" className="m-2" > Discard </Button>
               </Card.Body>
@@ -131,7 +176,8 @@ const Notification = () => {
             <Card.Body>
               <Card.Title>{myNotify.Title} {myNotify._id}</Card.Title>
               <Card.Text style={{fontWeight : 'lighter'}}> {myNotify.Description} </Card.Text>
-              <Button size="sm" variant="primary" color="white" float-end onClick={()=>sendNotification(myNotify._id)}> Publish </Button>
+              <Button size="sm" variant="primary" color="white" 
+                  onClick={()=>sendNotification(myNotify._id)}> Publish </Button>
               <Button size="sm" variant="secondary" color="white" className="m-2" > Discard </Button>
             </Card.Body>
           </Card>

@@ -47,7 +47,7 @@ function App() {
     <Router>
       <div className="App">
         {/* {useLocation("/login") ? null : <Header />} */}
-        {/* {window.location.pathname === '/login' ? null : <Header />} */}
+        {window.location.pathname === '/login' ? null : <Header />}
 
         <Routes>
           <Route exact path="/" element={<ProtectedRoute Component={Home} />}>
@@ -73,7 +73,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/about" element={<About />} />
         </Routes>
-        {/* <Footer/> */}
+        <Footer/>
       </div>
     </Router>
   );

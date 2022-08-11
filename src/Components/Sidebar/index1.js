@@ -18,12 +18,12 @@ import Header from "../Header";
 import { Link } from "react-router-dom";
 
 
-const drawerWidth = 240;
+const drawerWidth = 220;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
     flexGrow: 1,
-    padding: theme.spacing(3),
+    padding: theme.spacing(0),
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
@@ -59,7 +59,7 @@ const AppBar = styled(MuiAppBar, {
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
-  padding: theme.spacing(0, 1),
+  padding: theme.spacing(0, 0),
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
   justifyContent: 'flex-end',
@@ -67,7 +67,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 
 
-export default function PersistentDrawerLeft() {
+export default function NewSideBar() {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
 
@@ -89,7 +89,8 @@ export default function PersistentDrawerLeft() {
         </Toolbar>
       </AppBar>
       <Drawer
-        sx={{ width: drawerWidth, flexShrink: 0, '& .MuiDrawer-paper': { width: drawerWidth, boxSizing: 'border-box' } }}
+        sx={{ width: drawerWidth, flexShrink: 0, 
+            '& .MuiDrawer-paper': { width: drawerWidth, boxSizing: 'border-box', backgroundColor: "#004900" } }}
         variant="persistent"
         anchor="left"
         open={open}

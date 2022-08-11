@@ -46,10 +46,10 @@ const Information = () => {
     <div className="content">
       <div className="m-1">
         <div className="row">
-          <div className="col-5">
+          {/* <div className="col-5">
             <input type="text" placeholder="Search..." />
-          </div>
-          <div className="col-7">
+          </div> */}
+          <div className="col-12">
             <Button variant="success" className="float-sm-end m-3" size="sm" onClick={handleShow} >
               Add Category
             </Button>
@@ -58,7 +58,7 @@ const Information = () => {
         </div>
 
         <div className="w-100">
-          <br></br>
+  
           <div className="grid">
 
             {/* <Link to={"/information/crops/"+parentId}>  */}

@@ -52,7 +52,6 @@ const User = () => {
   const requestSearch = (searchValue) => {
     const searchRegex = new RegExp(escapeRegExp(searchValue), 'i');
     const filteredRows = platform.filter((row) => {
-      
         return searchRegex.test(row.userName);
     });
     setTableData(filteredRows);
@@ -124,7 +123,6 @@ const User = () => {
       const data = await axios.get("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/auths/getUsers")
       setPlatform(data.data.data);
       setTableData(data.data.data);
-  
     } catch (e) {
       console.log(e);
     }
@@ -149,7 +147,7 @@ const User = () => {
     else if(category === "Architect") getArchitects(); 
     else if(category === "Seller") getSellers(); 
     else getAllData(); 
-  },[tableData, category])
+  },[category])
 
 
   
@@ -255,7 +253,6 @@ const User = () => {
       <h3>User list</h3>
 
       <Box>
-
         <TextField variant="standard" value={searchText}
           onChange={(e) => { setSearchText(e.target.value); requestSearch(e.target.value) }}
           placeholder="Search..."
@@ -286,10 +283,10 @@ const User = () => {
             <MenuItem value={"Seller"}>Seller</MenuItem>
           </Select>
         </FormControl>
-        </Box>
+      </Box>
     
       
-      <div style={{ height: 450, width: "100%", padding: "1em" }}>
+      <div style={{ height: 500, width: "100%", padding: "1em" }}>
         <DataGrid
           rows={tableData}
           columns={columns}

@@ -1,6 +1,7 @@
 .HomeMain{
    display: grid;
-   grid-template-columns: 2fr 10fr;
+   grid-template-columns: 0fr 12fr;
+   margin-left: -20;
    min-height: 100vh;
    height: max-content;
 }

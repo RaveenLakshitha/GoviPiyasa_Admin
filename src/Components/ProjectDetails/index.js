@@ -20,7 +20,7 @@ const ProjectDetails = () => {
             </Row>
             
           </Card.Text>
-          <Button size="sm" variant="secondary" color="white" float-end
+          <Button size="sm" variant="secondary" color="white" 
             onClick={()=>{
               window.location.pathname = "/architect"
             }}>
