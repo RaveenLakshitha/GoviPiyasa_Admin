@@ -132,7 +132,7 @@ const Notification = () => {
                   '& .MuiInput-underline:before': { borderBottom: 1, borderColor: 'divider', },
             }}
         />
-        <div className="">
+        <div style={{float : 'right'}}>
           <Button variant="success" size="sm" onClick={handleShow}> Add Notification </Button>
         </div>
         <NotificationForm show={show} handleClose={handleClose}/>

@@ -69,12 +69,9 @@ const Delivery = () => {
 
   
   const columns = [
-    { field: '_id', headerName: 'ID', width: 200 },
-    { field: 'profilePicture', headerName: 'Image' },
-    { field: 'userName', headerName: 'Name', width: 100 },
-    { field: 'email', headerName: 'Email', width: 200},
-    { field: 'city', headerName: 'City', width: 100 },
-    { field: 'contactNumber', headerName: 'Contact No', width: 100 },
+    { field: 'userName', headerName: 'Name', width: 200 },
+    { field: 'web', headerName: 'WebSite', width: 400},
+    { field: 'contactNumber', headerName: 'Contact No', width: 200},
     {
       field: "actions",
       headerName: "Actions",
@@ -134,10 +131,10 @@ const Delivery = () => {
                   '& .MuiSvgIcon-root': { mr: 0.5 },
                   '& .MuiInput-underline:before': { borderBottom: 1, borderColor: 'divider', },
             }}
-        />
-      </Box>
-
+          />
           <Button variant="success" className="float-sm-end m-3" size="sm" onClick={handleShow}>Add deliver</Button>
+        </Box>
+
           <DeliveryForm show={show} handleClose={handleClose} />
         </div>
         

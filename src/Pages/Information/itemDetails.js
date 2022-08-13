@@ -27,7 +27,6 @@ const Details = () => {
 
 
   let params = useParams();
-  console.log(params);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);

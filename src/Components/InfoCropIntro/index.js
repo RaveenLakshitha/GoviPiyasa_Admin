@@ -12,7 +12,6 @@ const InfoCropIntro = (props) => {
 
   const user_token = window.localStorage.getItem("token");
   let params = useParams();
-  console.log("parent"+params.id);
 
   const [title, setTitle] = useState("Not set");
   const [family, setFamily] = useState("Not set");

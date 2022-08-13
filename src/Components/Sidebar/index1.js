@@ -97,7 +97,7 @@ export default function NewSideBar() {
       >
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+            {theme.direction === 'ltr' ? <ChevronLeftIcon sx={{color:"white"}}/> : <ChevronRightIcon />}
           </IconButton>
         </DrawerHeader>
 

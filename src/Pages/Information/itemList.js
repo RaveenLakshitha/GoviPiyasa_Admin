@@ -24,7 +24,6 @@ const Crops = () => {
   const navigate = useNavigate();
 
   let params = useParams();
-  console.log(params);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);

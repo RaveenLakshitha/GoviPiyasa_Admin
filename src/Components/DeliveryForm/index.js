@@ -42,7 +42,7 @@ const DeliveryForm = (props) => {
   };
   return (
     <div>
-      <Modal show={props.show} onHide={props.handleClose}>
+      <Modal show={props.show} onHide={props.handleClose} centered>
         <Modal.Header closeButton>
           <Modal.Title>Add Delivery</Modal.Title>
         </Modal.Header>
@@ -53,18 +53,13 @@ const DeliveryForm = (props) => {
                 <Form.Group controlId="formName">
                   <Form.Label column="sm">Name</Form.Label>
                   <Form.Control
-                    className="m-2 w-75"
-                    type="text"
-                    size="sm"
-                    name="name"
-                    placeholder="Enter name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
+                    className="m-2 w-75" type="text" size="sm" name="name" placeholder="Enter name"
+                    value={name} onChange={(e) => setName(e.target.value)}
                   />
                 </Form.Group>
               </Col>
 
-              <Col>
+              {/* <Col>
                 <Form.Group controlId="formDistrict">
                   <Form.Label column="sm">Vehicle Type</Form.Label>
                   <Form.Select
@@ -79,11 +74,11 @@ const DeliveryForm = (props) => {
                     <option>Bike</option>
                   </Form.Select>
                 </Form.Group>
-              </Col>
+              </Col> */}
             </Row>
 
             <Row>
-              <Col>
+              {/* <Col>
                 <Form.Group controlId="formVehicle">
                   <Form.Label column="sm">District</Form.Label>
                   <Form.Select
@@ -95,7 +90,7 @@ const DeliveryForm = (props) => {
                     <option>...</option>
                   </Form.Select>
                 </Form.Group>
-              </Col>
+              </Col> */}
               <Col>
                 <Form.Group controlId="formContactNo">
                   <Form.Label column="sm">Contact number</Form.Label>
@@ -111,12 +106,19 @@ const DeliveryForm = (props) => {
               </Col>
             </Row>
 
+            <Row>
+              <Col>
+                <Form.Group controlId="formDesc">
+                  <Form.Label column="sm">Description</Form.Label>
+                  <Form.Control className="m-2 w-75" type="text" as="textarea" rows={2} size="sm" placeholder="Enter here..." />
+                </Form.Group>
+              </Col>
+            </Row>
+
             <Button
-              type="submit"
-              onClick={props.handleClose}
+              type="submit" onClick={props.handleClose}
               //  onClick={() => handleSubmit()}
-              className="m-3"
-              variant="success"
+              className="m-3" variant="success"
             >
               Submit
             </Button>

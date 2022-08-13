@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import "../../App.css";
 import AlertMsg from "../../Components/Alert";
+import { Link } from "react-router-dom";
 import { Badge } from "react-bootstrap";
 import * as React from "react";
 import { DataGrid } from "@mui/x-data-grid";
@@ -52,7 +53,10 @@ const User = () => {
   const requestSearch = (searchValue) => {
     const searchRegex = new RegExp(escapeRegExp(searchValue), 'i');
     const filteredRows = platform.filter((row) => {
-        return searchRegex.test(row.userName);
+        // return searchRegex.test(row.userName);
+      return Object.keys(row).some((field) => {
+        return searchRegex.test(row[field]);
+      });
     });
     setTableData(filteredRows);
   };
@@ -63,18 +67,6 @@ const User = () => {
     setTableData(tableData.filter((data) => data._id !== id));
     console.log(id);
     setOpenDlt(true);
-  };
-
-  const handleShopView = (id) => {
-    
-  };
-
-  const handleArchitectView = (id) => {
-    
-  };
-
-  const handleExpertView = (id) => {
-    
   };
 
 
@@ -160,10 +152,10 @@ const User = () => {
       }
     },
     { field: 'userName', headerName: 'Name', width: 150 },
-    { field: 'email', headerName: 'Email', width: 200},
-    { field: 'city', headerName: 'City', width: 100 },
-    { field: 'contactNumber', headerName: 'Contact No', width: 100 },
-    { field: 'noOfItems', headerName:'Buy items', width: 100},
+    { field: 'email', headerName: 'Email', width: 230},
+    { field: 'city', headerName: 'City', width: 150 },
+    { field: 'contactNumber', headerName: 'Contact No', width: 150 },
+    { field: 'noOfItems', headerName:'Item count', width: 100},
 
     { field: 'userVisibility', headerName: 'Status', width: 100, sortable: false,
       renderCell: (params) => { 
@@ -178,11 +170,12 @@ const User = () => {
       renderCell: (params) => {
           return (
             <Box sx={{ width: "100%", height: "100%", display: "flex", justifyContent: "center", alignItems: "center"}}>
-              <IconButton onClick={handleShopView(params.id)}>
+              <Link to="/shop">
+              <IconButton>
                 {(params.getValue(params.id,'shopId') !== undefined || params.getValue(params.id,'shopId') !== null)
                 ? <StoreIcon color="success"/> : <HorizontalRuleIcon color="warning"/>}
               </IconButton>
-              {/* {console.log(params.getValue(params.id,'shopId'))} */}
+              </Link>
             </Box>
             
           );
@@ -192,11 +185,12 @@ const User = () => {
     renderCell: (params) => {
         return (
           <Box sx={{ width: "100%", height: "100%", display: "flex", justifyContent: "center", alignItems: "center"}}>
-            <IconButton onClick={handleArchitectView(params.id)}>
+            <Link to="/architect">
+            <IconButton>
               {(params.getValue(params.id,'architectId') === undefined || params.getValue(params.id,'architectId') === null)
               ? <HorizontalRuleIcon color="warning"/> : <AccountBoxIcon color="success"/> }
             </IconButton>
-            {/* {console.log("Architect "+params.getValue(params.id,'architectId'))} */}
+            </Link>
           </Box>
           
         );
@@ -206,11 +200,12 @@ const User = () => {
       renderCell: (params) => {
         return (
           <Box sx={{ width: "100%", height: "100%", display: "flex", justifyContent: "center", alignItems: "center"}}>
-            <IconButton onClick={handleExpertView(params.id)}>
+            <Link to="/expert">
+            <IconButton>
               {(params.getValue(params.id,'expertId') === undefined || params.getValue(params.id,'expertId') === null)
               ? <HorizontalRuleIcon color="warning"/> : <AdminPanelSettingsIcon color="success"/>  }
             </IconButton>
-            {/* {console.log("Expert "+params.getValue(params.id,'expertId'))} */}
+            </Link>
           </Box>
           
         );
@@ -293,7 +288,6 @@ const User = () => {
           getRowId={(row) => row._id}
           pageSize={10}
           rowsPerPageOptions={[10]}
-          checkboxSelection
           disableSelectionOnClick
           initialState={{ pinnedColumns: { right: ['actions'] } }}
           componentsProps={{

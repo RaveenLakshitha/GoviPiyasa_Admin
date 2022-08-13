@@ -2,6 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import "../../App.css";
 import * as React from "react";
+import Tab from 'react-bootstrap/Tab';
+import Tabs from 'react-bootstrap/Tabs';
 import { DataGrid } from "@mui/x-data-grid";
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import { IconButton} from "@mui/material";
@@ -9,6 +11,7 @@ import TextField from '@mui/material/TextField';
 import ClearIcon from '@mui/icons-material/Clear';
 import SearchIcon from '@mui/icons-material/Search';
 import { Box } from "@mui/system";
+import { Badge } from "react-bootstrap";
 
 
 const Orders = () => {
@@ -31,7 +34,7 @@ const Orders = () => {
 
   const getAllData = async () => {
     try {
-      const data = await axios.get("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/orders");
+      const data = await axios.get("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/shoporders");
       setTableData(data.data.data);
     } catch (e) {
       console.log(e);
@@ -65,8 +68,17 @@ const Orders = () => {
         return params.getValue(params.id, "user").userName;
       }
     },
-    { field: 'email', headerName: 'Email', width: 200},
+    { field: 'addressType', headerName: 'Address type', width: 200},
     { field: 'shopItems', headerName: 'No of items', width: 100 },
+    { field: 'orderStatus', headerName: 'Status', width: 100, value:'Active' ,sortable: false,
+    renderCell: (params) => { 
+      return(
+        params.getValue(params.id,'orderStatus') ==="Pending" ?   <Badge pill bg="primary">Pending</Badge> : 
+                                                                   <Badge pill bg="success">Completed</Badge>
+      );
+    }
+   },
+   
     { field: 'shopReviews', headerName: 'Reviews', width: 100 },
     {
       field: "actions",
@@ -122,6 +134,20 @@ const Orders = () => {
             }}
         />
       </Box>
+
+      <Tabs defaultActiveKey="online" id="fill-tab-example" className="mb-3" fill style={{ backgroundColor: "#D4F6CC"}}>
+        <Tab eventKey="online" title="Online">
+            
+        </Tab>
+
+        <Tab eventKey="pickup" title="Pickups">
+
+        </Tab>
+
+        <Tab eventKey="cashOnDelivery" title="Cash on delivery">
+
+        </Tab>
+      </Tabs>
       
      
 

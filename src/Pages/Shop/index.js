@@ -57,8 +57,9 @@ const Shop = () => {
   const requestSearch = (searchValue) => {
     const searchRegex = new RegExp(escapeRegExp(searchValue), 'i');
     const filteredRows = platform.filter((row) => {
-      
-        return searchRegex.test(row.userName);
+      return Object.keys(row).some((field) => {
+        return searchRegex.test(row[field]);
+      });
     });
     setTableData(filteredRows);
   };
@@ -102,8 +103,7 @@ const Shop = () => {
 
   const getData = async () => {
     try {
-      console.log("shops");
-      const data = await axios.get("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/shops/getUsersShop",
+      const data = await axios.get("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/shops",
       { headers : 
         {'Authorization' : `Bearer ${user_token}`}
       });
@@ -124,7 +124,7 @@ const Shop = () => {
   
   const columns = [
 
-    { field: 'shopName', headerName: 'Shop', width: 150 },
+    { field: 'shopName', headerName: 'Shop', width: 200 },
     // { field: 'userName', headerName: 'Name', width: 150 ,
     //   valueGetter: (params) => {
     //     return params.getValue(params.id, "user").userName;
@@ -136,11 +136,7 @@ const Shop = () => {
     //     return params.getValue(params.id, "googlelocation").city;
     //   }
     // },
-    // { field: 'contactNumber', headerName: 'Contact No', width: 100 ,
-    //   valueGetter: (params) => {
-    //     return params.getValue(params.id, "user").contactNumber;
-    //   }
-    // },
+    { field: 'contactNumber', headerName: 'Contact No', width: 100 },
     { field: 'itemCount', headerName: 'No of items', width: 100 },
     { field: 'rating', headerName: 'Rating', width: 120,
         renderCell: (params) => { 
@@ -165,7 +161,7 @@ const Shop = () => {
         if (hoveredRow === params.id) {
           return (
             <Box
-              sx={{ backgroundColor: "whitesmoke", width: "100%", height: "100%", display: "flex",
+              sx={{ width: "100%", height: "100%", display: "flex",
                 justifyContent: "center", alignItems: "center"
               }}
             >

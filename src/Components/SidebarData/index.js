@@ -34,7 +34,7 @@ export const SidebarData = [
     link: "/expert",
   },
   {
-    title: "Architectures",
+    title: "Garden Designers",
     icon: <PersonIcon />,
     link: "/architect",
   },
@@ -60,7 +60,7 @@ export const SidebarData = [
     link: "/delivery",
   },
   {
-    title: "Information",
+    title: "Instructions",
     icon: <InfoIcon />,
     link: "/information",
   },

@@ -41,7 +41,7 @@ const NotificationForm = (props) => {
 
   return (
     <div>
-      <Modal show={props.show} onHide={props.handleClose}>
+      <Modal show={props.show} onHide={props.handleClose} centered>
         <Modal.Header closeButton>
           <Modal.Title>Add Notification</Modal.Title>
         </Modal.Header>

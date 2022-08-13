@@ -42,8 +42,9 @@ const Architect = () => {
   const requestSearch = (searchValue) => {
     const searchRegex = new RegExp(escapeRegExp(searchValue), 'i');
     const filteredRows = platform.filter((row) => {
-      
-        return searchRegex.test(row.userName);
+      return Object.keys(row).some((field) => {
+        return searchRegex.test(row[field]);
+      });
     });
     setTableData(filteredRows);
   };
