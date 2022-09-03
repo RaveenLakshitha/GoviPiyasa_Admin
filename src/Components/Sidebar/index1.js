@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useState } from 'react';
 import { styled, useTheme } from '@mui/material/styles';
+import logo from "../logo.png";
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -16,6 +17,7 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { SidebarData } from "../SidebarData";
 import Header from "../Header";
 import { Link } from "react-router-dom";
+import bgImage from './bgImage.png';
 
 
 const drawerWidth = 220;
@@ -23,6 +25,7 @@ const drawerWidth = 220;
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
     flexGrow: 1,
+    backgroundImage : `url(${bgImage})`,
     padding: theme.spacing(0),
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.sharp,
@@ -68,8 +71,9 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 
 export default function NewSideBar() {
+
   const theme = useTheme();
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
 
   const handleDrawerOpen = () => setOpen(true);
   const handleDrawerClose = () => setOpen(false);
@@ -78,32 +82,33 @@ export default function NewSideBar() {
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar position="fixed" open={open} sx= {{backgroundColor: "green"}}>
-        <Toolbar>
+      <AppBar position="fixed" open={open} sx={{backgroundColor: "white"}}>
+        <Toolbar> 
           <IconButton color="inherit" aria-label="open drawer" onClick={handleDrawerOpen}
             edge="start" sx={{ mr: 2, ...(open && { display: 'none' }) }}
           >
-            <MenuIcon />
+            <MenuIcon sx={{color:'black'}}/>
           </IconButton>
          <Header/>
         </Toolbar>
       </AppBar>
       <Drawer
-        sx={{ width: drawerWidth, flexShrink: 0, 
+        sx={{ width: drawerWidth, flexShrink: 0,
             '& .MuiDrawer-paper': { width: drawerWidth, boxSizing: 'border-box', backgroundColor: "#004900" } }}
         variant="persistent"
         anchor="left"
         open={open}
       >
         <DrawerHeader>
+          <img src={logo} height="50" alt="" />
           <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'ltr' ? <ChevronLeftIcon sx={{color:"white"}}/> : <ChevronRightIcon />}
+            {theme.direction === 'ltr' ? <ChevronLeftIcon sx={{color:"gray"}}/> : <ChevronRightIcon />}
           </IconButton>
         </DrawerHeader>
 
         <Divider />
         
-
+        <br></br>
         <ul className="sidebarlist">
         {SidebarData.map((val, key) => {
           return (

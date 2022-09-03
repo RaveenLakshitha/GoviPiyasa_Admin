@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import Avatar from '@mui/material/Avatar';
 import "../../App.css";
 import * as React from "react";
 import { Badge } from "react-bootstrap";
@@ -70,6 +71,15 @@ const Items = () => {
 
   
   const columns = [
+    { field: 'img', headerName: 'Image', width: 70,
+      renderCell: (params) => { 
+        return(
+          <Avatar sx={{width:35, height:35}} 
+            src={params.getValue(params.id,'thumbnail').img}
+          />
+        );
+      }
+    },
     { field: 'productName', headerName: 'Item', width:150 },
     { field: 'categoryName', headerName: 'Category', width:120 },
     { field: 'price', headerName: 'Price', width: 60 },
@@ -84,8 +94,8 @@ const Items = () => {
     { field: 'avilability', headerName: 'Status', width: 100,
       renderCell: (params) => { 
         return(
-            (params.getValue(params.id,'avilability') ==="Available") ? <Badge pill bg="primary">Available</Badge> : 
-                                                                        <Badge pill bg="danger">Not Available</Badge>)
+            (params.getValue(params.id,'avilability') ==="Available") ? <Badge bg="primary">Available</Badge> : 
+                                                                        <Badge bg="danger">Not Available</Badge>)
       }
     },
     { field: "actions", headerName: "Actions", width: 100, sortable: false, disableColumnMenu: true,
@@ -93,7 +103,7 @@ const Items = () => {
         if (hoveredRow === params.id) {
           return (
             <Box
-              sx={{ backgroundColor: "whitesmoke", width: "100%", height: "100%", display: "flex",
+              sx={{ width: "100%", height: "100%", display: "flex",
                 justifyContent: "center", alignItems: "center"
               }}
             >
@@ -149,7 +159,7 @@ const Items = () => {
           getRowId={(row) => row._id}
           pageSize={10}
           rowsPerPageOptions={[10]}
-          checkboxSelection
+          // checkboxSelection
           disableSelectionOnClick
           initialState={{ pinnedColumns: { right: ["actions"] } }}
           componentsProps={{

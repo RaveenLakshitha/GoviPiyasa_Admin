@@ -60,9 +60,9 @@ const Header = () => {
       <div className="homeLogo">
         <Link to="/" className="link">
           <div>
-            <div className="image">
+            {/* <div className="image">
               <img src={logo} height="50" alt="" />
-            </div>
+            </div> */}
           </div>
         </Link>
       </div>
@@ -71,7 +71,7 @@ const Header = () => {
       <div>
         <IconButton>
          <NotificationsNoneIcon
-            className="float-start" sx={{ color: 'white'}}
+            className="float-start" sx={{ color: 'black'}}
             onClick={() => {
               window.location.pathname = "/notification";
             }}

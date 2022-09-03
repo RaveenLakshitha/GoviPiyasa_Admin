@@ -2,7 +2,10 @@ import * as React from 'react';
 import axios from "axios";
 import img1 from "../../Images/bgImage1.png"
 import {Card, Box} from '@mui/material';
+import Chip from '@mui/material/Chip';
 import { IconButton } from "@mui/material";
+import DoneIcon from '@mui/icons-material/Done';
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
@@ -18,6 +21,7 @@ const Advertisement = () => {
   const [ads, setAds] = useState([]);
   const [platform, setPlatform] = useState([]);
   const [searchText, setSearchText] = useState('');
+  const user_token = window.localStorage.getItem("token");
 
   const getData = async () => {
     try {
@@ -28,6 +32,16 @@ const Advertisement = () => {
       console.log(e);
     }
   };
+
+  const approveAd = (id) => {
+    const data = axios.put("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/advertisements/setadvertisementStatus/"+id,
+                          {status: "Approve"},
+                          { headers : 
+                            {'Authorization' : `Bearer ${user_token}`}
+                          }).then(()=>{
+                            getData();
+                          })
+  }
 
   useEffect(()=>{
     getData();
@@ -51,6 +65,7 @@ const Advertisement = () => {
 
   return (
     <div className="content">
+      <div>
 
       <Box>
         <TextField variant="standard" value={searchText}
@@ -74,7 +89,49 @@ const Advertisement = () => {
         />
       </Box>
 
-      {ads.map((ad)=>{
+      <div className="w-100">
+        <div className="grid">
+
+        {ads.map((ad)=>{
+        return(
+          <Card sx={{ width: 350, height:340, ':hover': { boxShadow: 6} }} className="cards">
+            <CardMedia
+                component="img" height="200"
+                image={ad.image} alt="ad" sx={{ objectFit: "contain"}}
+            />
+            <CardContent>
+              <Typography gutterBottom variant="h6" fontSize={"medium"} component="div" textAlign={"left"}>
+                {ad.Description} <br></br>
+
+                {ad.advertisementVisibility === "Pending" ? 
+                  <Chip variant="filled" size="small" color="warning" label={ad.advertisementVisibility}/> :
+                (ad.advertisementVisibility === "Active" ?
+                  <Chip variant="filled" size="small" color="primary" label={ad.advertisementVisibility}/> :
+                  <Chip variant="filled" size="small" color="error" label={ad.advertisementVisibility}/>
+                )}
+
+                {" "}
+                {ad.Paid === true ? 
+                  <Chip variant="outlined" color="info" size="small" icon={<DoneIcon/>} label="Paid"/> :
+                  <Chip variant="outlined" color="error" size="small" icon={<ErrorOutlineIcon/>} label="Not paid"/>
+                }
+
+              </Typography>
+            </CardContent>
+            <div style={{float: 'right'}}>
+            <CardActions>
+                <Button sx={{ alignContent:'center' }} size="small" onClick={()=>approveAd(ad._id)}>
+                  Accept
+                </Button>
+                <Button size="small">Reject</Button>
+            </CardActions>
+            </div>
+          </Card> 
+           )})} 
+        </div>
+      </div>
+
+      {/* {ads.map((ad)=>{
         return(
 
           <Card sx={{ display: 'flex', height: '200px' }}>
@@ -100,7 +157,8 @@ const Advertisement = () => {
          
         </Card>
 
-    )})}
+    )})} */}
+    </div>
 
     </div>
   );

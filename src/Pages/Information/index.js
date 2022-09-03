@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import { Button } from "react-bootstrap";
+import ButtonMui from '@mui/material/Button';
 import "../../App.css";
 import InfoCategoryForm from "../../Components/InfoCategoryForm";
 import axios from "axios";
 import "./styles.css"
 import { useNavigate } from "react-router-dom";
-import {Card, CardContent, IconButton, Typography } from '@mui/material';
+import {Card, CardContent, IconButton, Typography, CardActions } from '@mui/material';
 import DeleteIcon from "@mui/icons-material/Delete";
 
 
@@ -40,6 +41,9 @@ const Information = () => {
   },[category])
 
 
+  const handleDelete = () => {
+    console.log("deleted");
+  }
 
 
   return (
@@ -67,26 +71,32 @@ const Information = () => {
           if(cat.categoryType === "Main"){
 
           return (
+            // <div className="container">
+              <div key={cat._id} style={{float: 'left'}}>
 
-            <div key={cat._id} onClick={()=>loadCrops(cat._id)}>
+              {/* <Link to="/information/crops/" style={{textDecoration :'none'}}> */}
 
-            {/* <Link to="/information/crops/" style={{textDecoration :'none'}}> */}
+                <Card sx={{ width: 250, maxHeight:100, ':hover': { boxShadow: 6} }} className="cards" key={cat._id}>
+                  <CardContent>
+                    <Typography gutterBottom variant="h6" fontSize={"medium"} component="div" textAlign={"left"}>
+                      {cat.categoryName}
+                    </Typography>
+                  </CardContent>
 
-              <Card sx={{ width: 250, maxHeight:50, ':hover': { boxShadow: 6} }} className="cards" key={cat._id}>
-                <CardContent>
-                  <Typography gutterBottom variant="h6" fontSize={"medium"} component="div" textAlign={"left"}>
-                    {cat.categoryName}
-                  </Typography>
-                </CardContent>
-                {/* <IconButton style={{position: 'absolute', flexDirection: 'row', float: 'right'}}>
-                <DeleteIcon color="error" />
-               </IconButton> */}
-              </Card>  
-              
-
-              {/* </Link> */}
-              
+                  <CardActions>
+                    <ButtonMui size="small" onClick={()=>loadCrops(cat._id)}> View </ButtonMui>
+                    <ButtonMui size="small"> Edit </ButtonMui>
+                    <ButtonMui size="small" color="error"> Delete </ButtonMui>
+                  </CardActions>
+                </Card>  
+                {/* </Link> */}
               </div> 
+            //   <div className="icon">
+            //     <IconButton onClick={handleDelete}>
+            //       <DeleteIcon color="error" />
+            //     </IconButton>
+            //   </div>
+            // </div>
 
           )}})}
             

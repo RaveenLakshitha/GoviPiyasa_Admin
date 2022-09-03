@@ -1,17 +1,38 @@
 .cards {
   border-radius: 10px; 
-  margin: 15px;
+  margin: 20px;
+  margin-right: 0;
 }
 
 .grid {
   max-height: 550px;
   /* overflow: scroll; */
   display: flex;
-  margin: 10px;
+  margin: 5px;
   flex-wrap: wrap;
   flex-direction: row;
 }
 
 .p{
   font-family: sans-serif;
+}
+
+.icon{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  float: right;
+}
+
+.container{
+  /* background-color: red; */
+  width: 300px;
+  /* margin: 10px; */
+  display: flex;
+  /* align-items: center;
+  justify-content: center; */
+  flex-direction: row;
+  float: right;
+
 }

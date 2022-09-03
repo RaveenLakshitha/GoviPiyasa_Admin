@@ -76,7 +76,7 @@ const Notification = () => {
     getUploadedData();
     getSentData();
     
-  },[])
+  },[myNotifi])
 
 
   //search function
@@ -94,10 +94,8 @@ const Notification = () => {
 
   const sendNotification = async (id) => {
     try{
-      console.log("inside function");
-      await axios.put("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/notifications/sendNotificationAll/"+id,
+      await axios.put("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/notifications/sendNotificationAll/"+id, {},
                                 { headers : {'Authorization' : `Bearer ${user_token}`}} );
-      console.log("Response");
       setOpen(true);
     }
     catch(e){
@@ -174,7 +172,7 @@ const Notification = () => {
           return( 
           <Card className="m-2 w-100">
             <Card.Body>
-              <Card.Title>{myNotify.Title} {myNotify._id}</Card.Title>
+              <Card.Title>{myNotify.Title}</Card.Title>
               <Card.Text style={{fontWeight : 'lighter'}}> {myNotify.Description} </Card.Text>
               <Button size="sm" variant="primary" color="white" 
                   onClick={()=>sendNotification(myNotify._id)}> Publish </Button>

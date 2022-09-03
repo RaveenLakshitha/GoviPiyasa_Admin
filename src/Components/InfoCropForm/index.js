@@ -10,7 +10,6 @@ const InfoCropForm = (props) => {
 
   const user_token = window.localStorage.getItem("token");
   let params = useParams();
-  console.log("parent"+params.id);
 
   const [name, setName] = useState(" ");
   const [sciName, setSciName] = useState(" ");
@@ -48,7 +47,7 @@ const InfoCropForm = (props) => {
   return (
     <div>
 
-      <Modal show={props.show} onHide={props.handleClose}>
+      <Modal show={props.show} onHide={props.handleClose} centered>
         <Modal.Header closeButton>
           <Modal.Title>{props.title}</Modal.Title>
         </Modal.Header>

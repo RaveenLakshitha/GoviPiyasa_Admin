@@ -6,12 +6,14 @@ import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import { DataGrid } from "@mui/x-data-grid";
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
-import { IconButton} from "@mui/material";
+import { Button, IconButton} from "@mui/material";
 import TextField from '@mui/material/TextField';
 import ClearIcon from '@mui/icons-material/Clear';
 import SearchIcon from '@mui/icons-material/Search';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { Box } from "@mui/system";
 import { Badge } from "react-bootstrap";
+import Label from '../../Components/Label.js'
 
 
 const Orders = () => {
@@ -20,6 +22,7 @@ const Orders = () => {
   const [hoveredRow, setHoveredRow] = useState(null);
   const [platform, setPlatform] = useState([]);
   const [searchText, setSearchText] = useState('');
+  const [text, setText] = useState("Pay");
   //const [show, setShow] = useState(null);
 
   const onMouseEnterRow = (event) => {
@@ -40,6 +43,10 @@ const Orders = () => {
       console.log(e);
     }
   };
+
+  const handlePay = () => {
+    setText("Done");
+  }
 
   useEffect(()=>{
     getAllData();
@@ -68,44 +75,63 @@ const Orders = () => {
         return params.getValue(params.id, "user").userName;
       }
     },
-    { field: 'addressType', headerName: 'Address type', width: 200},
+    { field: 'addressType', headerName: 'Address type', width: 110},
     { field: 'shopItems', headerName: 'No of items', width: 100 },
-    { field: 'orderStatus', headerName: 'Status', width: 100, value:'Active' ,sortable: false,
+    { field: 'totalPrice', headerName: 'Total price', width: 100},
+    { field: 'orderStatus', headerName: 'Status', width: 100 ,sortable: false,
     renderCell: (params) => { 
       return(
-        params.getValue(params.id,'orderStatus') ==="Pending" ?   <Badge pill bg="primary">Pending</Badge> : 
-                                                                   <Badge pill bg="success">Completed</Badge>
+        params.getValue(params.id,'orderStatus') ==="Pending" ?   <Badge bg="primary" sx={{fontSize: '12rem'}}>Pending</Badge> : 
+                                                                   <Badge bg="success">Completed</Badge>
       );
     }
-   },
-   
-    { field: 'shopReviews', headerName: 'Reviews', width: 100 },
-    {
-      field: "actions",
-      headerName: "Actions",
-      width: 120,
-      sortable: false,
-      disableColumnMenu: true,
-      renderCell: (params) => {
-        if (hoveredRow === params.id) {
-          return (
-            <Box
-              sx={{
-                width: "100%",
-                height: "100%",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center"
-              }}
-            >
-              <IconButton onClick={() => console.log(params.id)}>
-                <RemoveRedEyeIcon />
-              </IconButton>
-            </Box>
-          );
-        } else return null;
-      }
+    },
+    { field: 'userToAdminPay', headerName: 'User to admin', width: 120 ,sortable: false,
+    renderCell: (params) => { 
+      return(
+        params.getValue(params.id,'userToAdminPay') === false ?  <Label color="error">Not paid</Label> : 
+                                                                <Label color="success">Paid</Label>
+      );
     }
+    },
+    { field: 'adminToShopPay', headerName: 'Admin to shop', width: 120 ,sortable: false,
+    renderCell: (params) => { 
+      return(
+        params.getValue(params.id,'adminToShopPay') === false ?   <Label color="error">Not paid</Label> : 
+                                                                   <Label color="success">Paid</Label>
+      );
+    }
+    },
+    // <Button variant="outlined" size="small" onClick={handlePay(params.row._id)}>
+   
+    { field: 'action', headerName: 'Pay', width: 90,
+      renderCell: (params) => {
+        return(
+          params.getValue(params.id,'orderStatus') === "Pending" ? 
+            <Button variant="contained" size="small" onClick={handlePay(params.row._id)}> Pay </Button> : 
+            <Button color="success" variant="outlined" size="small"> Done </Button>                                                     
+        )
+      }
+    },
+    { field: "actions", headerName: "Actions", width: 120, sortable: false, disableColumnMenu: true,
+    renderCell: (params) => {
+      if (hoveredRow === params.id) {
+        return (
+          <Box
+            sx={{ width: "100%", height: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}
+          >
+            <IconButton>
+              <DeleteIcon color="error" />
+            </IconButton>
+            <IconButton>
+              <RemoveRedEyeIcon color="info"/>
+            </IconButton>
+
+          </Box>
+        );
+      } else return null;
+    }
+  }
     
   ]
 
@@ -158,7 +184,7 @@ const Orders = () => {
           getRowId={(row) => row._id}
           pageSize={10}
           rowsPerPageOptions={[10]}
-          checkboxSelection
+          // checkboxSelection
           disableSelectionOnClick
           initialState={{ pinnedColumns: { right: ["actions"] } }}
           componentsProps={{

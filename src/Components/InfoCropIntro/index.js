@@ -13,21 +13,23 @@ const InfoCropIntro = (props) => {
   const user_token = window.localStorage.getItem("token");
   let params = useParams();
 
-  const [title, setTitle] = useState("Not set");
-  const [family, setFamily] = useState("Not set");
-  const [sciName, setSciName] = useState("Not set");
-  const [desc, setDesc] = useState("Not set");
+  const [family, setFamily] = useState("");
+  const [sciName, setSciName] = useState("");
+  const [desc, setDesc] = useState("");
 
   const [open, setOpen] = useState(false);
   const handleCloseAlert = () => setOpen(false);
 
 
+  const getIntro = async () => {
+    await axios.get("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/information/");
+  }
+
 
   const addIntro = async () => {
     try{
-      await axios.post("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/information", 
+      await axios.put("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/information/"+props.id, 
         { 
-          Title : title, 
           Family : family,
           ScientificName : sciName,
           Description : desc,
@@ -49,7 +51,7 @@ const InfoCropIntro = (props) => {
   return (
     <div>
 
-      <Modal show={props.show} onHide={props.handleClose}>
+      <Modal show={props.show} onHide={props.handleClose} centered>
         <Modal.Header closeButton>
           <Modal.Title>{props.title}</Modal.Title>
         </Modal.Header>

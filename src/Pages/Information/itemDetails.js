@@ -4,9 +4,11 @@ import { useParams } from 'react-router-dom';
 import { Button } from "react-bootstrap";
 import InfoDetailsForm from '../../Components/InfoDetailsForm';
 import axios from "axios";
-import {Card, Box} from '@mui/material';
+import {Card, Box, IconButton} from '@mui/material';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 import CardMedia from '@mui/material/CardMedia';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
@@ -36,6 +38,11 @@ const Details = () => {
 
   useEffect(()=>{
 
+    const getInfo = async () => {
+      const data = await axios.get("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/information/"+params.id)
+      setIntro(data.data.data);
+    }
+
     const getDetails = async () => {
 
       try {
@@ -61,33 +68,24 @@ const Details = () => {
       
         <div className="d-flex justify-content-end">
           <Button variant="outline-success" className="float-sm-start m-3" size="sm" onClick={handleShowIntro} >
-            Introduction
+            Update Intro
           </Button>
           <Button variant="success" className="float-sm-end m-3" size="sm" onClick={handleShow} >
             Add Info
           </Button>
-          {/* {() => {
-          if(intro !== null || intro !== undefined){
-            console.log("intro"+intro !== null);
-            return( */}
-              <InfoDetailsForm show={show} title="Add information" id={intro._id} handleClose={handleClose} />
-            {/* )}}} */}
-          <InfoCropIntro show={showIntro} title="Add introduction" handleClose={handleCloseIntro} />
+          <InfoDetailsForm show={show} title="Add information" id={intro._id} handleClose={handleClose} />
+          <InfoCropIntro show={showIntro} title="Add introduction" id={intro._id} handleClose={handleCloseIntro} />
         </div>
      </div>
 
       <div>
-        
-      {() => {
-        if(data.length === 0 ){ 
-         return(
-
-          <Card sx={{ display: 'flex', height: '200px' }}>
-
-          <Box sx={{ display: 'flex', flexDirection: 'column', width: '30%' }}>
+     
+        <Card sx={{ display: 'flex', height: '200px' }}>
+          <Box sx={{ display: 'flex', flexDirection: 'column', width: '30%' , justifyContent: 'space-between'}}>
             <CardContent sx={{ flex: '1 0 auto' }}>
+              Name           : {intro.Title} <br></br>
               Botanical Name : {intro.ScientificName} <br></br>
-              Family : {intro.Family} <br></br>
+              Family         : {intro.Family} <br></br>
             </CardContent>
           </Box>
           <Box sx={{ display: 'flex', flexDirection: 'column', width: '70%' }}>
@@ -95,10 +93,8 @@ const Details = () => {
               {intro.Description}<br></br>
             </CardContent>
           </Box>
-          </Card>
-         ) 
-       }
-    }}  
+        </Card>
+         
 
 
 
@@ -111,6 +107,10 @@ const Details = () => {
         </AccordionSummary>
         <AccordionDetails>
           <Typography> {detail.Description} </Typography>
+          
+          <IconButton sx={{float:'right'}} color="error"><DeleteIcon/></IconButton>
+          <IconButton sx={{float:'right'}} color="primary"><EditIcon/></IconButton>
+          
         </AccordionDetails>
       </Accordion>
 

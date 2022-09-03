@@ -8,6 +8,8 @@ import axios from "axios";
 
 const Preview = (props) => {
 
+  const user_token = window.localStorage.getItem("token");
+
   const [tableData, setTableData] = useState([]);
   const [shopData, setShopData] = useState([]);
   const [userData, setUserData] = useState([]);
@@ -18,7 +20,9 @@ const Preview = (props) => {
       try {
         console.log(id);
 
-        const data = await axios.get("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/shops/"+id);
+        const data = await axios.get("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/shops/"+id,
+                                      { headers :  {'Authorization' : `Bearer ${user_token}`} } 
+                                      );
         setShopData(data.data.data);
         setUserData(data.data.data.user);
         setTableData(data.data.data.shopItems);
@@ -70,7 +74,6 @@ const Preview = (props) => {
             getRowId={(row) => row._id}
             pageSize={10}
             rowsPerPageOptions={[10]}
-            checkboxSelection
             disableSelectionOnClick
           />
          

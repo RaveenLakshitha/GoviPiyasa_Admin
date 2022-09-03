@@ -10,8 +10,10 @@ const Preview = (props) => {
 
   return ( 
     <div>
-      <Modal size="sm" show={props.show} onHide={props.handleClose}>
-        <Modal.Header closeButton />
+      <Modal size="sm" show={props.show} onHide={props.handleClose} centered>
+        <Modal.Header closeButton >
+          <Modal.Title>{props.title}</Modal.Title>
+        </Modal.Header>
         <Card sx={{ maxWidth: 120, ':hover': { boxShadow: 6} }} className="cards" hoverable>
           <CardMedia
             component="img" height="80"

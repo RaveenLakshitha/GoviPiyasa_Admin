@@ -1,36 +1,43 @@
 import * as React from 'react';
 import { Button } from "react-bootstrap";
 import "./styles.css"
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
+import {Card, CardContent, IconButton, Typography, CardActions, CardMedia } from '@mui/material';
+import ButtonMui from '@mui/material/Button';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 // import { Box, IconButton } from "@mui/material";
 // import TextField from '@mui/material/TextField';
 // import ClearIcon from '@mui/icons-material/Clear';
 // import SearchIcon from '@mui/icons-material/Search';
-import Typography from '@mui/material/Typography';
 import InfoCropForm from '../../Components/InfoCropForm';
 import { useParams, useNavigate } from 'react-router-dom';
+import AlertMsg from "../../Components/Alert";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { Edit } from '@material-ui/icons';
 
 
 const Crops = () => {
 
   const [crops, setCrops] = useState([]);
   const [show, setShow] = useState(false);
+  const [openDlt, setOpenDlt] = useState(false);
+  const [openUpdate, setOpenUpdate] = useState(false);
   // const [platform, setPlatform] = useState([]);
   // const [searchText, setSearchText] = useState('');
   const navigate = useNavigate();
 
   let params = useParams();
+  const user_token = window.localStorage.getItem("token");
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
+  const handleCloseDlt = () => setOpenDlt(false);
+  const handleCloseUpdate = () => setOpenUpdate(false);
   
   const getCrops = async (id) => {
     try {
+      console.log(params.id);
       const data = await axios.get("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/infoCategories/getCategoryByParent/"+params.id);
       //setPlatform(data.data.data);
       setCrops(data.data.data);
@@ -46,6 +53,19 @@ const Crops = () => {
 
   const loadInfo = (id) => {
     navigate("/information/crops/details/"+id);
+  }
+
+  const deleteCrops = async (id) => {
+    console.log("entered");
+    console.log("crop "+id);
+    await axios.delete("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/information/"+id,
+                      { headers : 
+                        {'Authorization' : `Bearer ${user_token}`}
+                      }
+    )
+    .then(()=>{
+      setOpenDlt(true);
+    })
   }
 
   // //search function
@@ -106,8 +126,7 @@ const Crops = () => {
 
       // <Link to="/information/crops/details" style={{textDecoration :'none'}}>
 
-        <Card sx={{ width: 150, height: 180, ':hover': { boxShadow: 6} }} className="cards" hoverable 
-              onClick={()=>loadInfo(crop._id)}>
+        <Card sx={{ width: 180, height: 210, ':hover': { boxShadow: 6} }} className="cards" hoverable >
           <CardMedia
             component="img" height="120"
             image={crop.image}
@@ -116,6 +135,9 @@ const Crops = () => {
             <Typography gutterBottom variant="h6" fontSize={"medium"} component="div" textAlign={"center"}>
               {crop.categoryName}
             </Typography>
+            <ButtonMui size="small" onClick={()=>loadInfo(crop._id)}> View </ButtonMui>
+            <IconButton> <EditIcon size="small" color="primary" /> </IconButton>
+            <IconButton onClick={()=>deleteCrops(crop._id)}> <DeleteIcon size="small" color="error"/> </IconButton>
           </CardContent>
         </Card>
 
@@ -123,8 +145,9 @@ const Crops = () => {
 
       )}})}
            
-            
-        
+      {/* <AlertMsg open={openDlt} msg="Deleted successfully" status="error" handleClose={handleCloseDlt}/>  */}
+      <AlertMsg open={openUpdate} msg="Crop updated" status="info" handleClose={handleCloseUpdate}/>
+
         </div>
     </div>
    );

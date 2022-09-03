@@ -60,7 +60,7 @@ export const SidebarData = [
     link: "/delivery",
   },
   {
-    title: "Instructions",
+    title: "Agri Instructions",
     icon: <InfoIcon />,
     link: "/information",
   },

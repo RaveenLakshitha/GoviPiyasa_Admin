@@ -20,6 +20,10 @@ const InfoDetailsForm = (props) => {
   const handleCloseAlert = () => setOpen(false);
 
 
+  const handleClear = () => {
+    setTitle(" ");
+    setDesc("");
+  }
 
   const addInfo = async () => {
     try{
@@ -34,6 +38,7 @@ const InfoDetailsForm = (props) => {
       ).then(()=>{
         props.handleClose();
         setOpen(true);
+        handleClear();
       })
       
     }catch{
@@ -44,7 +49,7 @@ const InfoDetailsForm = (props) => {
   return (
     <div>
 
-      <Modal show={props.show} onHide={props.handleClose}>
+      <Modal show={props.show} onHide={props.handleClose} centered>
         <Modal.Header closeButton>
           <Modal.Title>{props.title}</Modal.Title>
         </Modal.Header>

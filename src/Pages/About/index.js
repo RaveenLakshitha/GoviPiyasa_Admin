@@ -4,7 +4,9 @@ import '../About/styles.css'
 export default function About() {
 
   return (
-    <div style={{backgroundImage: `url(${background})`, height:"510px"}}>
+    <div style={{backgroundImage: `url(${background})`, height:"510px"}} className="d-flex align-items-center">
+
+    <div className="w-50 ml-0 mr-0 mx-auto text-center">
 
     <div className="bgdiv">
       <div className="aboutTxt">
@@ -13,6 +15,8 @@ export default function About() {
           <h4>Shop more and save more</h4>
           <h4>Empower agriculture in Sri Lanka</h4>
       </div>
+    </div>
+
     </div>
     </div>
   );

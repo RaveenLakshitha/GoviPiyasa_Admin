@@ -189,7 +189,7 @@ const Forum = () => {
           getRowId={(row) => row._id}
           pageSize={10}
           rowsPerPageOptions={[10]}
-          checkboxSelection
+          // checkboxSelection
           disableSelectionOnClick
           componentsProps={{
             row: {

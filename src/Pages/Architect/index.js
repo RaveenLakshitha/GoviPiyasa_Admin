@@ -105,14 +105,7 @@ const Architect = () => {
         if (hoveredRow === params.id) {
           return (
             <Box
-              sx={{
-                backgroundColor: "whitesmoke",
-                width: "100%",
-                height: "100%",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
+              sx={{ width: "100%", height: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}
             >
               <IconButton onClick={() => handleDelete(params.id)}>
                 <DeleteIcon />
@@ -160,7 +153,7 @@ const Architect = () => {
           getRowId={(row) => row._id}
           pageSize={10}
           rowsPerPageOptions={[10]}
-          checkboxSelection
+          // checkboxSelection
           disableSelectionOnClick
           initialState={{ pinnedColumns: { right: ["actions"] } }}
           componentsProps={{

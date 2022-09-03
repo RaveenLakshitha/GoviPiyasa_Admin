@@ -131,7 +131,6 @@ export default function Login() {
         console.log(res.data.token);
         setToken(res.data.token);
         window.localStorage.setItem("token", res.data.token);
-        alert("Successfully Login");
       });
   }
 

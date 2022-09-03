@@ -113,6 +113,7 @@ const User = () => {
   const getAllData = async () => {
     try {
       const data = await axios.get("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/auths/getUsers")
+      console.log(data);
       setPlatform(data.data.data);
       setTableData(data.data.data);
     } catch (e) {
@@ -147,7 +148,9 @@ const User = () => {
     { field: 'profilePicture', headerName: 'Image', width: 70,
       renderCell: (params) => { 
         return(
-          <Avatar sx={{width:35, height:35}}/>
+          <Avatar sx={{width:35, height:35}} 
+          src={params.getValue(params.id,'profilePicture')}
+          />
         );
       }
     },
@@ -155,7 +158,6 @@ const User = () => {
     { field: 'email', headerName: 'Email', width: 230},
     { field: 'city', headerName: 'City', width: 150 },
     { field: 'contactNumber', headerName: 'Contact No', width: 150 },
-    { field: 'noOfItems', headerName:'Item count', width: 100},
 
     { field: 'userVisibility', headerName: 'Status', width: 100, sortable: false,
       renderCell: (params) => { 
@@ -218,11 +220,8 @@ const User = () => {
         if (hoveredRow === params.id) {
           return (
             <Box
-              sx={{ backgroundColor: "whitesmoke", width: "100%", height: "100%", display: "flex",
-                justifyContent: "center", alignItems: "center"
-              }}
+              sx={{ width: "100%", height: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}
             >
-  
               <Tooltip title={params.getValue(params.id,'userVisibility') === "Active" ? "Block" : "Unblock"}  arrow>
                 <IconButton onClick={() => params.getValue(params.id,'userVisibility') === "Active" ? handleSuspend(params.id) : handleUnblock(params.id)}>
                   {params.getValue(params.id,'userVisibility') === "Active" ? <BlockIcon color="warning" /> : <RemoveCircleOutlineIcon color="secondary"/>}
@@ -232,8 +231,7 @@ const User = () => {
               <IconButton onClick={() => { handleDelete(params.id); }}>
                 <DeleteIcon color="error"/>
               </IconButton>
-            </Box>
-            
+            </Box> 
           );
         } else return null;
       }
@@ -273,6 +271,7 @@ const User = () => {
           <Select labelId="demo-simple-select-label" id="demo-simple-select"
             label="category" onChange={(event) => setCategory(event.target.value)}
           >
+             <MenuItem value={"All"}>All</MenuItem>
             <MenuItem value={"Expert"}>Expert</MenuItem>
             <MenuItem value={"Architect"}>Architect</MenuItem>
             <MenuItem value={"Seller"}>Seller</MenuItem>
