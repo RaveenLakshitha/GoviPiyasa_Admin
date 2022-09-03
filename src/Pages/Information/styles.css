@@ -1,0 +1,16 @@
+.cards {
+  border-radius: 10px; 
+  margin: 15px;
+}
+
+.grid {
+  max-height: 550px;
+  /* overflow: scroll; */
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+.p{
+  font-family: sans-serif;
+}
