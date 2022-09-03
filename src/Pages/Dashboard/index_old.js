@@ -8,7 +8,7 @@ import "./styles.css";
 
 
 
-const Dashboard = () => {
+const Dashboard2 = () => {
 
   const user_token = window.localStorage.getItem("token");
 

@@ -306,7 +306,8 @@ const Shop = () => {
         </DataGrid>
       </div>
 
-      <ChooseOption open={openDlg} handleClose={handleCloseDlg} handleApproveShop={handleApprove}/>
+      <ChooseOption open={openDlg} handleClose={handleCloseDlg} handleApproveShop={handleApprove}
+                    title="Shop Approval"/>
 
       <AlertMsg open={openDlt} msg="Deleted successfully" status="error" handleClose={handleCloseDlt}/>
       <AlertMsg open={openBlk} msg="Shop Blocked" status="warning" handleClose={handleCloseBlk}/>

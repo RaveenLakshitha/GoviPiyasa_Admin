@@ -19,11 +19,17 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 
 
-export default function Preview() {
+export default function Preview(props) {
+
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+
+  const getArchitectDetails = () => {
+    console.log("Got");
+  }
 
 
   return (
@@ -34,14 +40,14 @@ export default function Preview() {
 
       <Dialog
         fullScreen
-        open={open}
-        onClose={handleClose}
+        open={props.show}
+        onClose={props.handleClose}
         TransitionComponent={Transition}
       >
         <AppBar sx={{ position: 'relative', backgroundColor: 'green' }}>
           <Toolbar>
             <IconButton
-              edge="start" color="inherit" onClick={handleClose} aria-label="close"
+              edge="start" color="inherit" onClick={props.handleClose} aria-label="close"
             >
               <CloseIcon />
             </IconButton>
@@ -58,12 +64,12 @@ export default function Preview() {
             <ListItemText primary="Name" secondary="Saman Perera" />
           </ListItem>
           <Divider />
-          <ListItem button>
+          {/* <ListItem button>
             <ListItemText
               primary="Default notification ringtone"
               secondary="Tethys"
             />
-          </ListItem>
+          </ListItem> */}
         </List>
       </Dialog>
     </div>

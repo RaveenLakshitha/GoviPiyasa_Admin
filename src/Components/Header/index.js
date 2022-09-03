@@ -1,6 +1,6 @@
 import axios from "axios";
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../logo.png";
 import "./styles.css";
@@ -24,6 +24,7 @@ const Header = () => {
   const user_token = window.localStorage.getItem("token");
 
   const [anchorEl, setAnchorEl] = useState(null);
+  const [admin, setAdmin] = useState([]);
   const open = Boolean(anchorEl);
 
   const handleClick = (event) => {
@@ -32,6 +33,19 @@ const Header = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+
+  const getData = async () => {
+    try{
+      const data = await axios.get("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/auths/getLoggedUser",
+                          { headers :  {'Authorization' : `Bearer ${user_token}`} });
+                          console.log(data.data.data);
+      setAdmin(data.data.data);
+      console.log("users data:" ,data.data.data);
+    }catch (e){
+      console.log(e);
+    }
+  }
 
 
   const signOutClick = async (event) => {
@@ -51,6 +65,11 @@ const Header = () => {
       console.log(e);
     }
   };
+
+
+  useEffect(() => {
+    getData();
+  },[]);
 
   ////////////////////////////////////////
 
@@ -98,7 +117,7 @@ const Header = () => {
             aria-controls={open ? 'account-menu' : undefined} aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}
           >
-            <Avatar sx={{ width: 40, height: 40 }}>M</Avatar>
+            <Avatar src={admin.profilePicture} sx={{ width: 40, height: 40 }}></Avatar>
           </IconButton>
 
           <Menu anchorEl={anchorEl} id="account-menu" open={open} onClose={handleClose} onClick={handleClose}

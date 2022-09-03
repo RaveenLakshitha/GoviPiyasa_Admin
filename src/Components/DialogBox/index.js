@@ -37,7 +37,7 @@ const ChooseOption = (props) => {
 
   return ( 
     <Dialog onClose={props.handleClose} open={props.open}>
-    <DialogTitle sx={{backgroundColor: 'green', color:'white'}}>Shop Approval</DialogTitle>
+    <DialogTitle sx={{backgroundColor: 'green', color:'white'}}>{props.title}</DialogTitle>
     <List sx={{ pt: 0 }}>
         <ListItem button >
           <DoneIcon color="primary" sx={{marginRight: '10px'}}/>

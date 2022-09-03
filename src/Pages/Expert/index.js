@@ -33,6 +33,8 @@ const Expert = () => {
   const [openBlk, setOpenBlk] = useState(false);
   const [openUnblk, setOpenUnblk] = useState(false);
   const [openDlg, setOpenDlg] = useState(false);
+  const [openAprv, setOpenAprv] = useState(false);
+  const [openRjct, setOpenRjct] = useState(false);
   //const [show, setShow] = useState(false);
   //const [notify, setNotify] = useState({isOpen:false, message:'', type:''});
 
@@ -46,6 +48,9 @@ const Expert = () => {
    const handleCloseBlk = () => setOpenBlk(false);
    const handleCloseUnblk = () => setOpenUnblk(false);
    const handleCloseDlg = () => setOpenDlg(false);
+   const handleCloseAprv = () => setOpenAprv(false);
+   const handleCloseRjct = () => setOpenRjct(false);
+   const [aproveId, setAproveID] = useState("");
 
 
   //delete function
@@ -57,8 +62,23 @@ const Expert = () => {
 
 
   //approve the expert request
-  const handleApprove = () => {
-    console.log("Approved");
+   const handleApproveOpen = (id) => {
+    setAproveID(id);
+    setOpenDlg(true);
+  }
+  const handleApprove = (value) => {
+    console.log("Approve func "+value);
+    setOpenDlg(false);
+    axios.put("https://govi-piyasa-v-0-1.herokuapp.com/api/v1/experts/setExpertStatus/"+aproveId, 
+              {status: value},
+              { headers : 
+                {'Authorization' : `Bearer ${user_token}`}
+              })
+    .then(() => {
+      getAllData();
+      if(value === "Approve") setOpenAprv(true);
+      else setOpenRjct(true);
+    })
   }
 
 
@@ -182,7 +202,7 @@ const Expert = () => {
                             ((params.getValue(params.id,'expertVisibility')) === "Pending" ? "Approve" : "Unblock")}  arrow>
 
                 <IconButton onClick={() => params.getValue(params.id,'expertVisibility') === "Active" ? handleSuspend(params.id, params.getValue(params.id,'shopVisibility')) : 
-                                          (params.getValue(params.id,'expertVisibility') === "Pending" ? handleApprove(params.id) : 
+                                          (params.getValue(params.id,'expertVisibility') === "Pending" ? handleApproveOpen(params.id) : 
                                                                                                       handleUnblock(params.id))}>
 
                   {params.getValue(params.id,'expertVisibility') === "Active" ? <BlockIcon color="warning" /> : 
@@ -253,10 +273,15 @@ const Expert = () => {
         </DataGrid>
       </div>
 
-      <ChooseOption open={openDlg} handleClose={handleCloseDlg}/>
+      <ChooseOption open={openDlg} handleClose={handleCloseDlg} handleApproveShop={handleApprove}
+                    title="Expert Approval"/>
+
       <AlertMsg open={openDlt} msg="Deleted successfully" status="error" handleClose={handleCloseDlt}/>
-      <AlertMsg open={openBlk} msg="Expert Blocked" status="warning" handleClose={handleCloseBlk}/>
-      <AlertMsg open={openUnblk} msg="Expert Unblocked" status="info" handleClose={handleCloseUnblk}/>
+      <AlertMsg open={openBlk} msg="Expert profile Blocked" status="warning" handleClose={handleCloseBlk}/>
+      <AlertMsg open={openUnblk} msg="Expert profile Unblocked" status="info" handleClose={handleCloseUnblk}/>
+      <AlertMsg open={openAprv} msg="Expert profile Accepted" status="success" handleClose={handleCloseAprv}/>
+      <AlertMsg open={openRjct} msg="Expert profile Rejected" status="error" handleClose={handleCloseRjct}/>
+
     </div>
   );
 };

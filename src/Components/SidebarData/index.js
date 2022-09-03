@@ -10,6 +10,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import SettingsIcon from "@mui/icons-material/Settings";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import StoreIcon from "@mui/icons-material/Store";
+import CampaignIcon from '@mui/icons-material/Campaign';
 
 
 export const SidebarData = [
@@ -66,7 +67,7 @@ export const SidebarData = [
   },
   {
     title: "Advertisements",
-    icon: <SettingsIcon />,
+    icon: <CampaignIcon />,
     link: "/advertisement",
   },
   // {

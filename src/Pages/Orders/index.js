@@ -13,7 +13,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Box } from "@mui/system";
 import { Badge } from "react-bootstrap";
-import Label from '../../Components/Label.js'
+import Label from '../../Components/Label/Label'
 
 
 const Orders = () => {
