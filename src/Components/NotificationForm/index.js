@@ -11,7 +11,7 @@ const NotificationForm = (props) => {
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [user, setUser] = useState("");
+  //const [user, setUser] = useState("");
   const [datetime, setDatetime] = useState("2022-03-23");
 
   const [open, setOpen] = useState(false);
@@ -48,7 +48,7 @@ const NotificationForm = (props) => {
         </Modal.Header>
         <Modal.Body>
           <Form>
-            <Row>
+            {/* <Row>
               <Form.Group controlId="formuser">
                 <Form.Label column="sm">User Group</Form.Label>
                 <Form.Select className="m-2 w-50" size="sm" defaultValue="Choose..."
@@ -60,7 +60,7 @@ const NotificationForm = (props) => {
                   <option>Architects</option>
                 </Form.Select>
               </Form.Group>
-            </Row>
+            </Row> */}
 
             <Row>
               <Form.Group controlId="formTitle">

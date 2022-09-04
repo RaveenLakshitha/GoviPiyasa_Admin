@@ -144,50 +144,45 @@ useEffect(() => {
     <div className="content">
      
 
-     <Grid container spacing={3} columns={{ xs: 4, sm: 8, md: 12 }}>
+     <Grid container spacing={3} columns={{ xs: 3, sm: 6, md: 12 }}>
 
-      <Grid item container xs={4} columns={{ xs: 4, sm: 8, md: 12 }}>
-        <Grid item xs={12}>
+      {/* <Grid item container xs={4} columns={{ xs: 4, sm: 8, md: 12 }}> */}
+        {/* <Grid item xs={12}> */}
               {/* <Admin> */}
 
-          <div>
-          <Card body
-              className="text-center"
+          {/* <div>
+          <Card body className="text-center"
               // style={{width: '25rem', height: '20rem' }}
               >
-                <img src={admin.profilePicture} className="image" sx={{width:'15px', height:'15px'}}/>
+            <img src={admin.profilePicture} className="image" sx={{width:'15px', height:'15px'}}/>
                 <br></br>
               <div style={{backgroundColor:"#eeffe6" ,height: '150px'}}>
-                
-              <CardBody>
-                <CardTitle tag="h3">{admin.userName}
-                
-                </CardTitle>
-              <CardSubtitle
-                className="mb-2 text-muted" tag="h5">
-                  {admin.email}
-              </CardSubtitle>
-            </CardBody>
-            </div>
+                <CardBody>
+                  <CardTitle tag="h4"> {admin.userName} </CardTitle>
+                  <CardSubtitle className="mb-2 text-muted" tag="h6"> {admin.email} </CardSubtitle>
+                </CardBody>
+              </div>
           </Card>
-          </div>
+          </div> */}
               {/* </Admin> */}
-        </Grid>
-      </Grid>
+        {/* <Grid>/ */}
+      {/* </Grid> */}
 
-      <Grid item container xs={8} spacing={3} columns={{ xs: 4, sm: 8, md: 12 }}>
-        <Grid item xs={4}>
-           <AdminCard name="Shops" image={shop} data={data1} ></AdminCard> 
+      <Grid item container  spacing={2} columns={{ xs: 3, sm: 6, md: 12 }}>
+        <Grid item xs={3}>
+           <AdminCard name="Shops" image={shop} data={data1} link="/shop" ></AdminCard> 
         </Grid>
-        <Grid item xs={4}> <AdminCard name="Items" image={item}>
-        <Typography variant="h5" color="primary" align="center" textDecoration="none">
-                  {/* Users {"\n"} */}
-                  {data1}
-                </Typography></AdminCard> </Grid>
-        <Grid item xs={4}> <AdminCard name="Users" image={users}></AdminCard> </Grid>
-        <Grid item xs={4}> <AdminCard name="Experts" image={experts}></AdminCard> </Grid>
-        <Grid item xs={4}> <AdminCard name="Delivers" image={delivery}></AdminCard> </Grid>
-        <Grid item xs={4}> <AdminCard name="Designers" image={designers}></AdminCard> </Grid>
+        <Grid item xs={3}> 
+          <AdminCard name="Items" image={item} link="/items"> 
+            <Typography variant="h5" color="primary" align="center"> {data1} </Typography>
+          </AdminCard> 
+        </Grid>        
+        <Grid item xs={3}> <AdminCard name="Users" image={users} link="/user"></AdminCard> </Grid>
+        <Grid item xs={3}> <AdminCard name="Experts" image={experts} link="/expert"></AdminCard> </Grid>
+        <Grid item xs={3}> <AdminCard name="Delivers" image={delivery} link="/delivery"></AdminCard> </Grid>
+        <Grid item xs={3}> <AdminCard name="Designers" image={designers} link="/architect"></AdminCard> </Grid>
+        <Grid item xs={3}> <AdminCard name="Users" image={users} link="/user"></AdminCard> </Grid>
+        <Grid item xs={3}> <AdminCard name="Experts" image={experts} link="/expert"></AdminCard> </Grid>
       </Grid>
 
     </Grid>

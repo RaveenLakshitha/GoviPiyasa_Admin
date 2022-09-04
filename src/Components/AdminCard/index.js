@@ -8,12 +8,13 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-
 import Grid from '@mui/material/Grid';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import Avatar from '@mui/material/Avatar';
 import { Link } from "react-router-dom";
+
+
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -32,24 +33,24 @@ const bull = (
   </Box>
 );
 
+
+
 export default function BoxCard(props) {
   return (
-    <Link to="/shop">
-    <Card sx={{ display: 'flex', height: '130px'}}>
+    <Link to={props.link} className="card">
+    <Card sx={{ display: 'flex', height: '110px' }}>
       <Box sx={{ display: 'flex', flexDirection: 'row', paddingTop:"5%" , width:"50%"}}>
-        <CardContent sx={{ flex: '1 0 auto' , textDecoration:"none"}}>
-          <Typography component="div" variant="h6" color="green" fontWeight="bold" textDecoration="none">
-            {props.name}<br></br>
-            {props.data}
+        <CardContent sx={{ flex: '1 0 auto' }}>
+          <Typography component="div" variant="h6" color="green" fontWeight="light" >
+            {props.name} <br></br> {props.data}
           </Typography>
         </CardContent>
-      
       </Box>
-      <Avatar
-  alt="Remy Sharp"
-  src={props.image}
-  sx={{ width: 100, height: 100 , marginRight:"5px" , marginTop:"5%"}}
-/>
+
+
+      <Avatar alt="admin profile" src={props.image}
+          sx={{ width: 100, height: 100 , marginRight:"5px" , marginTop:"5%"}}
+      />
       {/* <CardMedia
         component="img"
         sx={{ width: 151 }}

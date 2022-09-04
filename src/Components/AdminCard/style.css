@@ -1,3 +1,7 @@
+.card{
+  text-decoration: none;
+}
+
 .section_our_solution .row {
     align-items: center;
   }
@@ -62,9 +66,7 @@
     background: #fff !important;
     color: #3db57b;
   }
-  
-  .solution_card .so_top_icon {
-  }
+
   
   .solution_card .solu_title h3 {
     color: #033817;
@@ -98,8 +100,6 @@
     text-transform: capitalize;
     margin-bottom: 1rem;
     font-size: 2.5rem;
-  }
-  .our_solution_content p {
   }
   
   .hover_color_bubble {

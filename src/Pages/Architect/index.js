@@ -247,7 +247,7 @@ const onMouseLeaveRow = (event) => {
 
   return (
     <div className="content">
-      <h3>Architect list</h3>
+      <h3>Garden designers list</h3>
       
       <Box>
         <TextField variant="standard" value={searchText}
